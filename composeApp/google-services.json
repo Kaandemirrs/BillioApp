@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "403176264739",
+    "project_id": "billio-289f5",
+    "storage_bucket": "billio-289f5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403176264739:android:8cda6c8aa1f95f6da8cd96",
+        "android_client_info": {
+          "package_name": "com.billioapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403176264739-5fjvnjavnbqujiqajbr7qud05lhjoa6q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.billioapp",
+            "certificate_hash": "ba1b4beca57ca10f4564051ec98fd1975fbed49e"
+          }
+        },
+        {
+          "client_id": "403176264739-j8pr2ioe24fn83gjeq800nbu3ktmhher.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCO4QWo8Nz97zt7TeQ6p6vV8s1xpIgmDCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403176264739-j8pr2ioe24fn83gjeq800nbu3ktmhher.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "403176264739-era64fmm1l6c8gki8ifm0f9imu1ohi2p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.billioapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

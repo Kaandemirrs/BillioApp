@@ -1,0 +1,475 @@
+Initialized native services in: /Users/kaandemir/.gradle/native
+Initialized jansi services in: /Users/kaandemir/.gradle/native
+The client will now receive all logging from the daemon (pid: 71379). The daemon log file: /Users/kaandemir/.gradle/daemon/8.13/daemon-71379.out.log
+Starting 3rd build in daemon [uptime: 3 mins 41.564 secs, performance: 92%, GC rate: 0.00/s, heap usage: 0% of 4 GiB]
+Using 8 worker leases.
+Now considering [/Users/kaandemir/AndroidStudioProjects/BillioApp] as hierarchies to watch
+Reusing configuration cache.
+Now considering [/Users/kaandemir/AndroidStudioProjects/BillioApp] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Using local directory build cache for the root build (location = /Users/kaandemir/.gradle/caches/build-cache-1, remove unused entries = after 7 days).
+Tasks to be executed: [task ':composeApp:checkKotlinGradlePluginConfigurationErrors', task ':composeApp:convertXmlValueResourcesForAppleMain', task ':composeApp:copyNonXmlValueResourcesForAppleMain', task ':composeApp:prepareComposeResourcesTaskForAppleMain', task ':composeApp:generateResourceAccessorsForAppleMain', task ':composeApp:convertXmlValueResourcesForCommonMain', task ':composeApp:copyNonXmlValueResourcesForCommonMain', task ':composeApp:prepareComposeResourcesTaskForCommonMain', task ':composeApp:generateResourceAccessorsForCommonMain', task ':composeApp:convertXmlValueResourcesForIosMain', task ':composeApp:copyNonXmlValueResourcesForIosMain', task ':composeApp:prepareComposeResourcesTaskForIosMain', task ':composeApp:generateResourceAccessorsForIosMain', task ':composeApp:convertXmlValueResourcesForIosSimulatorArm64Main', task ':composeApp:copyNonXmlValueResourcesForIosSimulatorArm64Main', task ':composeApp:prepareComposeResourcesTaskForIosSimulatorArm64Main', task ':composeApp:generateResourceAccessorsForIosSimulatorArm64Main', task ':composeApp:convertXmlValueResourcesForNativeMain', task ':composeApp:copyNonXmlValueResourcesForNativeMain', task ':composeApp:prepareComposeResourcesTaskForNativeMain', task ':composeApp:generateResourceAccessorsForNativeMain', task ':composeApp:generateActualResourceCollectorsForIosSimulatorArm64Main', task ':composeApp:generateComposeResClass', task ':composeApp:generateExpectResourceCollectorsForCommonMain', task ':shared:checkKotlinGradlePluginConfigurationErrors', task ':shared:generateCommonMainBillioDatabaseInterface', task ':shared:compileKotlinIosSimulatorArm64', task ':composeApp:compileKotlinIosSimulatorArm64']
+Tasks that were excluded: []
+Resolve mutations for :composeApp:checkKotlinGradlePluginConfigurationErrors (Thread[#322,Execution worker,5,main]) started.
+Resolve mutations for :composeApp:copyNonXmlValueResourcesForAppleMain (Thread[#325,Execution worker Thread 4,5,main]) started.
+Resolve mutations for :composeApp:convertXmlValueResourcesForAppleMain (Thread[#323,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :composeApp:copyNonXmlValueResourcesForCommonMain (Thread[#326,Execution worker Thread 5,5,main]) started.
+:composeApp:checkKotlinGradlePluginConfigurationErrors (Thread[#322,Execution worker,5,main]) started.
+Resolve mutations for :composeApp:convertXmlValueResourcesForCommonMain (Thread[#324,Execution worker Thread 3,5,main]) started.
+:composeApp:convertXmlValueResourcesForCommonMain (Thread[#324,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :composeApp:convertXmlValueResourcesForIosMain (Thread[#326,Execution worker Thread 5,5,main]) started.
+:composeApp:copyNonXmlValueResourcesForAppleMain (Thread[#325,Execution worker Thread 4,5,main]) started.
+Resolve mutations for :composeApp:copyNonXmlValueResourcesForIosMain (Thread[#323,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :composeApp:convertXmlValueResourcesForIosSimulatorArm64Main (Thread[#327,Execution worker Thread 6,5,main]) started.
+Resolve mutations for :composeApp:copyNonXmlValueResourcesForIosSimulatorArm64Main (Thread[#323,Execution worker Thread 2,5,main]) started.
+:composeApp:convertXmlValueResourcesForIosMain (Thread[#326,Execution worker Thread 5,5,main]) started.
+:composeApp:convertXmlValueResourcesForIosSimulatorArm64Main (Thread[#327,Execution worker Thread 6,5,main]) started.
+Resolve mutations for :composeApp:convertXmlValueResourcesForNativeMain (Thread[#321,included builds,5,main]) started.
+Resolve mutations for :composeApp:generateComposeResClass (Thread[#323,Execution worker Thread 2,5,main]) started.
+:composeApp:generateComposeResClass (Thread[#323,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :composeApp:copyNonXmlValueResourcesForNativeMain (Thread[#329,Execution worker Thread 7,5,main]) started.
+:composeApp:convertXmlValueResourcesForNativeMain (Thread[#321,included builds,5,main]) started.
+Resolve mutations for :composeApp:generateExpectResourceCollectorsForCommonMain (Thread[#329,Execution worker Thread 7,5,main]) started.
+:composeApp:generateExpectResourceCollectorsForCommonMain (Thread[#329,Execution worker Thread 7,5,main]) started.
+
+> Task :composeApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':composeApp:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :shared:checkKotlinGradlePluginConfigurationErrors (Thread[#322,Execution worker,5,main]) started.
+:shared:checkKotlinGradlePluginConfigurationErrors (Thread[#322,Execution worker,5,main]) started.
+Build d8b5d698-7f89-4063-8e50-95fc44d5ed2f is started
+
+> Task :composeApp:convertXmlValueResourcesForNativeMain NO-SOURCE
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/preparedResources/nativeMain/composeResources', not found
+Skipping task ':composeApp:convertXmlValueResourcesForNativeMain' as it has no source files and no previous output files.
+:composeApp:copyNonXmlValueResourcesForNativeMain (Thread[#321,included builds,5,main]) started.
+
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':shared:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :shared:generateCommonMainBillioDatabaseInterface (Thread[#322,Execution worker,5,main]) started.
+
+> Task :composeApp:convertXmlValueResourcesForIosMain NO-SOURCE
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/preparedResources/iosMain/composeResources', not found
+Skipping task ':composeApp:convertXmlValueResourcesForIosMain' as it has no source files and no previous output files.
+:composeApp:copyNonXmlValueResourcesForIosMain (Thread[#326,Execution worker Thread 5,5,main]) started.
+
+> Task :composeApp:convertXmlValueResourcesForCommonMain NO-SOURCE
+Skipping task ':composeApp:convertXmlValueResourcesForCommonMain' as it has no source files and no previous output files.
+:composeApp:copyNonXmlValueResourcesForCommonMain (Thread[#324,Execution worker Thread 3,5,main]) started.
+
+> Task :composeApp:copyNonXmlValueResourcesForIosMain NO-SOURCE
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/preparedResources/iosMain/composeResources', not found
+Skipping task ':composeApp:copyNonXmlValueResourcesForIosMain' as it has no source files and no previous output files.
+Resolve mutations for :composeApp:prepareComposeResourcesTaskForIosMain (Thread[#326,Execution worker Thread 5,5,main]) started.
+
+> Task :composeApp:copyNonXmlValueResourcesForAppleMain NO-SOURCE
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/preparedResources/appleMain/composeResources', not found
+Skipping task ':composeApp:copyNonXmlValueResourcesForAppleMain' as it has no source files and no previous output files.
+:composeApp:prepareComposeResourcesTaskForIosMain (Thread[#326,Execution worker Thread 5,5,main]) started.
+:composeApp:convertXmlValueResourcesForAppleMain (Thread[#325,Execution worker Thread 4,5,main]) started.
+
+> Task :composeApp:convertXmlValueResourcesForAppleMain NO-SOURCE
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/preparedResources/appleMain/composeResources', not found
+Skipping task ':composeApp:convertXmlValueResourcesForAppleMain' as it has no source files and no previous output files.
+Resolve mutations for :composeApp:prepareComposeResourcesTaskForAppleMain (Thread[#325,Execution worker Thread 4,5,main]) started.
+:composeApp:prepareComposeResourcesTaskForAppleMain (Thread[#325,Execution worker Thread 4,5,main]) started.
+
+> Task :composeApp:copyNonXmlValueResourcesForNativeMain NO-SOURCE
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/preparedResources/nativeMain/composeResources', not found
+Skipping task ':composeApp:copyNonXmlValueResourcesForNativeMain' as it has no source files and no previous output files.
+Resolve mutations for :composeApp:prepareComposeResourcesTaskForNativeMain (Thread[#321,included builds,5,main]) started.
+:composeApp:prepareComposeResourcesTaskForNativeMain (Thread[#321,included builds,5,main]) started.
+
+> Task :composeApp:prepareComposeResourcesTaskForNativeMain NO-SOURCE
+Skipping task ':composeApp:prepareComposeResourcesTaskForNativeMain' as it has no source files and no previous output files.
+Resolve mutations for :composeApp:generateResourceAccessorsForNativeMain (Thread[#321,included builds,5,main]) started.
+
+> Task :composeApp:convertXmlValueResourcesForIosSimulatorArm64Main NO-SOURCE
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/preparedResources/iosSimulatorArm64Main/composeResources', not found
+Skipping task ':composeApp:convertXmlValueResourcesForIosSimulatorArm64Main' as it has no source files and no previous output files.
+:composeApp:copyNonXmlValueResourcesForIosSimulatorArm64Main (Thread[#327,Execution worker Thread 6,5,main]) started.
+
+> Task :composeApp:prepareComposeResourcesTaskForAppleMain NO-SOURCE
+Skipping task ':composeApp:prepareComposeResourcesTaskForAppleMain' as it has no source files and no previous output files.
+Resolve mutations for :composeApp:generateResourceAccessorsForAppleMain (Thread[#325,Execution worker Thread 4,5,main]) started.
+:composeApp:generateResourceAccessorsForAppleMain (Thread[#325,Execution worker Thread 4,5,main]) started.
+
+> Task :composeApp:generateResourceAccessorsForAppleMain NO-SOURCE
+Skipping task ':composeApp:generateResourceAccessorsForAppleMain' as it has no source files and no previous output files.
+:composeApp:generateResourceAccessorsForNativeMain (Thread[#321,included builds,5,main]) started.
+:shared:generateCommonMainBillioDatabaseInterface (Thread[#322,Execution worker,5,main]) started.
+
+> Task :composeApp:copyNonXmlValueResourcesForCommonMain UP-TO-DATE
+Caching disabled for task ':composeApp:copyNonXmlValueResourcesForCommonMain' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:copyNonXmlValueResourcesForCommonMain' as it is up-to-date.
+Resolve mutations for :composeApp:prepareComposeResourcesTaskForCommonMain (Thread[#324,Execution worker Thread 3,5,main]) started.
+
+> Task :shared:generateCommonMainBillioDatabaseInterface NO-SOURCE
+Skipping task ':shared:generateCommonMainBillioDatabaseInterface' as it has no source files and no previous output files.
+Resolve mutations for :shared:compileKotlinIosSimulatorArm64 (Thread[#322,Execution worker,5,main]) started.
+
+> Task :composeApp:generateExpectResourceCollectorsForCommonMain UP-TO-DATE
+Caching disabled for task ':composeApp:generateExpectResourceCollectorsForCommonMain' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:generateExpectResourceCollectorsForCommonMain' as it is up-to-date.
+:shared:compileKotlinIosSimulatorArm64 (Thread[#322,Execution worker,5,main]) started.
+
+> Task :composeApp:generateResourceAccessorsForNativeMain NO-SOURCE
+Skipping task ':composeApp:generateResourceAccessorsForNativeMain' as it has no source files and no previous output files.
+:composeApp:prepareComposeResourcesTaskForCommonMain (Thread[#324,Execution worker Thread 3,5,main]) started.
+
+> Task :composeApp:generateComposeResClass UP-TO-DATE
+Caching disabled for task ':composeApp:generateComposeResClass' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:generateComposeResClass' as it is up-to-date.
+
+> Task :composeApp:prepareComposeResourcesTaskForIosMain NO-SOURCE
+Skipping task ':composeApp:prepareComposeResourcesTaskForIosMain' as it has no source files and no previous output files.
+Resolve mutations for :composeApp:generateResourceAccessorsForIosMain (Thread[#326,Execution worker Thread 5,5,main]) started.
+:composeApp:generateResourceAccessorsForIosMain (Thread[#326,Execution worker Thread 5,5,main]) started.
+
+> Task :composeApp:prepareComposeResourcesTaskForCommonMain UP-TO-DATE
+Caching disabled for task ':composeApp:prepareComposeResourcesTaskForCommonMain' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:prepareComposeResourcesTaskForCommonMain' as it is up-to-date.
+Resolve mutations for :composeApp:generateResourceAccessorsForCommonMain (Thread[#324,Execution worker Thread 3,5,main]) started.
+:composeApp:generateResourceAccessorsForCommonMain (Thread[#324,Execution worker Thread 3,5,main]) started.
+
+> Task :composeApp:copyNonXmlValueResourcesForIosSimulatorArm64Main NO-SOURCE
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/preparedResources/iosSimulatorArm64Main/composeResources', not found
+Skipping task ':composeApp:copyNonXmlValueResourcesForIosSimulatorArm64Main' as it has no source files and no previous output files.
+Resolve mutations for :composeApp:prepareComposeResourcesTaskForIosSimulatorArm64Main (Thread[#327,Execution worker Thread 6,5,main]) started.
+:composeApp:prepareComposeResourcesTaskForIosSimulatorArm64Main (Thread[#327,Execution worker Thread 6,5,main]) started.
+
+> Task :composeApp:generateResourceAccessorsForIosMain NO-SOURCE
+Skipping task ':composeApp:generateResourceAccessorsForIosMain' as it has no source files and no previous output files.
+
+> Task :composeApp:prepareComposeResourcesTaskForIosSimulatorArm64Main NO-SOURCE
+Skipping task ':composeApp:prepareComposeResourcesTaskForIosSimulatorArm64Main' as it has no source files and no previous output files.
+Resolve mutations for :composeApp:generateResourceAccessorsForIosSimulatorArm64Main (Thread[#327,Execution worker Thread 6,5,main]) started.
+
+> Task :composeApp:generateResourceAccessorsForCommonMain UP-TO-DATE
+Caching disabled for task ':composeApp:generateResourceAccessorsForCommonMain' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:generateResourceAccessorsForCommonMain' as it is up-to-date.
+:composeApp:generateResourceAccessorsForIosSimulatorArm64Main (Thread[#324,Execution worker Thread 3,5,main]) started.
+
+> Task :composeApp:generateResourceAccessorsForIosSimulatorArm64Main NO-SOURCE
+Skipping task ':composeApp:generateResourceAccessorsForIosSimulatorArm64Main' as it has no source files and no previous output files.
+Resolve mutations for :composeApp:generateActualResourceCollectorsForIosSimulatorArm64Main (Thread[#324,Execution worker Thread 3,5,main]) started.
+:composeApp:generateActualResourceCollectorsForIosSimulatorArm64Main (Thread[#324,Execution worker Thread 3,5,main]) started.
+
+> Task :composeApp:generateActualResourceCollectorsForIosSimulatorArm64Main UP-TO-DATE
+Caching disabled for task ':composeApp:generateActualResourceCollectorsForIosSimulatorArm64Main' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:generateActualResourceCollectorsForIosSimulatorArm64Main' as it is up-to-date.
+
+> Task :shared:compileKotlinIosSimulatorArm64 UP-TO-DATE
+Build cache key for task ':shared:compileKotlinIosSimulatorArm64' is bdfb9bda610c36aca21e3b06716e217b
+Skipping task ':shared:compileKotlinIosSimulatorArm64' as it is up-to-date.
+work action resolve shared (project :shared) (Thread[#322,Execution worker,5,main]) started.
+Resolve mutations for :composeApp:compileKotlinIosSimulatorArm64 (Thread[#321,included builds,5,main]) started.
+:composeApp:compileKotlinIosSimulatorArm64 (Thread[#321,included builds,5,main]) started.
+
+> Task :composeApp:compileKotlinIosSimulatorArm64 FAILED
+Build cache key for task ':composeApp:compileKotlinIosSimulatorArm64' is 7d0c32c303d1a55a9ed577434eeb0445
+Task ':composeApp:compileKotlinIosSimulatorArm64' is not up-to-date because:
+  Task has failed previously.
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosSimulatorArm64Main/kotlin', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/iosSimulatorArm64MainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/iosMainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/appleMain/kotlin', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/appleMainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/nativeMain/kotlin', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/nativeMainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosSimulatorArm64Main/kotlin', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/iosSimulatorArm64MainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/iosMainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/appleMain/kotlin', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/appleMainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/nativeMain/kotlin', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/nativeMainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosSimulatorArm64Main/kotlin', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/iosSimulatorArm64MainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/iosMainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/appleMain/kotlin', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/appleMainResourceAccessors', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/nativeMain/kotlin', not found
+file or directory '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/generated/compose/resourceGenerator/kotlin/nativeMainResourceAccessors', not found
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/Koin.kt:4:30 Unresolved reference 'GlobalContext'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/Koin.kt:8:9 Unresolved reference 'GlobalContext'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:20:17 Unresolved reference 'CommonCrypto'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:21:17 Unresolved reference 'CommonCrypto'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:28:28 Unresolved reference 'processInfo'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:36:24 Unresolved reference 'NSError'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:109:5 'authorizationController' overrides nothing. Potential signatures for overriding:
+fun authorizationController(controller: ASAuthorizationController, didCompleteWithError: NSError): Unit
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:111:31 Unresolved reference 'NSError'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:113:38 Unresolved reference 'localizedDescription'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:127:17 Argument type mismatch: actual type is 'UInt', but 'ULong' was expected.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:128:37 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:146:20 Unresolved reference 'dataUsingEncoding'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:148:24 Unresolved reference 'CC_SHA256_DIGEST_LENGTH'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:151:12 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:151:12 Not enough information to infer type argument for 'R'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:152:21 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:152:21 Not enough information to infer type argument for 'R'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:152:27 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:153:13 Unresolved reference 'CC_SHA256'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:156:43 Cannot infer type for this parameter. Specify it explicitly.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:161:38 Unresolved reference 'format'.
+e: file:///Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/src/iosMain/kotlin/com/billioapp/features/auth/presentation/login/SocialSignInLauncher.ios.kt:170:79 Unresolved reference 'majorVersion'.
+Build d8b5d698-7f89-4063-8e50-95fc44d5ed2f is closed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':composeApp:compileKotlinIosSimulatorArm64'.
+> Compilation finished with errors
+
+* Try:
+> Run with --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':composeApp:compileKotlinIosSimulatorArm64'.
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:130)
+	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:293)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:128)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:116)
+	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:40)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.LocalTaskNodeExecutor.execute(LocalTaskNodeExecutor.java:42)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:331)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:318)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:303)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:111)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.executeWithServices(DefaultTaskExecutionGraph.java:138)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.execute(DefaultTaskExecutionGraph.java:123)
+	at org.gradle.execution.SelectedTaskExecutionAction.execute(SelectedTaskExecutionAction.java:35)
+	at org.gradle.execution.DryRunBuildExecutionAction.execute(DryRunBuildExecutionAction.java:51)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:54)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:43)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor.execute(BuildOperationFiringBuildWorkerExecutor.java:40)
+	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$10(DefaultBuildLifecycleController.java:313)
+	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
+	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$8(StateTransitionController.java:177)
+	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:46)
+	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:177)
+	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:304)
+	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:220)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
+	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:181)
+	at org.gradle.composite.internal.DefaultBuildController.access$000(DefaultBuildController.java:50)
+	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:198)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:198)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+Caused by: org.jetbrains.kotlin.backend.konan.KonanCompilationException: Compilation finished with errors
+	at org.jetbrains.kotlin.cli.bc.K2Native$Companion.mainNoExitWithRenderer$lambda$2(K2Native.kt:224)
+	at org.jetbrains.kotlin.util.UtilKt.profileIf(Util.kt:22)
+	at org.jetbrains.kotlin.util.UtilKt.profile(Util.kt:16)
+	at org.jetbrains.kotlin.cli.bc.K2Native$Companion.mainNoExitWithRenderer(K2Native.kt:222)
+	at org.jetbrains.kotlin.cli.bc.K2NativeKt.mainNoExitWithGradleRenderer(K2Native.kt:240)
+	at org.jetbrains.kotlin.cli.utilities.MainKt$daemonMain$1.invoke(main.kt:50)
+	at org.jetbrains.kotlin.cli.utilities.MainKt$daemonMain$1.invoke(main.kt:50)
+	at org.jetbrains.kotlin.cli.utilities.MainKt.mainImpl(main.kt:20)
+	at org.jetbrains.kotlin.cli.utilities.MainKt.inProcessMain(main.kt:57)
+	at org.jetbrains.kotlin.cli.utilities.MainKt.daemonMain(main.kt:50)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at org.jetbrains.kotlin.internal.compilerRunner.native.KotlinNativeToolRunner.runInProcess(KotlinNativeToolRunner.kt:151)
+	at org.jetbrains.kotlin.internal.compilerRunner.native.KotlinNativeToolRunner.runTool(KotlinNativeToolRunner.kt:52)
+	at org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile$compile$1.invoke(KotlinNativeTasks.kt:594)
+	at org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile$compile$1.invoke(KotlinNativeTasks.kt:578)
+	at org.jetbrains.kotlin.compilerRunner.ReportUtilsKt.addBuildMetricsForTaskAction(reportUtils.kt:259)
+	at org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile.compile(KotlinNativeTasks.kt:578)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.doExecute(StandardTaskAction.java:58)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:244)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:229)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:212)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:195)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:162)
+	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:105)
+	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:44)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:59)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:56)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:56)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:44)
+	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
+	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
+	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:50)
+	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:28)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:67)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:37)
+	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:61)
+	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:26)
+	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
+	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:40)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:29)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeAndStoreInCache(BuildCacheStep.java:145)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$executeWithCache$4(BuildCacheStep.java:101)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$executeWithCache$5(BuildCacheStep.java:101)
+	at org.gradle.internal.Try$Success.map(Try.java:175)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithCache(BuildCacheStep.java:85)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$0(BuildCacheStep.java:74)
+	at org.gradle.internal.Either$Left.fold(Either.java:115)
+	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:73)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:48)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:46)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:35)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:49)
+	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:27)
+	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:71)
+	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:39)
+	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:65)
+	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:36)
+	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:107)
+	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:56)
+	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:64)
+	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:43)
+	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.executeWithNonEmptySources(AbstractSkipEmptyWorkStep.java:125)
+	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:61)
+	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:36)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:36)
+	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:23)
+	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:75)
+	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:41)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$execute$0(AssignMutableWorkspaceStep.java:35)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:289)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:31)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:22)
+	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
+	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
+	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
+	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
+	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:48)
+	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:35)
+	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:61)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:127)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:116)
+	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:40)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.LocalTaskNodeExecutor.execute(LocalTaskNodeExecutor.java:42)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:331)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:318)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:303)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:111)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.executeWithServices(DefaultTaskExecutionGraph.java:138)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.execute(DefaultTaskExecutionGraph.java:123)
+	at org.gradle.execution.SelectedTaskExecutionAction.execute(SelectedTaskExecutionAction.java:35)
+	at org.gradle.execution.DryRunBuildExecutionAction.execute(DryRunBuildExecutionAction.java:51)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:54)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:43)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor.execute(BuildOperationFiringBuildWorkerExecutor.java:40)
+	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$10(DefaultBuildLifecycleController.java:313)
+	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
+	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$8(StateTransitionController.java:177)
+	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:46)
+	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:177)
+	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:304)
+	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:220)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
+	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:181)
+	at org.gradle.composite.internal.DefaultBuildController.access$000(DefaultBuildController.java:50)
+	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:198)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:198)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+
+
+BUILD FAILED in 2s
+8 actionable tasks: 1 executed, 7 up-to-date
+Watched directory hierarchies: [/Users/kaandemir/AndroidStudioProjects/BillioApp]
+Configuration cache entry reused.

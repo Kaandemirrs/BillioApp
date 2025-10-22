@@ -1,0 +1,391 @@
+Initialized native services in: /Users/kaandemir/.gradle/native
+Initialized jansi services in: /Users/kaandemir/.gradle/native
+The client will now receive all logging from the daemon (pid: 71146). The daemon log file: /Users/kaandemir/.gradle/daemon/8.13/daemon-71146.out.log
+Starting 4th build in daemon [uptime: 10 mins 23.732 secs, performance: 100%, GC rate: 0.00/s, heap usage: 0% of 4 GiB]
+Using 8 worker leases.
+Now considering [/Users/kaandemir/AndroidStudioProjects/BillioApp] as hierarchies to watch
+Reusing configuration cache.
+Now considering [/Users/kaandemir/AndroidStudioProjects/BillioApp] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Using local directory build cache for the root build (location = /Users/kaandemir/.gradle/caches/build-cache-1, remove unused entries = after 7 days).
+Tasks to be executed: [task ':composeApp:checkKotlinGradlePluginConfigurationErrors', task ':composeApp:generateComposeResClass', task ':composeApp:generateExpectResourceCollectorsForCommonMain', task ':composeApp:convertXmlValueResourcesForCommonMain', task ':composeApp:copyNonXmlValueResourcesForCommonMain', task ':composeApp:prepareComposeResourcesTaskForCommonMain', task ':composeApp:generateResourceAccessorsForCommonMain', task ':shared:checkKotlinGradlePluginConfigurationErrors', task ':shared:generateCommonMainBillioDatabaseInterface', task ':shared:transformCommonMainDependenciesMetadata', task ':shared:compileCommonMainKotlinMetadata', task ':shared:generateProjectStructureMetadata', task ':shared:metadataCommonMainProcessResources', task ':shared:metadataCommonMainClasses', task ':shared:allMetadataJar', task ':commonizeNativeDistribution', task ':shared:transformIosMainDependenciesMetadata', task ':shared:compileIosMainKotlinMetadata', task ':shared:metadataIosMainProcessResources', task ':shared:metadataIosMainClasses', task ':shared:iosArm64MetadataElements', task ':shared:iosSimulatorArm64MetadataElements', task ':composeApp:transformCommonMainDependenciesMetadata', task ':composeApp:compileCommonMainKotlinMetadata']
+Tasks that were excluded: []
+Resolve mutations for :composeApp:checkKotlinGradlePluginConfigurationErrors (Thread[#465,Execution worker,5,main]) started.
+Resolve mutations for :composeApp:generateComposeResClass (Thread[#466,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :composeApp:generateExpectResourceCollectorsForCommonMain (Thread[#467,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :composeApp:copyNonXmlValueResourcesForCommonMain (Thread[#470,Execution worker Thread 6,5,main]) started.
+Resolve mutations for :shared:checkKotlinGradlePluginConfigurationErrors (Thread[#469,Execution worker Thread 5,5,main]) started.
+:composeApp:generateExpectResourceCollectorsForCommonMain (Thread[#464,included builds,5,main]) started.
+Resolve mutations for :shared:generateCommonMainBillioDatabaseInterface (Thread[#467,Execution worker Thread 3,5,main]) started.
+:composeApp:checkKotlinGradlePluginConfigurationErrors (Thread[#465,Execution worker,5,main]) started.
+:composeApp:generateComposeResClass (Thread[#466,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :composeApp:convertXmlValueResourcesForCommonMain (Thread[#468,Execution worker Thread 4,5,main]) started.
+Resolve mutations for :shared:transformCommonMainDependenciesMetadata (Thread[#469,Execution worker Thread 5,5,main]) started.
+:shared:checkKotlinGradlePluginConfigurationErrors (Thread[#471,Execution worker Thread 7,5,main]) started.
+:shared:generateCommonMainBillioDatabaseInterface (Thread[#467,Execution worker Thread 3,5,main]) started.
+:composeApp:convertXmlValueResourcesForCommonMain (Thread[#468,Execution worker Thread 4,5,main]) started.
+:shared:transformCommonMainDependenciesMetadata (Thread[#469,Execution worker Thread 5,5,main]) started.
+Resolve mutations for :shared:generateProjectStructureMetadata (Thread[#470,Execution worker Thread 6,5,main]) started.
+:shared:generateProjectStructureMetadata (Thread[#470,Execution worker Thread 6,5,main]) started.
+
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':shared:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :shared:metadataCommonMainProcessResources (Thread[#471,Execution worker Thread 7,5,main]) started.
+:shared:metadataCommonMainProcessResources (Thread[#471,Execution worker Thread 7,5,main]) started.
+
+> Task :composeApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':composeApp:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :commonizeNativeDistribution (Thread[#465,Execution worker,5,main]) started.
+
+> Task :shared:generateCommonMainBillioDatabaseInterface NO-SOURCE
+Skipping task ':shared:generateCommonMainBillioDatabaseInterface' as it has no source files and no previous output files.
+Resolve mutations for :shared:metadataIosMainProcessResources (Thread[#467,Execution worker Thread 3,5,main]) started.
+:commonizeNativeDistribution (Thread[#465,Execution worker,5,main]) started.
+
+> Task :shared:metadataCommonMainProcessResources NO-SOURCE
+Skipping task ':shared:metadataCommonMainProcessResources' as it has no source files and no previous output files.
+:shared:metadataIosMainProcessResources (Thread[#467,Execution worker Thread 3,5,main]) started.
+
+> Task :composeApp:convertXmlValueResourcesForCommonMain NO-SOURCE
+Skipping task ':composeApp:convertXmlValueResourcesForCommonMain' as it has no source files and no previous output files.
+:composeApp:copyNonXmlValueResourcesForCommonMain (Thread[#468,Execution worker Thread 4,5,main]) started.
+
+> Task :shared:metadataIosMainProcessResources NO-SOURCE
+Skipping task ':shared:metadataIosMainProcessResources' as it has no source files and no previous output files.
+
+> Task :composeApp:generateExpectResourceCollectorsForCommonMain UP-TO-DATE
+Caching disabled for task ':composeApp:generateExpectResourceCollectorsForCommonMain' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:generateExpectResourceCollectorsForCommonMain' as it is up-to-date.
+
+> Task :shared:generateProjectStructureMetadata UP-TO-DATE
+Caching disabled for task ':shared:generateProjectStructureMetadata' because:
+  Caching has been disabled for the task
+Skipping task ':shared:generateProjectStructureMetadata' as it is up-to-date.
+
+> Task :composeApp:copyNonXmlValueResourcesForCommonMain UP-TO-DATE
+Caching disabled for task ':composeApp:copyNonXmlValueResourcesForCommonMain' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:copyNonXmlValueResourcesForCommonMain' as it is up-to-date.
+Resolve mutations for :composeApp:prepareComposeResourcesTaskForCommonMain (Thread[#468,Execution worker Thread 4,5,main]) started.
+
+> Task :composeApp:generateComposeResClass UP-TO-DATE
+Caching disabled for task ':composeApp:generateComposeResClass' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:generateComposeResClass' as it is up-to-date.
+:composeApp:prepareComposeResourcesTaskForCommonMain (Thread[#468,Execution worker Thread 4,5,main]) started.
+
+> Task :composeApp:prepareComposeResourcesTaskForCommonMain UP-TO-DATE
+Caching disabled for task ':composeApp:prepareComposeResourcesTaskForCommonMain' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:prepareComposeResourcesTaskForCommonMain' as it is up-to-date.
+
+> Task :shared:transformCommonMainDependenciesMetadata UP-TO-DATE
+Caching disabled for task ':shared:transformCommonMainDependenciesMetadata' because:
+  Metadata Dependency Transformation Task doesn't benefit from caching as it doesn't have heavy load
+Skipping task ':shared:transformCommonMainDependenciesMetadata' as it is up-to-date.
+Resolve mutations for :composeApp:generateResourceAccessorsForCommonMain (Thread[#468,Execution worker Thread 4,5,main]) started.
+Resolve mutations for :shared:compileCommonMainKotlinMetadata (Thread[#469,Execution worker Thread 5,5,main]) started.
+Resolve mutations for :shared:transformIosMainDependenciesMetadata (Thread[#470,Execution worker Thread 6,5,main]) started.
+:shared:transformIosMainDependenciesMetadata (Thread[#470,Execution worker Thread 6,5,main]) started.
+:composeApp:generateResourceAccessorsForCommonMain (Thread[#468,Execution worker Thread 4,5,main]) started.
+:shared:compileCommonMainKotlinMetadata (Thread[#469,Execution worker Thread 5,5,main]) started.
+
+> Task :composeApp:generateResourceAccessorsForCommonMain UP-TO-DATE
+Caching disabled for task ':composeApp:generateResourceAccessorsForCommonMain' because:
+  Caching has not been enabled for the task
+Skipping task ':composeApp:generateResourceAccessorsForCommonMain' as it is up-to-date.
+
+> Task :shared:transformIosMainDependenciesMetadata UP-TO-DATE
+Caching disabled for task ':shared:transformIosMainDependenciesMetadata' because:
+  Metadata Dependency Transformation Task doesn't benefit from caching as it doesn't have heavy load
+Skipping task ':shared:transformIosMainDependenciesMetadata' as it is up-to-date.
+
+> Task :shared:compileCommonMainKotlinMetadata UP-TO-DATE
+Build cache key for task ':shared:compileCommonMainKotlinMetadata' is 4d5e8d3dbf98f39d3a9ea03d435120c4
+Skipping task ':shared:compileCommonMainKotlinMetadata' as it is up-to-date.
+Resolve mutations for :shared:metadataCommonMainClasses (Thread[#469,Execution worker Thread 5,5,main]) started.
+:shared:metadataCommonMainClasses (Thread[#469,Execution worker Thread 5,5,main]) started.
+
+> Task :shared:metadataCommonMainClasses UP-TO-DATE
+Skipping task ':shared:metadataCommonMainClasses' as it has no actions.
+Resolve mutations for :shared:allMetadataJar (Thread[#469,Execution worker Thread 5,5,main]) started.
+:shared:allMetadataJar (Thread[#469,Execution worker Thread 5,5,main]) started.
+
+> Task :shared:allMetadataJar UP-TO-DATE
+Caching disabled for task ':shared:allMetadataJar' because:
+  Not worth caching
+Skipping task ':shared:allMetadataJar' as it is up-to-date.
+work action resolve shared-metadata.jar (project :shared) (Thread[#469,Execution worker Thread 5,5,main]) started.
+
+> Task :commonizeNativeDistribution UP-TO-DATE
+Native Distribution Commonization: Acquire lock: /Users/kaandemir/.konan/kotlin-native-prebuilt-macos-aarch64-2.0.21/klib/commonized/2.0.21/.lock ...
+Native Distribution Commonization: Lock acquired: /Users/kaandemir/.konan/kotlin-native-prebuilt-macos-aarch64-2.0.21/klib/commonized/2.0.21/.lock
+Native Distribution Commonization: Calculating cache state for [(ios_arm64, ios_simulator_arm64), (ios_arm64, ios_simulator_arm64, ios_x64)]
+Native Distribution Commonization: Cache hit: (ios_arm64, ios_simulator_arm64) already commonized
+Native Distribution Commonization: Cache hit: (ios_arm64, ios_simulator_arm64, ios_x64) already commonized
+Native Distribution Commonization: All available targets are commonized already - Nothing to do
+Native Distribution Commonization: Lock released: /Users/kaandemir/.konan/kotlin-native-prebuilt-macos-aarch64-2.0.21/klib/commonized/2.0.21/.lock
+Caching disabled for task ':commonizeNativeDistribution' because:
+  Native Distribution Commonizer Task uses internal caching mechanism with fine grained cache control
+Skipping task ':commonizeNativeDistribution' as it is up-to-date.
+Resolve mutations for :shared:compileIosMainKotlinMetadata (Thread[#465,Execution worker,5,main]) started.
+:shared:compileIosMainKotlinMetadata (Thread[#465,Execution worker,5,main]) started.
+
+> Task :shared:compileIosMainKotlinMetadata UP-TO-DATE
+Build cache key for task ':shared:compileIosMainKotlinMetadata' is fdda556f81974029ff33584c2294a432
+Skipping task ':shared:compileIosMainKotlinMetadata' as it is up-to-date.
+Resolve mutations for :shared:metadataIosMainClasses (Thread[#465,Execution worker,5,main]) started.
+:shared:metadataIosMainClasses (Thread[#465,Execution worker,5,main]) started.
+
+> Task :shared:metadataIosMainClasses UP-TO-DATE
+Skipping task ':shared:metadataIosMainClasses' as it has no actions.
+Resolve mutations for :shared:iosArm64MetadataElements (Thread[#465,Execution worker,5,main]) started.
+Resolve mutations for :shared:iosSimulatorArm64MetadataElements (Thread[#469,Execution worker Thread 5,5,main]) started.
+:shared:iosArm64MetadataElements (Thread[#465,Execution worker,5,main]) started.
+:shared:iosSimulatorArm64MetadataElements (Thread[#469,Execution worker Thread 5,5,main]) started.
+
+> Task :shared:iosSimulatorArm64MetadataElements UP-TO-DATE
+Caching disabled for task ':shared:iosSimulatorArm64MetadataElements' because:
+  Not worth caching
+Skipping task ':shared:iosSimulatorArm64MetadataElements' as it is up-to-date.
+work action resolve shared-iossimulatorarm64-metadata.jar (project :shared) (Thread[#469,Execution worker Thread 5,5,main]) started.
+
+> Task :shared:iosArm64MetadataElements UP-TO-DATE
+Caching disabled for task ':shared:iosArm64MetadataElements' because:
+  Not worth caching
+Skipping task ':shared:iosArm64MetadataElements' as it is up-to-date.
+work action resolve shared-iosarm64-metadata.jar (project :shared) (Thread[#465,Execution worker,5,main]) started.
+Resolve mutations for :composeApp:transformCommonMainDependenciesMetadata (Thread[#465,Execution worker,5,main]) started.
+:composeApp:transformCommonMainDependenciesMetadata (Thread[#467,Execution worker Thread 3,5,main]) started.
+
+> Task :composeApp:transformCommonMainDependenciesMetadata UP-TO-DATE
+Caching disabled for task ':composeApp:transformCommonMainDependenciesMetadata' because:
+  Metadata Dependency Transformation Task doesn't benefit from caching as it doesn't have heavy load
+Skipping task ':composeApp:transformCommonMainDependenciesMetadata' as it is up-to-date.
+Resolve mutations for :composeApp:compileCommonMainKotlinMetadata (Thread[#467,Execution worker Thread 3,5,main]) started.
+:composeApp:compileCommonMainKotlinMetadata (Thread[#467,Execution worker Thread 3,5,main]) started.
+
+> Task :composeApp:compileCommonMainKotlinMetadata FAILED
+Build cache key for task ':composeApp:compileCommonMainKotlinMetadata' is 58d42e10bc8552da9d901ac13d3861ca
+Task ':composeApp:compileCommonMainKotlinMetadata' is not up-to-date because:
+  Task has failed previously.
+The input changes require a full rebuild for incremental task ':composeApp:compileCommonMainKotlinMetadata'.
+w: KLIB resolver: Skipping '/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/kotlinTransformedMetadataLibraries/commonMain/org.jetbrains.kotlin-kotlin-stdlib-2.1.21-commonMain-uBNgdg.klib'. Incompatible ABI version. The current default is '1.8.0', found '1.201.0'. The library was produced by '2.1.20-dev-8066' compiler.
+e: KLIB resolver: Could not find "/Users/kaandemir/AndroidStudioProjects/BillioApp/composeApp/build/kotlinTransformedMetadataLibraries/commonMain/org.jetbrains.kotlin-kotlin-stdlib-2.1.21-commonMain-uBNgdg.klib" in [/Users/kaandemir/Library/Application Support/kotlin/daemon]
+Finished executing kotlin compiler using DAEMON strategy
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':composeApp:compileCommonMainKotlinMetadata'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':composeApp:compileCommonMainKotlinMetadata'.
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:130)
+	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:293)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:128)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:116)
+	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:40)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.LocalTaskNodeExecutor.execute(LocalTaskNodeExecutor.java:42)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:331)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:318)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:303)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+	at org.gradle.workers.internal.DefaultWorkerExecutor$WorkItemExecution.waitForCompletion(DefaultWorkerExecutor.java:287)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:130)
+	at org.gradle.internal.Factories$1.create(Factories.java:31)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:335)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:318)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLock(DefaultWorkerLeaseService.java:323)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:126)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:92)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForAll(DefaultAsyncWorkTracker.java:78)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForCompletion(DefaultAsyncWorkTracker.java:66)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:252)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:229)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:212)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:195)
+	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:162)
+	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:105)
+	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:44)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:59)
+	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:56)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:56)
+	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:44)
+	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
+	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
+	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:50)
+	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:28)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:67)
+	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:37)
+	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:61)
+	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:26)
+	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
+	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:40)
+	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:29)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeAndStoreInCache(BuildCacheStep.java:145)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$executeWithCache$4(BuildCacheStep.java:101)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$executeWithCache$5(BuildCacheStep.java:101)
+	at org.gradle.internal.Try$Success.map(Try.java:175)
+	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithCache(BuildCacheStep.java:85)
+	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$0(BuildCacheStep.java:74)
+	at org.gradle.internal.Either$Left.fold(Either.java:115)
+	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:73)
+	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:48)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:46)
+	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:35)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
+	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:49)
+	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:27)
+	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:71)
+	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:39)
+	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:65)
+	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:36)
+	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:107)
+	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:56)
+	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:64)
+	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:43)
+	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.executeWithNonEmptySources(AbstractSkipEmptyWorkStep.java:125)
+	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:61)
+	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:36)
+	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:36)
+	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:23)
+	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:75)
+	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:41)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$execute$0(AssignMutableWorkspaceStep.java:35)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:289)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:31)
+	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:22)
+	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
+	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
+	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
+	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
+	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
+	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:48)
+	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:35)
+	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:61)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:127)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:116)
+	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:40)
+	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+	at org.gradle.execution.plan.LocalTaskNodeExecutor.execute(LocalTaskNodeExecutor.java:42)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:331)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:318)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:314)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:303)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Compilation error. See log for more details
+	at org.jetbrains.kotlin.gradle.tasks.TasksUtilsKt.throwExceptionIfCompilationFailed(tasksUtils.kt:21)
+	at org.jetbrains.kotlin.compilerRunner.GradleKotlinCompilerWork.run(GradleKotlinCompilerWork.kt:119)
+	at org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction.execute(GradleCompilerRunnerWithWorkers.kt:76)
+	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:63)
+	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:66)
+	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:62)
+	at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:100)
+	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.lambda$execute$0(NoIsolationWorkerFactory.java:62)
+	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:44)
+	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:41)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.workers.internal.AbstractWorker.executeWrappedInBuildOperation(AbstractWorker.java:41)
+	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.execute(NoIsolationWorkerFactory.java:59)
+	at org.gradle.workers.internal.DefaultWorkerExecutor.lambda$submitWork$0(DefaultWorkerExecutor.java:174)
+	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runExecution(DefaultConditionalExecutionQueue.java:194)
+	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.access$700(DefaultConditionalExecutionQueue.java:127)
+	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner$1.run(DefaultConditionalExecutionQueue.java:169)
+	at org.gradle.internal.Factories$1.create(Factories.java:31)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:132)
+	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runBatch(DefaultConditionalExecutionQueue.java:164)
+	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.run(DefaultConditionalExecutionQueue.java:133)
+	... 2 more
+
+
+BUILD FAILED in 940ms
+16 actionable tasks: 1 executed, 15 up-to-date
+Watched directory hierarchies: [/Users/kaandemir/AndroidStudioProjects/BillioApp]
+Configuration cache entry reused.
