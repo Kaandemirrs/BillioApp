@@ -21,6 +21,10 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.ExposedDropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -66,6 +70,15 @@ fun AddBillSheet(
     var amount by remember { mutableStateOf("") }
     var paymentDay by remember { mutableStateOf("") }
     var cycle by remember { mutableStateOf(BillingCycle.MONTHLY) }
+    var categoryExpanded by remember { mutableStateOf(false) }
+    val categoryOptions = listOf(
+        "Eğlence" to "entertainment",
+        "Market" to "market",
+        "Ulaşım" to "transport",
+        "Medikal" to "medical",
+        "Abonelikler" to "subscriptions",
+        "Diğer" to "other"
+    )
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -104,29 +117,47 @@ fun AddBillSheet(
                 )
             )
 
-            // Kategori
-            OutlinedTextField(
-                value = category,
-                onValueChange = { category = it },
-                modifier = Modifier
-                    .fillMaxWidth(0.72f)
-                    .align(Alignment.CenterHorizontally),
-                shape = RoundedCornerShape(36.dp),
-                label = { Text("Kategori:", color = HomeColors.Primary) },
-                trailingIcon = {
-                    androidx.compose.material3.Icon(
-                        imageVector = Icons.Filled.KeyboardArrowDown,
-                        contentDescription = null,
-                        tint = HomeColors.Primary
+            // Kategori (Dropdown)
+            ExposedDropdownMenuBox(
+                expanded = categoryExpanded,
+                onExpandedChange = { categoryExpanded = !categoryExpanded }
+            ) {
+                val displayValue = categoryOptions.firstOrNull { it.second == category }?.first ?: category
+                OutlinedTextField(
+                    value = displayValue,
+                    onValueChange = { input ->
+                        // Serbest giriş: backend'e küçük harf ve kırpılmış metin gönderilecek
+                        category = input.trim().lowercase()
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(0.72f)
+                        .align(Alignment.CenterHorizontally)
+                        .menuAnchor(),
+                    shape = RoundedCornerShape(36.dp),
+                    label = { Text("Kategori:", color = HomeColors.Primary) },
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = categoryExpanded) },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = HomeColors.Primary,
+                        unfocusedBorderColor = HomeColors.Primary,
+                        focusedLabelColor = HomeColors.Primary,
+                        cursorColor = HomeColors.Primary
                     )
-                },
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = HomeColors.Primary,
-                    unfocusedBorderColor = HomeColors.Primary,
-                    focusedLabelColor = HomeColors.Primary,
-                    cursorColor = HomeColors.Primary
                 )
-            )
+                ExposedDropdownMenu(
+                    expanded = categoryExpanded,
+                    onDismissRequest = { categoryExpanded = false }
+                ) {
+                    categoryOptions.forEach { (display, code) ->
+                        DropdownMenuItem(
+                            text = { Text(display) },
+                            onClick = {
+                                category = code
+                                categoryExpanded = false
+                            }
+                        )
+                    }
+                }
+            }
 
             // Aylık Tutar
             OutlinedTextField(

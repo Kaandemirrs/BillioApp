@@ -8,12 +8,13 @@ import com.billioapp.features.home.presentation.HomeViewModel
 import com.billioapp.features.onboarding.presentation.OnboardingViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import org.koin.core.module.dsl.factoryOf
 
 private val presentationModule = module {
     factory { OnboardingViewModel() }
     factory { LoginViewModel(get(), get(), get(), get(), get(), get(), get()) }
     factory { RegisterViewModel(get(), get()) }
-    factory { HomeViewModel(get()) }
+    factoryOf(::HomeViewModel)
     factory { ForgotPasswordViewModel(get()) }
     factory { EmailVerificationViewModel(get(), get(), get(), get(), get()) }
 }

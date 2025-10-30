@@ -1,5 +1,3 @@
-import org.bouncycastle.pqc.crypto.lms.Composer.compose
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -27,19 +25,18 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.koin.core)
+                implementation(libs.napier)
+                implementation(libs.firebase.auth.gitlive)
+                // Ktor core & serialization
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.ktor.client.auth)
                 implementation(libs.ktor.client.logging)
-                implementation(libs.sqldelight.runtime)
-                implementation(libs.sqldelight.coroutines)
-                implementation(libs.kotlinx.coroutines.core)
+                // Kotlinx Serialization
                 implementation(libs.kotlinx.serialization.json)
-                implementation(libs.kotlinx.datetime)
-                implementation(libs.napier)
-                implementation(libs.firebase.auth.gitlive)
-
+                // Koin DI (common)
+                implementation(libs.koin.core)
             }
         }
         val commonTest by getting {
@@ -51,6 +48,8 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.cio)
                 implementation(libs.sqldelight.android.driver)
+                // SLF4J Simple binding (2.0.x uyumlu)
+                implementation("org.slf4j:slf4j-simple:2.0.12")
             }
         }
         val androidUnitTest by getting

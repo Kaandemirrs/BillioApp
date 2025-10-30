@@ -32,19 +32,19 @@ import androidx.compose.ui.unit.sp
 import billioapp.composeapp.generated.resources.Res
 import billioapp.composeapp.generated.resources.ic_money
 import billioapp.composeapp.generated.resources.ic_add
-import billioapp.composeapp.generated.resources.tre
-// (removed) import billioapp.composeapp.generated.resources.tre
+
 import com.billioapp.features.home.presentation.HomeColors
 import com.billioapp.features.home.presentation.HomeSpacing
 import com.billioapp.features.home.presentation.TrackerCategory
 import com.billioapp.features.home.presentation.TrackerModel
+import com.billioapp.domain.model.subscriptions.Subscription
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun TrackerSection(
     model: TrackerModel,
-    modifier: Modifier = Modifier,
-    onLimitIconClick: () -> Unit = {}
+    subscriptions: List<Subscription> = emptyList(),
+    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -55,7 +55,6 @@ fun TrackerSection(
             modifier = Modifier.padding(HomeSpacing.SectionSpacing),
             verticalArrangement = Arrangement.spacedBy(HomeSpacing.ItemSpacing)
         ) {
-            // Üst bölüm: Donut solda geniş, düzenli faturalar sağda dar
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(HomeSpacing.ItemSpacing),
@@ -65,12 +64,9 @@ fun TrackerSection(
                     TrackerDonut(model = model)
                 }
                 Column(modifier = Modifier.weight(0.55f)) {
-                    RegularBillsList(categories = model.categories)
+                    RegularBillsList(categories = model.categories, subscriptions = subscriptions)
                 }
             }
-
-            // Alt: Limit ve Kalan metinleri
-            LimitRemainingFooter(limitText = "3000 TL", remainingText = "1200 TL", onLimitIconClick = onLimitIconClick)
         }
     }
 }
@@ -91,20 +87,30 @@ private fun TrackerDonut(model: TrackerModel) {
                 val total = model.categories.sumOf { it.amount }
                 val stroke = strokeWidth.toPx()
                 var startAngle = -90f
-                model.categories.forEach { c ->
-                    val sweep = if (total > 0) (c.amount / total * 360f).toFloat() else 0f
+
+                if (total <= 0.0 || model.categories.isEmpty()) {
                     drawArc(
-                        color = Color(c.colorHex),
-                        startAngle = startAngle,
-                        sweepAngle = sweep,
+                        color = HomeColors.Primary.copy(alpha = 0.15f),
+                        startAngle = -90f,
+                        sweepAngle = 360f,
                         useCenter = false,
                         style = Stroke(width = stroke)
                     )
-                    startAngle += sweep
+                } else {
+                    for (c in model.categories) {
+                        val sweep = (c.amount / total * 360f).toFloat()
+                        drawArc(
+                            color = Color(c.colorHex),
+                            startAngle = startAngle,
+                            sweepAngle = sweep,
+                            useCenter = false,
+                            style = Stroke(width = stroke)
+                        )
+                        startAngle += sweep
+                    }
                 }
             }
 
-            // Merkez içerik: Toplam, ikon ve miktar
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -133,7 +139,10 @@ private fun TrackerDonut(model: TrackerModel) {
 }
 
 @Composable
-private fun RegularBillsList(categories: List<TrackerCategory>) {
+private fun RegularBillsList(
+    categories: List<TrackerCategory>,
+    subscriptions: List<Subscription> = emptyList()
+) {
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text(
             text = "Düzenli faturalar",
@@ -143,47 +152,14 @@ private fun RegularBillsList(categories: List<TrackerCategory>) {
             color = HomeColors.TextPrimary
         )
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            categories.forEach { cat ->
+            for (cat in categories) {
                 LegendItem(name = cat.name, color = Color(cat.colorHex))
             }
-        }
-    }
-}
 
-@Composable
-private fun LimitRemainingFooter(limitText: String, remainingText: String, onLimitIconClick: () -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                text = "Limit",
-                style = MaterialTheme.typography.bodyMedium,
-                color = HomeColors.TextPrimary
-            )
-            Text(
-                text = limitText,
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color(0xFFC54646)
-            )
-            // Küçük artı ikonu (metin boyutuna yakın)
-            Image(
-                painter = painterResource(Res.drawable.tre),
-                contentDescription = "Limiti artır",
-                modifier = Modifier
-                    .size(14.dp)
-                    .clickable { onLimitIconClick() }
-            )
-        }
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(
-                text = "Kalan",
-                style = MaterialTheme.typography.bodyMedium,
-                color = HomeColors.TextPrimary
-            )
-            Text(
-                text = remainingText,
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color(0xFF62C546)
-            )
+            for (subscription in subscriptions) {
+                val subscriptionColor = generateSubscriptionColorForTracker(subscription.category ?: subscription.name)
+                LegendItem(name = subscription.name, color = subscriptionColor)
+            }
         }
     }
 }
@@ -208,4 +184,22 @@ private fun LegendItem(name: String, color: Color) {
             color = HomeColors.TextPrimary
         )
     }
+}
+
+private fun generateSubscriptionColorForTracker(input: String): Color {
+    val colors = listOf(
+        Color(0xFF6366F1),
+        Color(0xFF8B5CF6),
+        Color(0xFFEC4899),
+        Color(0xFFEF4444),
+        Color(0xFFF97316),
+        Color(0xFFF59E0B),
+        Color(0xFF10B981),
+        Color(0xFF06B6D4),
+        Color(0xFF3B82F6),
+        Color(0xFF8B5A2B),
+    )
+    val hash = input.hashCode()
+    val index = kotlin.math.abs(hash) % colors.size
+    return colors[index]
 }

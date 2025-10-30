@@ -54,6 +54,7 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.koin)
+            implementation(libs.napier)
 
             // AndroidX SavedState - EKLE ⬇️
             implementation("org.jetbrains.androidx.savedstate:savedstate:1.2.1")

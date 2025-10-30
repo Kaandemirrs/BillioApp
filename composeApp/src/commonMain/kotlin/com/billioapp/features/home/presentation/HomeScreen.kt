@@ -26,7 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.billioapp.features.home.presentation.components.AddBillSheet
-import com.billioapp.features.home.presentation.components.MonthlyLimitSheet
+// MonthlyLimitSheet import kaldırıldı
 import com.billioapp.features.home.presentation.components.BillListSection
 import com.billioapp.features.home.presentation.components.BottomNavBar
 import com.billioapp.features.home.presentation.components.HomeFab
@@ -45,16 +45,28 @@ fun HomeScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scrollState = rememberScrollState()
     var isAddSheetOpen by remember { mutableStateOf(false) }
-    var isLimitSheetOpen by remember { mutableStateOf(false) }
+    // var isLimitSheetOpen kaldırıldı
+
+    LaunchedEffect(Unit) {
+        viewModel.onEvent(HomeEvent.LoadHomeData)
+    }
 
     LaunchedEffect(viewModel) {
         viewModel.effect.collect { effect ->
             when (effect) {
                 HomeEffect.NavigateToLogin -> onNavigateToLogin()
                 is HomeEffect.ShowError -> snackbarHostState.showSnackbar(effect.message)
+                HomeEffect.SubscriptionAddedSuccessfully -> snackbarHostState.showSnackbar("Abonelik eklendi")
             }
         }
     }
+
+    // limitText kaldırıldı (özellik yok)
+    val trackerModel = state.trackerModel ?: TrackerModel(
+        totalAmount = state.homeSummary?.totalAmount ?: 0.0,
+        currency = state.homeSummary?.currency ?: "TL",
+        categories = emptyList()
+    )
 
     Scaffold(
         containerColor = HomeColors.Background,
@@ -79,13 +91,20 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(HomeSpacing.SectionSpacing)
             ) {
                 HomeHeader(userName = "Kaan")
-                TrackerSection(model = HomeSampleModels.tracker, onLimitIconClick = { isLimitSheetOpen = true })
+                TrackerSection(
+                    model = trackerModel,
+                    subscriptions = state.subscriptions
+                )
                 InfoCardSection(model = HomeSampleModels.infoCard)
-                BillListSection(bills = HomeSampleModels.bills)
+                BillListSection(
+                    bills = state.bills,
+                    subscriptions = state.subscriptions,
+                    modifier = Modifier.padding(top = 36.dp, bottom = 12.dp)
+                )
                 Spacer(modifier = Modifier.height(72.dp))
             }
 
-            if (state.isLoggingOut) {
+            if (state.isLoggingOut || state.isLoading || state.isUpdatingLimit) {
                 Box(
                     modifier = Modifier
                         .matchParentSize()
@@ -99,19 +118,11 @@ fun HomeScreen(
             if (isAddSheetOpen) {
                 AddBillSheet(
                     onDismiss = { isAddSheetOpen = false },
-                    onSave = { /* TODO: bağlanınca VM veya data store'a ekleme yapılabilir */ }
+                    onSave = { data -> viewModel.onEvent(HomeEvent.OnSaveClicked(data)) }
                 )
             }
 
-            if (isLimitSheetOpen) {
-                MonthlyLimitSheet(
-                    onDismiss = { isLimitSheetOpen = false },
-                    onSave = { value ->
-                        // TODO: değeri ViewModel’e veya data store’a bağla
-                        isLimitSheetOpen = false
-                    }
-                )
-            }
+            // MonthlyLimitSheet kaldırıldı
         }
     }
 }
