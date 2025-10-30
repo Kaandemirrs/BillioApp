@@ -11,6 +11,7 @@ import io.ktor.client.request.get
 import io.ktor.http.parameters
 import io.github.aakira.napier.Napier
 import io.ktor.client.request.post
+import io.ktor.client.request.delete
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
@@ -76,5 +77,12 @@ class SubscriptionsApi(
                 BaseResponseDto(success = false, data = null, error = ErrorDto(message = e.message))
             }
         }
+    }
+
+    suspend fun deleteSubscription(id: String): HttpResponse {
+        Napier.i(tag = "SubscriptionsApi", message = "Çağrı yapılıyor: DELETE /api/v1/subscriptions/$id")
+        val response: HttpResponse = httpClient.delete("/api/v1/subscriptions/$id")
+        Napier.i(tag = "SubscriptionsApi", message = "Yanıt alındı: DELETE /api/v1/subscriptions/$id -> ${response.status}")
+        return response
     }
 }

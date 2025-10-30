@@ -17,6 +17,7 @@ import com.billioapp.features.onboarding.presentation.legal.PrivacyPolicyScreen
 import com.billioapp.features.onboarding.presentation.start.GetStartedScreen
 import org.koin.compose.koinInject
 import com.billioapp.features.onboarding.presentation.OnboardingViewModel
+import com.billioapp.features.profile.presentation.ProfileScreen
 
 sealed interface BillioScreen : Screen
 
@@ -192,6 +193,18 @@ class EmailVerificationRoute : BillioScreen {
             onNavigateToHome = {
                 navigator.replaceAll(HomeRoute())
             },
+            onNavigateToLogin = {
+                navigator.replaceAll(LoginRoute())
+            }
+        )
+    }
+}
+
+class ProfileRoute : BillioScreen {
+    @Composable
+    override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
+        ProfileScreen(
             onNavigateToLogin = {
                 navigator.replaceAll(LoginRoute())
             }

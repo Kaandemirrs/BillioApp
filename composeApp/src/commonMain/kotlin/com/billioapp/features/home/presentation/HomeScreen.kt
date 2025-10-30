@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.billioapp.features.home.presentation.components.AddBillSheet
 // MonthlyLimitSheet import kaldırıldı
 import com.billioapp.features.home.presentation.components.BillListSection
@@ -34,6 +36,7 @@ import com.billioapp.features.home.presentation.components.HomeHeader
 import com.billioapp.features.home.presentation.components.InfoCardSection
 import com.billioapp.features.home.presentation.components.TrackerSection
 import org.koin.compose.koinInject
+import com.billioapp.core.navigation.ProfileRoute
 
 @Composable
 fun HomeScreen(
@@ -41,6 +44,7 @@ fun HomeScreen(
     onNavigateToLogin: () -> Unit = {},
     onFabClick: () -> Unit = {}
 ) {
+    val navigator = LocalNavigator.currentOrThrow
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val scrollState = rememberScrollState()
@@ -57,6 +61,7 @@ fun HomeScreen(
                 HomeEffect.NavigateToLogin -> onNavigateToLogin()
                 is HomeEffect.ShowError -> snackbarHostState.showSnackbar(effect.message)
                 HomeEffect.SubscriptionAddedSuccessfully -> snackbarHostState.showSnackbar("Abonelik eklendi")
+                HomeEffect.SubscriptionDeletedSuccessfully -> snackbarHostState.showSnackbar("Abonelik silindi")
             }
         }
     }
@@ -72,7 +77,17 @@ fun HomeScreen(
         containerColor = HomeColors.Background,
         snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = { HomeFab(onClick = { onFabClick(); isAddSheetOpen = true }) },
-        bottomBar = { BottomNavBar(items = HomeSampleModels.bottomNav) }
+        bottomBar = {
+            BottomNavBar(
+                items = HomeSampleModels.bottomNav,
+                onItemSelected = { item ->
+                    when (item.id) {
+                        "profile" -> navigator.push(ProfileRoute())
+                        // Future: handle other ids (home/tracker) if needed
+                    }
+                }
+            )
+        }
     ) { paddingValues ->
         Box(
             modifier = Modifier
@@ -99,7 +114,8 @@ fun HomeScreen(
                 BillListSection(
                     bills = state.bills,
                     subscriptions = state.subscriptions,
-                    modifier = Modifier.padding(top = 36.dp, bottom = 12.dp)
+                    modifier = Modifier.padding(top = 36.dp, bottom = 12.dp),
+                    onDeleteClicked = { id -> viewModel.onEvent(HomeEvent.OnDeleteClicked(id)) }
                 )
                 Spacer(modifier = Modifier.height(72.dp))
             }

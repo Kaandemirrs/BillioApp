@@ -7,5 +7,6 @@ data class AddSubscriptionRequest(
     val currency: String,
     val billingCycle: String,
     val startDate: String,
-    val billingDay: Int?
+    val billingDay: Int?,
+    val color: String? = null
 )

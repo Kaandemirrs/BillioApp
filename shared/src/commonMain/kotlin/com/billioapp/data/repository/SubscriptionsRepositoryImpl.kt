@@ -12,7 +12,9 @@ import com.billioapp.domain.repository.SubscriptionsRepository
 import com.billioapp.domain.util.Result
 import io.github.aakira.napier.Napier
 import io.ktor.client.plugins.ClientRequestException
+import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
+import io.ktor.http.isSuccess
 
 class SubscriptionsRepositoryImpl(
     private val api: SubscriptionsApi,
@@ -48,7 +50,8 @@ class SubscriptionsRepositoryImpl(
             currency = request.currency,
             billingCycle = request.billingCycle,
             startDate = request.startDate,
-            billingDay = request.billingDay
+            billingDay = request.billingDay,
+            color = request.color
         )
         val resp = api.addSubscription(dto)
         Napier.i(tag = "SubscriptionsRepository", message = "Çağrı tamamlandı: POST /api/v1/subscriptions, success=${resp.success}")
@@ -57,6 +60,18 @@ class SubscriptionsRepositoryImpl(
         } else {
             val msg = resp.error?.message ?: "Bilinmeyen API hatası"
             throw IllegalStateException(msg)
+        }
+    }
+
+    override suspend fun deleteSubscription(id: String): Result<Unit> = execute {
+        Napier.i(tag = "SubscriptionsRepository", message = "Çağrı yapılıyor: DELETE /api/v1/subscriptions/$id")
+        val response: HttpResponse = api.deleteSubscription(id)
+        Napier.i(tag = "SubscriptionsRepository", message = "Çağrı tamamlandı: DELETE /api/v1/subscriptions/$id -> ${response.status}")
+        if (response.status.isSuccess()) {
+            Unit
+        } else {
+            // Mevcut hata yakalama akışına girebilmesi için ClientRequestException fırlatıyoruz
+            throw ClientRequestException(response, "Silme başarısız: ${response.status}")
         }
     }
 

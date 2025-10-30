@@ -50,12 +50,13 @@ import org.jetbrains.compose.resources.painterResource
 fun BillListSection(
     bills: List<BillItemModel>,
     subscriptions: List<Subscription> = emptyList(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDeleteClicked: (String) -> Unit = {}
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(42.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        colors = CardDefaults.cardColors(containerColor = HomeColors.BillListGreen)
     ) {
         BoxWithConstraints(modifier = Modifier.padding(HomeSpacing.SectionSpacing)) {
             val contentWidth = maxWidth
@@ -98,7 +99,8 @@ fun BillListSection(
                             subscription = subscription,
                             width = cardWidth,
                             height = cardHeight,
-                            corner = cardCorner
+                            corner = cardCorner,
+                            onDeleteClicked = onDeleteClicked
                         )
                     }
                 }
@@ -116,6 +118,7 @@ private fun LargeBillCard(
     modifier: Modifier = Modifier
 ) {
     val primaryColor = Color(bill.primaryColorHex)
+    val onColor = if (primaryColor.luminance() > 0.5f) HomeColors.TextPrimary else Color.White
     val nameSize = (width.value * (34f / 522f)).sp
     val amountSize = (width.value * (42f / 522f)).sp
 
@@ -124,14 +127,14 @@ private fun LargeBillCard(
             .width(width)
             .height(height),
         shape = RoundedCornerShape(corner),
-        colors = CardDefaults.cardColors(containerColor = HomeColors.Card)
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         Box(modifier = Modifier.fillMaxWidth().padding(HomeSpacing.SectionSpacing)) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(corner))
-                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                    .background(primaryColor)
                     .padding(horizontal = 16.dp, vertical = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -139,7 +142,7 @@ private fun LargeBillCard(
                 androidx.compose.material3.Icon(
                     painter = painterResource(bill.iconRes),
                     contentDescription = null,
-                    tint = primaryColor,
+                    tint = onColor,
                     modifier = Modifier.size(height * 0.30f)
                 )
 
@@ -155,7 +158,7 @@ private fun LargeBillCard(
                         fontFamily = getBalooFontFamily(),
                         fontWeight = FontWeight.SemiBold,
                         fontSize = nameSize,
-                        color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
+                        color = onColor,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -165,7 +168,7 @@ private fun LargeBillCard(
                         fontFamily = getBalooFontFamily(),
                         fontWeight = FontWeight.Bold,
                         fontSize = (width.value * (30f / 522f)).sp,
-                        color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
+                        color = onColor
                     )
                 }
 

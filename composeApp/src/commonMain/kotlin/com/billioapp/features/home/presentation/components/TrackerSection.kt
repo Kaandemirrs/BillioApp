@@ -29,10 +29,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import billioapp.composeapp.generated.resources.Res
 import billioapp.composeapp.generated.resources.ic_money
 import billioapp.composeapp.generated.resources.ic_add
 
+import com.billioapp.core.theme.getBalooFontFamily
 import com.billioapp.features.home.presentation.HomeColors
 import com.billioapp.features.home.presentation.HomeSpacing
 import com.billioapp.features.home.presentation.TrackerCategory
@@ -117,7 +121,7 @@ private fun TrackerDonut(model: TrackerModel) {
             ) {
                 Text(
                     text = "Toplam",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(fontFamily = getBalooFontFamily()),
                     color = HomeColors.TextPrimary,
                     textAlign = TextAlign.Center
                 )
@@ -128,7 +132,7 @@ private fun TrackerDonut(model: TrackerModel) {
                 )
                 Text(
                     text = "${model.totalAmount.toInt()}.00${model.currency}",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleMedium.copy(fontFamily = getBalooFontFamily()),
                     fontWeight = FontWeight.Bold,
                     color = HomeColors.TextPrimary,
                     textAlign = TextAlign.Center
@@ -143,23 +147,25 @@ private fun RegularBillsList(
     categories: List<TrackerCategory>,
     subscriptions: List<Subscription> = emptyList()
 ) {
+    val legendItems = buildList {
+        for (cat in categories) add(cat.name to Color(cat.colorHex))
+        for (subscription in subscriptions) add(subscription.name to generateSubscriptionColorForTracker(subscription.category ?: subscription.name))
+    }
+    val pages = if (legendItems.isEmpty()) emptyList() else legendItems.chunked(5)
+
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text(
             text = "Düzenli faturalar",
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.bodyLarge.copy(fontFamily = getBalooFontFamily()),
             fontWeight = FontWeight.Medium,
             fontSize = 18.sp,
             color = HomeColors.TextPrimary
         )
-        Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            for (cat in categories) {
-                LegendItem(name = cat.name, color = Color(cat.colorHex))
-            }
 
-            for (subscription in subscriptions) {
-                val subscriptionColor = generateSubscriptionColorForTracker(subscription.category ?: subscription.name)
-                LegendItem(name = subscription.name, color = subscriptionColor)
-            }
+        if (pages.isEmpty()) {
+            // No items; show nothing
+        } else {
+            RegularBillsPager(pages = pages)
         }
     }
 }
@@ -179,10 +185,47 @@ private fun LegendItem(name: String, color: Color) {
         )
         Text(
             text = name,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = getBalooFontFamily()),
             fontSize = 15.sp,
             color = HomeColors.TextPrimary
         )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun RegularBillsPager(pages: List<List<Pair<String, Color>>>) {
+    val pagerState = rememberPagerState(pageCount = { pages.size })
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier.fillMaxWidth()
+        ) { page ->
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                for ((name, color) in pages[page]) {
+                    LegendItem(name = name, color = color)
+                }
+            }
+        }
+
+        if (pages.size > 1) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                for (i in pages.indices) {
+                    Box(
+                        modifier = Modifier
+                            .size(6.dp)
+                            .background(
+                                color = if (i == pagerState.currentPage) HomeColors.Primary else HomeColors.TextSecondary.copy(alpha = 0.3f),
+                                shape = RoundedCornerShape(50)
+                            )
+                    )
+                }
+            }
+        }
     }
 }
 

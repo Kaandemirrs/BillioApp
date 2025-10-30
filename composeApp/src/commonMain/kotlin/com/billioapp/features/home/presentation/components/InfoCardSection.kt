@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import billioapp.composeapp.generated.resources.Baloo2_Regular
@@ -82,6 +83,7 @@ fun InfoCardSection(
             Text(
                 text = model.message + " 🎉",
                 fontFamily = balooFamily,
+                fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
                 color = Color.White,
                 modifier = Modifier

@@ -6,6 +6,7 @@ import androidx.compose.ui.unit.dp
 
 object HomeColors {
     val Background = Color(0xFFBDE9DE)
+    val BillListGreen = Color(0xFF62C546)
     val Primary = Color(0xFF4CAF50)
     val AccentYellow = Color(0xFFFFD54F)
     val Card = Color(0xFFFFFFFF)

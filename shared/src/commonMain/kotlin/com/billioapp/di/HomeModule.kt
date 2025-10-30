@@ -33,4 +33,5 @@ val homeModule = module {
     factory { com.billioapp.domain.usecase.home.UpdateMonthlyLimitUseCase(get()) }
     factory { com.billioapp.domain.usecase.subscriptions.GetSubscriptionsUseCase(get()) }
     factory { com.billioapp.domain.usecase.subscriptions.AddSubscriptionUseCase(get()) }
+    factory { com.billioapp.domain.usecase.subscriptions.DeleteSubscriptionUseCase(get()) }
 }

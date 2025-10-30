@@ -25,6 +25,16 @@ class SubscriptionsMapper {
         amount = s.amount,
         currency = s.currency ?: "TL",
         category = s.category ?: "",
-        isActive = s.isActive
+        isActive = s.isActive,
+        color = s.color,
+        predefinedBills = s.predefinedBills?.let { predefinedDto ->
+            com.billioapp.domain.model.subscriptions.PredefinedBill(
+                id = predefinedDto.id,
+                name = predefinedDto.name,
+                amount = predefinedDto.amount,
+                currency = predefinedDto.currency,
+                primaryColor = predefinedDto.primaryColor
+            )
+        }
     )
 }

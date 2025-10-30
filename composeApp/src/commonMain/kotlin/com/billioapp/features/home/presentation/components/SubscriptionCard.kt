@@ -48,8 +48,19 @@ fun SubscriptionCard(
     width: Dp,
     height: Dp,
     corner: Dp,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDeleteClicked: (String) -> Unit = {}
 ) {
+    // Color priority logic with safe fallback: predefined_bills.primary_color ?: subscription.color
+    // Wrap hex parsing with try-catch; keep MaterialTheme read outside to avoid Compose restrictions
+    val displayColorHex = subscription.predefinedBills?.primaryColor ?: subscription.color
+    val parsedColor = try {
+        displayColorHex?.let { hexToColor(it) }
+    } catch (e: Exception) {
+        null
+    }
+    val displayColor = parsedColor ?: MaterialTheme.colorScheme.primary
+    val onColor = if (displayColor.luminance() > 0.5f) HomeColors.TextPrimary else Color.White
     Card(
         modifier = modifier
             .width(width)
@@ -67,7 +78,7 @@ fun SubscriptionCard(
                         color = MaterialTheme.colorScheme.outline,
                         shape = RoundedCornerShape(16.dp)
                     )
-                    .background(Color.White)
+                    .background(displayColor)
                     .padding(horizontal = 16.dp, vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -75,7 +86,7 @@ fun SubscriptionCard(
                 Icon(
                     painter = painterResource(Res.drawable.ic_money),
                     contentDescription = null,
-                    tint = HomeColors.Primary,
+                    tint = onColor,
                     modifier = Modifier.size(width * 0.12f)
                 )
 
@@ -94,7 +105,7 @@ fun SubscriptionCard(
                         fontFamily = getBalooFontFamily(),
                         fontWeight = FontWeight.Medium,
                         fontSize = nameSize,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = onColor,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -106,7 +117,7 @@ fun SubscriptionCard(
                         fontFamily = getBalooFontFamily(),
                         fontWeight = FontWeight.Bold,
                         fontSize = amountSize,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = onColor
                     )
                 }
 
@@ -122,7 +133,7 @@ fun SubscriptionCard(
                             tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = { onDeleteClicked(subscription.id) }) {
                         Icon(
                             imageVector = androidx.compose.material.icons.Icons.Default.Delete,
                             contentDescription = null,
@@ -161,4 +172,24 @@ private fun generateSubscriptionColor(input: String): Color {
 
 private fun blendColorForText(bg: Color): Color {
     return if (bg.luminance() > 0.5f) HomeColors.Primary else Color.White
+}
+
+private fun hexToColor(hex: String?): Color? {
+    if (hex.isNullOrBlank() || !hex.startsWith("#")) return null
+    val cleanHex = hex.substring(1)
+    return try {
+        when (cleanHex.length) {
+            6 -> {
+                val rgb = cleanHex.toInt(16)
+                Color(0xFF000000.toInt() or rgb)
+            }
+            8 -> {
+                val argb = cleanHex.toLong(16).toInt()
+                Color(argb)
+            }
+            else -> null
+        }
+    } catch (e: Exception) {
+        null
+    }
 }

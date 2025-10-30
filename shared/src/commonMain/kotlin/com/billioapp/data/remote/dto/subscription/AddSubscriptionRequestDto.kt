@@ -11,5 +11,6 @@ data class AddSubscriptionRequestDto(
     @SerialName("currency") val currency: String,
     @SerialName("billing_cycle") val billingCycle: String,
     @SerialName("start_date") val startDate: String,
-    @SerialName("billing_day") val billingDay: Int? = null
+    @SerialName("billing_day") val billingDay: Int? = null,
+    @SerialName("color") val color: String? = null
 )

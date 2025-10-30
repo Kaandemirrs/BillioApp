@@ -8,6 +8,7 @@ import com.billioapp.domain.usecase.home.GetMonthlyLimitUseCase
 import com.billioapp.domain.usecase.home.UpdateMonthlyLimitUseCase
 import com.billioapp.domain.usecase.subscriptions.GetSubscriptionsUseCase
 import com.billioapp.domain.usecase.subscriptions.AddSubscriptionUseCase
+import com.billioapp.domain.usecase.subscriptions.DeleteSubscriptionUseCase
 import com.billioapp.domain.util.Result
 import com.billioapp.domain.model.home.MonthlyLimit
 import com.billioapp.domain.model.subscriptions.AddSubscriptionRequest
@@ -27,6 +28,7 @@ class HomeViewModel(
     private val updateMonthlyLimitUseCase: UpdateMonthlyLimitUseCase,
     private val getSubscriptionsUseCase: GetSubscriptionsUseCase,
     private val addSubscriptionUseCase: AddSubscriptionUseCase,
+    private val deleteSubscriptionUseCase: DeleteSubscriptionUseCase,
     private val logoutUseCase: LogoutUseCase
 ) : BaseViewModel<HomeState, HomeEvent, HomeEffect>(
     initialState = HomeState()
@@ -38,6 +40,7 @@ class HomeViewModel(
             HomeEvent.LoadHomeData -> loadHomeData()
             is HomeEvent.UpdateMonthlyLimit -> updateMonthlyLimit(event.amount)
             is HomeEvent.OnSaveClicked -> onSaveClicked(event.data)
+            is HomeEvent.OnDeleteClicked -> onDeleteClicked(event.id)
         }
     }
 
@@ -136,7 +139,8 @@ class HomeViewModel(
                 currency = currencyFixed,
                 billingCycle = cycleStr,
                 startDate = "2025-01-01",
-                billingDay = data.paymentDay
+                billingDay = data.paymentDay,
+                color = data.color
             )
 
             when (val result = addSubscriptionUseCase(request)) {
@@ -155,6 +159,34 @@ class HomeViewModel(
                     println("HomeViewModel ERROR: Abonelik eklenemedi: ${result.throwable?.message}")
                     setState(currentState.copy(isLoading = false, error = errorMessage))
                     setEffect(HomeEffect.ShowError(errorMessage))
+                }
+            }
+        }
+    }
+
+    private fun onDeleteClicked(id: String) {
+        viewModelScope.launch {
+            // Silme sırasında global loading’e geçmeyelim; snackbar ile bildireceğiz
+            when (val result = deleteSubscriptionUseCase(id)) {
+                is Result.Success -> {
+                    val updatedSubscriptions = currentState.subscriptions.filter { it.id != id }
+                    val billsList = updatedSubscriptions.map { s ->
+                        BillItemModel(
+                            name = s.name,
+                            amountText = formatAmount(s.amount, s.currency),
+                            leadingColorHex = 0xFFFFEB3B,
+                            primaryColorHex = 0xFF69F0AE,
+                            trailingColorHex = 0xFFFF5252,
+                            iconRes = Res.drawable.ic_logo
+                        )
+                    }
+                    setState(currentState.copy(subscriptions = updatedSubscriptions, bills = billsList, error = null))
+                    setEffect(HomeEffect.SubscriptionDeletedSuccessfully)
+                }
+                is Result.Error -> {
+                    val msg = result.message.ifBlank { "Abonelik silinemedi" }
+                    Napier.e(tag = "HomeViewModel", message = "Abonelik SİLİNEMEDİ: $msg", throwable = result.throwable)
+                    setEffect(HomeEffect.ShowError(msg))
                 }
             }
         }

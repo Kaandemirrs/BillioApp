@@ -6,7 +6,17 @@ data class Subscription(
     val amount: Double,
     val currency: String,
     val category: String,
-    val isActive: Boolean
+    val isActive: Boolean,
+    val color: String? = null,
+    val predefinedBills: PredefinedBill? = null
+)
+
+data class PredefinedBill(
+    val id: String? = null,
+    val name: String? = null,
+    val amount: Double? = null,
+    val currency: String? = null,
+    val primaryColor: String? = null
 )
 
 data class SubscriptionsResponse(

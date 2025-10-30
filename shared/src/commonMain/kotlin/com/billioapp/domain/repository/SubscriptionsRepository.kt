@@ -15,4 +15,6 @@ interface SubscriptionsRepository {
     ): Result<SubscriptionsResponse>
 
     suspend fun addSubscription(request: com.billioapp.domain.model.subscriptions.AddSubscriptionRequest): Result<Subscription>
+
+    suspend fun deleteSubscription(id: String): Result<Unit>
 }

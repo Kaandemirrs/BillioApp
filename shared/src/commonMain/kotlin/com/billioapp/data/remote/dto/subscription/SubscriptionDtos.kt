@@ -18,6 +18,7 @@ data class SubscriptionDto(
     @SerialName("currency") val currency: String? = null,
     @SerialName("category") val category: String? = null,
     @SerialName("is_active") val isActive: Boolean = true,
+    @SerialName("color") val color: String? = null,
     @SerialName("predefined_bills") val predefinedBills: PredefinedBillDto? = null
 )
 
@@ -26,7 +27,8 @@ data class PredefinedBillDto(
     @SerialName("id") val id: String? = null,
     @SerialName("name") val name: String? = null,
     @SerialName("amount") val amount: Double? = null,
-    @SerialName("currency") val currency: String? = null
+    @SerialName("currency") val currency: String? = null,
+    @SerialName("primary_color") val primaryColor: String? = null
 )
 
 @Serializable

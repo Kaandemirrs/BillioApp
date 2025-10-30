@@ -18,13 +18,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.ExposedDropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Surface
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -54,7 +56,8 @@ data class AddBillData(
     val category: String,
     val amount: Double,
     val cycle: BillingCycle,
-    val paymentDay: Int?
+    val paymentDay: Int?,
+    val color: String? = null
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,6 +73,7 @@ fun AddBillSheet(
     var amount by remember { mutableStateOf("") }
     var paymentDay by remember { mutableStateOf("") }
     var cycle by remember { mutableStateOf(BillingCycle.MONTHLY) }
+    var unknownPaymentDay by remember { mutableStateOf(false) }
     var categoryExpanded by remember { mutableStateOf(false) }
     val categoryOptions = listOf(
         "Eğlence" to "entertainment",
@@ -147,19 +151,55 @@ fun AddBillSheet(
                     expanded = categoryExpanded,
                     onDismissRequest = { categoryExpanded = false }
                 ) {
-                    categoryOptions.forEach { (display, code) ->
-                        DropdownMenuItem(
-                            text = { Text(display) },
-                            onClick = {
-                                category = code
-                                categoryExpanded = false
+                    Surface(
+                        shape = RoundedCornerShape(16.dp),
+                        shadowElevation = 8.dp,
+                        color = HomeColors.Card,
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .border(1.dp, HomeColors.Primary, RoundedCornerShape(16.dp))
+                                .padding(vertical = 4.dp)
+                        ) {
+                            categoryOptions.forEach { (display, code) ->
+                                val selected = code == category
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clip(RoundedCornerShape(12.dp))
+                                        .background(
+                                            if (selected) HomeColors.Primary.copy(alpha = 0.08f) else Color.Transparent
+                                        )
+                                        .clickable {
+                                            category = code
+                                            categoryExpanded = false
+                                        }
+                                        .padding(horizontal = 14.dp, vertical = 10.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        text = display,
+                                        color = HomeColors.TextPrimary,
+                                        fontSize = 15.sp
+                                    )
+                                    if (selected) {
+                                        Icon(
+                                            imageVector = Icons.Filled.Check,
+                                            contentDescription = null,
+                                            tint = HomeColors.Primary
+                                        )
+                                    }
+                                }
                             }
-                        )
+                        }
                     }
                 }
             }
 
             // Aylık Tutar
+            var selectedColor by remember { mutableStateOf<String?>(null) }
+
             OutlinedTextField(
                 value = amount,
                 onValueChange = { amount = it.filter { ch -> ch.isDigit() || ch == '.' || ch == ',' } },
@@ -223,6 +263,15 @@ fun AddBillSheet(
                 }
             }
 
+            // Renk Seçim Paleti
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(text = "Renk Seçimi:", color = HomeColors.Primary, fontSize = 16.sp)
+                ColorPaletteRow(
+                    selectedColor = selectedColor,
+                    onColorSelected = { selectedColor = it }
+                )
+            }
+
             // ÖDEME GÜNÜ + sağında "Bilmiyorum" metni
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -236,6 +285,7 @@ fun AddBillSheet(
                     shape = RoundedCornerShape(36.dp),
                     label = { Text("ÖDEME GÜNÜ", color = HomeColors.Primary) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    enabled = !unknownPaymentDay,
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = HomeColors.Primary,
                         unfocusedBorderColor = HomeColors.Primary,
@@ -244,11 +294,37 @@ fun AddBillSheet(
                     )
                 )
                 Spacer(modifier = Modifier.width(12.dp))
+                // Küçük tıklanabilir kutucuk (checkbox benzeri)
+                Box(
+                    modifier = Modifier
+                        .size(18.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .border(2.dp, HomeColors.Primary, RoundedCornerShape(4.dp))
+                        .background(if (unknownPaymentDay) HomeColors.Primary else Color.Transparent)
+                        .clickable {
+                            unknownPaymentDay = !unknownPaymentDay
+                            if (unknownPaymentDay) paymentDay = ""
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (unknownPaymentDay) {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(12.dp)
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Bilmiyorum",
                     fontSize = 15.sp,
                     color = HomeColors.Primary,
-                    modifier = Modifier.clickable { paymentDay = "" }
+                    modifier = Modifier.clickable {
+                        unknownPaymentDay = !unknownPaymentDay
+                        if (unknownPaymentDay) paymentDay = ""
+                    }
                 )
             }
 
@@ -265,7 +341,8 @@ fun AddBillSheet(
                             category = category,
                             amount = amt,
                             cycle = cycle,
-                            paymentDay = day
+                            paymentDay = day,
+                            color = selectedColor
                         )
                     )
                     onDismiss()

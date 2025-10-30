@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.billioapp.core.theme.getBalooFontFamily
 import billioapp.composeapp.generated.resources.Res
 import billioapp.composeapp.generated.resources.ic_logo
 import billioapp.composeapp.generated.resources.ic_notification
@@ -68,7 +69,7 @@ private fun ColumnText(greeting: String, dateText: String) {
     androidx.compose.foundation.layout.Column {
         Text(
             text = greeting,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleMedium.copy(fontFamily = getBalooFontFamily()),
             fontWeight = FontWeight.SemiBold,
             color = HomeColors.TextPrimary
         )
