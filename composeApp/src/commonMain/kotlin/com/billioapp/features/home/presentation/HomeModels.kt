@@ -29,6 +29,7 @@ data class InfoCardModel(
 )
 
 data class BillItemModel(
+    val id: String,
     val name: String,
     val amountText: String,
     val leadingColorHex: Long,
@@ -63,9 +64,9 @@ object HomeSampleModels {
     )
 
     val bills = listOf(
-        BillItemModel("Spotify", "32 TL", 0xFFFFEB3B, 0xFF69F0AE, 0xFFFF5252, Res.drawable.ic_logo),
-        BillItemModel("Netflix", "89 TL", 0xFFFFC107, 0xFF4CAF50, 0xFFEF5350, Res.drawable.ic_logo),
-        BillItemModel("iCloud", "19 TL", 0xFFFFE082, 0xFF80CBC4, 0xFFFF8A80, Res.drawable.ic_logo)
+        BillItemModel("sample-spotify", "Spotify", "32 TL", 0xFFFFEB3B, 0xFF69F0AE, 0xFFFF5252, Res.drawable.ic_logo),
+        BillItemModel("sample-netflix", "Netflix", "89 TL", 0xFFFFC107, 0xFF4CAF50, 0xFFEF5350, Res.drawable.ic_logo),
+        BillItemModel("sample-icloud", "iCloud", "19 TL", 0xFFFFE082, 0xFF80CBC4, 0xFFFF8A80, Res.drawable.ic_logo)
     )
 
     // mevcut ikonları tabmenu1/2/3 ile değiştirildi

@@ -113,7 +113,6 @@ fun HomeScreen(
                 InfoCardSection(model = HomeSampleModels.infoCard)
                 BillListSection(
                     bills = state.bills,
-                    subscriptions = state.subscriptions,
                     modifier = Modifier.padding(top = 36.dp, bottom = 12.dp),
                     onDeleteClicked = { id -> viewModel.onEvent(HomeEvent.OnDeleteClicked(id)) }
                 )

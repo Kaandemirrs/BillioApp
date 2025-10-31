@@ -11,6 +11,8 @@ import com.billioapp.domain.usecase.subscriptions.AddSubscriptionUseCase
 import com.billioapp.domain.usecase.subscriptions.DeleteSubscriptionUseCase
 import com.billioapp.domain.util.Result
 import com.billioapp.domain.model.home.MonthlyLimit
+import com.billioapp.domain.model.home.CategorySpend
+import com.billioapp.domain.model.home.HomeSummary
 import com.billioapp.domain.model.subscriptions.AddSubscriptionRequest
 import billioapp.composeapp.generated.resources.Res
 import billioapp.composeapp.generated.resources.ic_logo
@@ -53,17 +55,62 @@ class HomeViewModel(
                 is Result.Success -> {
                     val subscriptions = result.data.subscriptions
                     val billsList = subscriptions.map { s ->
+                        val colorStr = s.predefinedBills?.primaryColor ?: s.color
+                        val primaryHex = parseColorHexLong(colorStr) ?: 0xFF607D8BL
                         BillItemModel(
+                            id = s.id,
                             name = s.name,
                             amountText = formatAmount(s.amount, s.currency),
                             leadingColorHex = 0xFFFFEB3B,
-                            primaryColorHex = 0xFF69F0AE,
+                            primaryColorHex = primaryHex,
                             trailingColorHex = 0xFFFF5252,
                             iconRes = Res.drawable.ic_logo
                         )
                     }
                     Napier.d(tag = "HomeViewModel", message = "UseCase'den ${subscriptions.size} adet işlenmiş fatura geldi")
-                    setState(currentState.copy(bills = billsList, subscriptions = subscriptions))
+
+                    // Tracker ve özet verilerini client-side hesapla
+                    val grouped = subscriptions.groupBy { it.category }
+                    val trackerCategories = grouped.map { (categoryName, subs) ->
+                        val first = subs.firstOrNull()
+                        val colorStr = first?.predefinedBills?.primaryColor ?: first?.color
+                        val colorHexLong = parseColorHexLong(colorStr) ?: 0xFF607D8BL
+                        val amountSum = subs.sumOf { it.amount }
+                        TrackerCategory(
+                            name = categoryName,
+                            amount = amountSum,
+                            colorHex = colorHexLong
+                        )
+                    }
+
+                    val totalAmount = subscriptions.sumOf { it.amount }
+                    val currency = result.data.currency
+
+                    val trackerModel = TrackerModel(
+                        totalAmount = totalAmount,
+                        currency = currency,
+                        categories = trackerCategories
+                    )
+
+                    val summaryCategories = trackerCategories.map { tc ->
+                        CategorySpend(name = tc.name, amount = tc.amount, colorHex = tc.colorHex)
+                    }
+                    val homeSummary = HomeSummary(
+                        totalAmount = totalAmount,
+                        currency = currency,
+                        categories = summaryCategories,
+                        monthlyLimit = currentState.monthlyLimit?.amount
+                    )
+
+                    setState(
+                        currentState.copy(
+                            bills = billsList,
+                            subscriptions = subscriptions,
+                            trackerModel = trackerModel,
+                            homeSummary = homeSummary,
+                            currency = currency
+                        )
+                    )
                 }
                 is Result.Error -> {
                     val msg = result.message.ifBlank { "Abonelikler yüklenemedi" }
@@ -147,9 +194,19 @@ class HomeViewModel(
                 is Result.Success -> {
                     val sub = result.data
                     val updatedSubscriptions = currentState.subscriptions + sub
-                    // Çift eklemeyi önlemek için sadece subscriptions listesi güncelleniyor.
-                    // Bills listesi burada değiştirilmez; gerekli ise ayrı bir türetme ile güncellenmelidir.
-                    setState(currentState.copy(isLoading = false, subscriptions = updatedSubscriptions))
+                    val newColorStr = sub.predefinedBills?.primaryColor ?: sub.color
+                    val newPrimaryHex = parseColorHexLong(newColorStr) ?: 0xFF607D8BL
+                    val newBill = BillItemModel(
+                        id = sub.id,
+                        name = sub.name,
+                        amountText = formatAmount(sub.amount, sub.currency),
+                        leadingColorHex = 0xFFFFEB3B,
+                        primaryColorHex = newPrimaryHex,
+                        trailingColorHex = 0xFFFF5252,
+                        iconRes = Res.drawable.ic_logo
+                    )
+                    val updatedBills = currentState.bills + newBill
+                    setState(currentState.copy(isLoading = false, subscriptions = updatedSubscriptions, bills = updatedBills))
                     setEffect(HomeEffect.SubscriptionAddedSuccessfully)
                 }
                 is Result.Error -> {
@@ -171,11 +228,14 @@ class HomeViewModel(
                 is Result.Success -> {
                     val updatedSubscriptions = currentState.subscriptions.filter { it.id != id }
                     val billsList = updatedSubscriptions.map { s ->
+                        val colorStr = s.predefinedBills?.primaryColor ?: s.color
+                        val primaryHex = parseColorHexLong(colorStr) ?: 0xFF607D8BL
                         BillItemModel(
+                            id = s.id,
                             name = s.name,
                             amountText = formatAmount(s.amount, s.currency),
                             leadingColorHex = 0xFFFFEB3B,
-                            primaryColorHex = 0xFF69F0AE,
+                            primaryColorHex = primaryHex,
                             trailingColorHex = 0xFFFF5252,
                             iconRes = Res.drawable.ic_logo
                         )
@@ -194,6 +254,24 @@ class HomeViewModel(
 
     private fun formatAmount(amount: Double, currency: String): String {
         return "${amount.roundToInt()} $currency"
+    }
+
+    // Hex string'i ("#RRGGBB" veya "#AARRGGBB") Long ARGB değere çevirir; geçersizse null döner
+    private fun parseColorHexLong(hex: String?): Long? {
+        try {
+            if (hex.isNullOrBlank()) return null
+            val s = hex.trim()
+            if (!s.startsWith("#")) return null
+            val h = s.drop(1)
+            val value = h.toLong(16)
+            return when (h.length) {
+                6 -> 0xFF000000L or value // #RRGGBB -> ARGB
+                8 -> value               // #AARRGGBB
+                else -> null
+            }
+        } catch (e: Exception) {
+            return null
+        }
     }
 
     private fun updateMonthlyLimit(amount: Double) {
