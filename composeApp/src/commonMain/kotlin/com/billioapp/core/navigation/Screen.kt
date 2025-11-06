@@ -18,6 +18,9 @@ import com.billioapp.features.onboarding.presentation.start.GetStartedScreen
 import org.koin.compose.koinInject
 import com.billioapp.features.onboarding.presentation.OnboardingViewModel
 import com.billioapp.features.profile.presentation.ProfileScreen
+import com.billioapp.features.ai.presentation.AiScreen
+import com.billioapp.features.ai.presentation.AiAnalysisScreen
+import com.billioapp.features.ai.presentation.AiPriceFinderScreen
 
 sealed interface BillioScreen : Screen
 
@@ -209,5 +212,26 @@ class ProfileRoute : BillioScreen {
                 navigator.replaceAll(LoginRoute())
             }
         )
+    }
+}
+
+class AiRoute : BillioScreen {
+    @Composable
+    override fun Content() {
+        AiScreen()
+    }
+}
+
+class AiAnalysisRoute : BillioScreen {
+    @Composable
+    override fun Content() {
+        AiAnalysisScreen()
+    }
+}
+
+class AiPriceFinderRoute : BillioScreen {
+    @Composable
+    override fun Content() {
+        AiPriceFinderScreen()
     }
 }

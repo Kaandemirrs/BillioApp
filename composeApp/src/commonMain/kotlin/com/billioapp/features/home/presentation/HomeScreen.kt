@@ -35,8 +35,11 @@ import com.billioapp.features.home.presentation.components.HomeFab
 import com.billioapp.features.home.presentation.components.HomeHeader
 import com.billioapp.features.home.presentation.components.InfoCardSection
 import com.billioapp.features.home.presentation.components.TrackerSection
+import com.billioapp.features.home.presentation.components.AiPriceFinderSheet
 import org.koin.compose.koinInject
 import com.billioapp.core.navigation.ProfileRoute
+import com.billioapp.core.navigation.AiRoute
+import com.billioapp.core.navigation.AiPriceFinderRoute
 
 @Composable
 fun HomeScreen(
@@ -49,6 +52,7 @@ fun HomeScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scrollState = rememberScrollState()
     var isAddSheetOpen by remember { mutableStateOf(false) }
+    var isAiSheetOpen by remember { mutableStateOf(false) }
     // var isLimitSheetOpen kaldırıldı
 
     LaunchedEffect(Unit) {
@@ -82,6 +86,7 @@ fun HomeScreen(
                 items = HomeSampleModels.bottomNav,
                 onItemSelected = { item ->
                     when (item.id) {
+                        "tracker" -> navigator.push(AiRoute())
                         "profile" -> navigator.push(ProfileRoute())
                         // Future: handle other ids (home/tracker) if needed
                     }
@@ -133,7 +138,14 @@ fun HomeScreen(
             if (isAddSheetOpen) {
                 AddBillSheet(
                     onDismiss = { isAddSheetOpen = false },
-                    onSave = { data -> viewModel.onEvent(HomeEvent.OnSaveClicked(data)) }
+                    onSave = { data -> viewModel.onEvent(HomeEvent.OnSaveClicked(data)) },
+                    onAiPriceFinderRequested = { isAiSheetOpen = true }
+                )
+            }
+
+            if (isAiSheetOpen) {
+                AiPriceFinderSheet(
+                    onDismiss = { isAiSheetOpen = false }
                 )
             }
 

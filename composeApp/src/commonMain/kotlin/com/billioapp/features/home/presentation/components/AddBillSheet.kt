@@ -48,6 +48,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.billioapp.features.home.presentation.HomeColors
 import com.billioapp.features.home.presentation.HomeSpacing
+import org.jetbrains.compose.resources.painterResource
+import billioapp.composeapp.generated.resources.Res
+import billioapp.composeapp.generated.resources.ic_question
 
 enum class BillingCycle { DAILY, WEEKLY, MONTHLY, YEARLY }
 
@@ -64,7 +67,8 @@ data class AddBillData(
 @Composable
 fun AddBillSheet(
     onDismiss: () -> Unit,
-    onSave: (AddBillData) -> Unit = {}
+    onSave: (AddBillData) -> Unit = {},
+    onAiPriceFinderRequested: () -> Unit = {}
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -209,13 +213,25 @@ fun AddBillSheet(
                 shape = RoundedCornerShape(36.dp),
                 label = { Text("Aylık Tutar:", color = HomeColors.Primary) },
                 trailingIcon = {
-                    Box(
-                        modifier = Modifier
-                            .background(HomeColors.Card, RoundedCornerShape(12.dp))
-                            .padding(horizontal = 8.dp, vertical = 4.dp),
-                        contentAlignment = Alignment.Center
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Text(text = "TL", color = HomeColors.Primary, fontSize = 14.sp)
+                        Box(
+                            modifier = Modifier
+                                .background(HomeColors.Card, RoundedCornerShape(12.dp))
+                                .padding(horizontal = 8.dp, vertical = 4.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = "TL", color = HomeColors.Primary, fontSize = 14.sp)
+                        }
+                        androidx.compose.foundation.Image(
+                            painter = painterResource(Res.drawable.ic_question),
+                            contentDescription = "AI Fiyat Bulucu",
+                            modifier = Modifier
+                                .size(20.dp)
+                                .clickable { onAiPriceFinderRequested() }
+                        )
                     }
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
