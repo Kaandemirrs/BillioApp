@@ -45,6 +45,9 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.billioapp.core.theme.getBalooFontFamily
+import com.billioapp.core.navigation.HomeRoute
+import com.billioapp.core.navigation.AiRoute
+import com.billioapp.core.navigation.ProfileRoute
 import com.billioapp.features.home.presentation.HomeColors
 import com.billioapp.features.home.presentation.HomeSpacing
 import com.billioapp.features.home.presentation.HomeSampleModels
@@ -80,10 +83,12 @@ fun ProfileScreen(
         bottomBar = {
             BottomNavBar(
                 items = HomeSampleModels.bottomNav,
+                selectedItemId = "profile",
                 onItemSelected = { item ->
                     when (item.id) {
-                        "home" -> runCatching { navigator.pop() }
-                        // Future: handle other ids (tracker/profile) if needed
+                        "home" -> navigator.replaceAll(HomeRoute())
+                        "tracker" -> navigator.replaceAll(AiRoute())
+                        "profile" -> navigator.replaceAll(ProfileRoute())
                     }
                 }
             )

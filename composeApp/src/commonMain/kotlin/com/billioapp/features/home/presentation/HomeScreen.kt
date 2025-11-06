@@ -14,6 +14,9 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,6 +42,7 @@ import com.billioapp.features.home.presentation.components.AiPriceFinderSheet
 import org.koin.compose.koinInject
 import com.billioapp.core.navigation.ProfileRoute
 import com.billioapp.core.navigation.AiRoute
+import com.billioapp.core.navigation.HomeRoute
 import com.billioapp.core.navigation.AiPriceFinderRoute
 
 @Composable
@@ -53,6 +57,8 @@ fun HomeScreen(
     val scrollState = rememberScrollState()
     var isAddSheetOpen by remember { mutableStateOf(false) }
     var isAiSheetOpen by remember { mutableStateOf(false) }
+    var isSuggestionDialogOpen by remember { mutableStateOf(false) }
+    var suggestionText by remember { mutableStateOf<String?>(null) }
     // var isLimitSheetOpen kaldırıldı
 
     LaunchedEffect(Unit) {
@@ -66,6 +72,10 @@ fun HomeScreen(
                 is HomeEffect.ShowError -> snackbarHostState.showSnackbar(effect.message)
                 HomeEffect.SubscriptionAddedSuccessfully -> snackbarHostState.showSnackbar("Abonelik eklendi")
                 HomeEffect.SubscriptionDeletedSuccessfully -> snackbarHostState.showSnackbar("Abonelik silindi")
+                is HomeEffect.ShowAiPriceSuggestion -> {
+                    suggestionText = effect.suggestion.priceAnalysisText ?: "Öneri bulunamadı"
+                    isSuggestionDialogOpen = true
+                }
             }
         }
     }
@@ -84,11 +94,12 @@ fun HomeScreen(
         bottomBar = {
             BottomNavBar(
                 items = HomeSampleModels.bottomNav,
+                selectedItemId = "home",
                 onItemSelected = { item ->
                     when (item.id) {
-                        "tracker" -> navigator.push(AiRoute())
-                        "profile" -> navigator.push(ProfileRoute())
-                        // Future: handle other ids (home/tracker) if needed
+                        "home" -> navigator.replaceAll(HomeRoute())
+                        "tracker" -> navigator.replaceAll(AiRoute())
+                        "profile" -> navigator.replaceAll(ProfileRoute())
                     }
                 }
             )
@@ -145,7 +156,21 @@ fun HomeScreen(
 
             if (isAiSheetOpen) {
                 AiPriceFinderSheet(
-                    onDismiss = { isAiSheetOpen = false }
+                    onDismiss = { isAiSheetOpen = false },
+                    viewModel = viewModel
+                )
+            }
+
+            if (isSuggestionDialogOpen) {
+                AlertDialog(
+                    onDismissRequest = { isSuggestionDialogOpen = false },
+                    confirmButton = {
+                        Button(onClick = { isSuggestionDialogOpen = false }) {
+                            Text("Kapat")
+                        }
+                    },
+                    title = { Text(text = "AI Fiyat Önerisi") },
+                    text = { Text(text = suggestionText ?: "") }
                 )
             }
 

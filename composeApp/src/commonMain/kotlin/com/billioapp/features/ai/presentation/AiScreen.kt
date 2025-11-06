@@ -38,6 +38,8 @@ import com.billioapp.features.home.presentation.components.BottomNavBar
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.billioapp.core.navigation.ProfileRoute
+import com.billioapp.core.navigation.HomeRoute
+import com.billioapp.core.navigation.AiRoute
 
 @Composable
 fun AiScreen() {
@@ -47,10 +49,12 @@ fun AiScreen() {
         bottomBar = {
             BottomNavBar(
                 items = HomeSampleModels.bottomNav,
+                selectedItemId = "tracker",
                 onItemSelected = { item ->
                     when (item.id) {
-                        "profile" -> navigator.push(ProfileRoute())
-                        // Diğerleri mevcut davranışı korur
+                        "home" -> navigator.replaceAll(HomeRoute())
+                        "tracker" -> navigator.replaceAll(AiRoute())
+                        "profile" -> navigator.replaceAll(ProfileRoute())
                     }
                 }
             )

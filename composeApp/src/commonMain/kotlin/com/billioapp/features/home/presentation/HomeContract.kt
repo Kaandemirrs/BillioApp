@@ -26,6 +26,7 @@ sealed class HomeEvent : UiEvent {
     data class UpdateMonthlyLimit(val amount: Double) : HomeEvent()
     data class OnSaveClicked(val data: com.billioapp.features.home.presentation.components.AddBillData) : HomeEvent()
     data class OnDeleteClicked(val id: String) : HomeEvent()
+    data class OnAiPriceSuggestClicked(val serviceName: String) : HomeEvent()
 }
 
 sealed class HomeEffect : UiEffect {
@@ -33,4 +34,5 @@ sealed class HomeEffect : UiEffect {
     data class ShowError(val message: String) : HomeEffect()
     object SubscriptionAddedSuccessfully : HomeEffect()
     object SubscriptionDeletedSuccessfully : HomeEffect()
+    data class ShowAiPriceSuggestion(val suggestion: com.billioapp.domain.model.ai.AiPriceSuggestion) : HomeEffect()
 }

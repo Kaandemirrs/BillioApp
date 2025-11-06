@@ -9,6 +9,7 @@ import com.billioapp.domain.usecase.home.UpdateMonthlyLimitUseCase
 import com.billioapp.domain.usecase.subscriptions.GetSubscriptionsUseCase
 import com.billioapp.domain.usecase.subscriptions.AddSubscriptionUseCase
 import com.billioapp.domain.usecase.subscriptions.DeleteSubscriptionUseCase
+import com.billioapp.domain.usecase.ai.GetAiPriceSuggestionUseCase
 import com.billioapp.domain.util.Result
 import com.billioapp.domain.model.home.MonthlyLimit
 import com.billioapp.domain.model.home.CategorySpend
@@ -31,7 +32,8 @@ class HomeViewModel(
     private val getSubscriptionsUseCase: GetSubscriptionsUseCase,
     private val addSubscriptionUseCase: AddSubscriptionUseCase,
     private val deleteSubscriptionUseCase: DeleteSubscriptionUseCase,
-    private val logoutUseCase: LogoutUseCase
+    private val logoutUseCase: LogoutUseCase,
+    private val getAiPriceSuggestionUseCase: GetAiPriceSuggestionUseCase
 ) : BaseViewModel<HomeState, HomeEvent, HomeEffect>(
     initialState = HomeState()
 ) {
@@ -43,6 +45,7 @@ class HomeViewModel(
             is HomeEvent.UpdateMonthlyLimit -> updateMonthlyLimit(event.amount)
             is HomeEvent.OnSaveClicked -> onSaveClicked(event.data)
             is HomeEvent.OnDeleteClicked -> onDeleteClicked(event.id)
+            is HomeEvent.OnAiPriceSuggestClicked -> onAiPriceSuggestClicked(event.serviceName)
         }
     }
 
@@ -168,6 +171,21 @@ class HomeViewModel(
                     val errorMessage = summaryResult.message.ifBlank { "Veriler yüklenirken bir hata oluştu" }
                     setState(currentState.copy(isLoading = false, error = errorMessage))
                     setEffect(HomeEffect.ShowError(errorMessage))
+                }
+            }
+        }
+    }
+
+    private fun onAiPriceSuggestClicked(serviceName: String) {
+        viewModelScope.launch {
+            when (val result = getAiPriceSuggestionUseCase(serviceName)) {
+                is Result.Success -> {
+                    setEffect(HomeEffect.ShowAiPriceSuggestion(result.data))
+                }
+                is Result.Error -> {
+                    val msg = result.message.ifBlank { "Fiyat önerisi alınamadı" }
+                    Napier.e(tag = "HomeViewModel", message = "AI fiyat önerisi hata: $msg", throwable = result.throwable)
+                    setEffect(HomeEffect.ShowError(msg))
                 }
             }
         }

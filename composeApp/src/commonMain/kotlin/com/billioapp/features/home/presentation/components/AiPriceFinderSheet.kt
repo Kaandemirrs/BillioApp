@@ -40,7 +40,8 @@ import billioapp.composeapp.generated.resources.ampl
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AiPriceFinderSheet(
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    viewModel: com.billioapp.features.home.presentation.HomeViewModel
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     ModalBottomSheet(
@@ -94,7 +95,7 @@ fun AiPriceFinderSheet(
                 }
 
                 Button(
-                    onClick = { /* TODO: analiz işlemi */ },
+                    onClick = { viewModel.onEvent(com.billioapp.features.home.presentation.HomeEvent.OnAiPriceSuggestClicked(subscriptionName)) },
                     colors = ButtonDefaults.buttonColors(containerColor = HomeColors.Primary)
                 ) {
                     Text(text = "Analiz Et", color = Color.White)

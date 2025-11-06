@@ -25,9 +25,11 @@ import org.jetbrains.compose.resources.painterResource
 fun BottomNavBar(
     items: List<BottomNavItemModel>,
     modifier: Modifier = Modifier,
+    selectedItemId: String? = null,
     onItemSelected: (BottomNavItemModel) -> Unit = {}
 ) {
-    var selectedItemId by remember(items) { mutableStateOf(items.firstOrNull()?.id) }
+    var internalSelectedItemId by remember(items) { mutableStateOf(items.firstOrNull()?.id) }
+    val effectiveSelectedId = selectedItemId ?: internalSelectedItemId
 
     NavigationBar(
         modifier = modifier.height(60.dp),
@@ -41,9 +43,11 @@ fun BottomNavBar(
                 else -> 28.dp
             }
             NavigationBarItem(
-                selected = item.id == selectedItemId,
+                selected = item.id == effectiveSelectedId,
                 onClick = {
-                    selectedItemId = item.id
+                    if (selectedItemId == null) {
+                        internalSelectedItemId = item.id
+                    }
                     onItemSelected(item)
                 },
                 modifier = Modifier.height(60.dp),

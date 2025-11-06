@@ -40,9 +40,12 @@ import com.billioapp.features.home.presentation.HomeSpacing
 import com.billioapp.features.home.presentation.HomeSampleModels
 import com.billioapp.features.home.presentation.components.BottomNavBar
 import org.jetbrains.compose.resources.painterResource
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 
 @Composable
 fun AiPriceFinderScreen() {
+    val navigator = LocalNavigator.currentOrThrow
     var subscriptionName by remember { mutableStateOf("") }
     var aiSuggestion by remember { mutableStateOf("") }
 
@@ -51,7 +54,14 @@ fun AiPriceFinderScreen() {
         bottomBar = {
             BottomNavBar(
                 items = HomeSampleModels.bottomNav,
-                onItemSelected = { /* keep default behavior on this page */ }
+                selectedItemId = "tracker",
+                onItemSelected = { item ->
+                    when (item.id) {
+                        "home" -> navigator.replaceAll(com.billioapp.core.navigation.HomeRoute())
+                        "tracker" -> navigator.replaceAll(com.billioapp.core.navigation.AiRoute())
+                        "profile" -> navigator.replaceAll(com.billioapp.core.navigation.ProfileRoute())
+                    }
+                }
             )
         }
     ) { paddingValues ->

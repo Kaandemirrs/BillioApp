@@ -20,6 +20,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,20 +39,43 @@ import com.billioapp.features.home.presentation.components.BottomNavBar
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.billioapp.core.navigation.ProfileRoute
+import com.billioapp.core.navigation.HomeRoute
+import com.billioapp.core.navigation.AiRoute
+import org.koin.compose.koinInject
+import androidx.compose.runtime.collectAsState
+import com.billioapp.features.ai.presentation.AiViewEvent
+import com.billioapp.features.ai.presentation.AiViewModel
+import com.billioapp.features.ai.presentation.AiViewEffect
 
 @Composable
 fun AiAnalysisScreen() {
     val navigator = LocalNavigator.currentOrThrow
     val scrollState = rememberScrollState()
+    val viewModel: AiViewModel = koinInject()
+    val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(viewModel) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is AiViewEffect.ShowError -> {
+                    // TODO: connect to a SnackbarHost if available
+                    println("AI ERROR: ${effect.message}")
+                }
+            }
+        }
+    }
 
     Scaffold(
         containerColor = HomeColors.Background,
         bottomBar = {
             BottomNavBar(
                 items = HomeSampleModels.bottomNav,
+                selectedItemId = "tracker",
                 onItemSelected = { item ->
                     when (item.id) {
-                        "profile" -> navigator.push(ProfileRoute())
+                        "home" -> navigator.replaceAll(HomeRoute())
+                        "tracker" -> navigator.replaceAll(AiRoute())
+                        "profile" -> navigator.replaceAll(ProfileRoute())
                     }
                 }
             )
@@ -104,10 +129,7 @@ fun AiAnalysisScreen() {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = "Merhaba! Aboneliklerinizi gözden geçirdim ve size özel 3 tasarruf önerisi hazırladım:\n\n" +
-                            "1. Netflix indirimlerini değerlendirin: 149.99 TL’lik aboneliğinizde %90 indirim yakalarsanız aylık ~135 TL tasarruf edebilirsiniz.\n\n" +
-                            "2. Amazon mobil uygulama indirimini kontrol edin: İlk alışverişe özel kampanyalarla tek seferlik tasarruf sağlayabilirsiniz.\n\n" +
-                            "3. Tefal indiriminden yararlanın: Maximum karta özel %25 indirimle yüksek fiyatlı ürünlerde anlamlı tasarruf yakalayabilirsiniz.",
+                        text = state.analysis?.analysisText ?: "Analiz sonucu burada görünecek",
                         color = HomeColors.TextPrimary,
                         fontSize = 16.sp,
                         fontFamily = getBalooFontFamily(),
@@ -120,7 +142,7 @@ fun AiAnalysisScreen() {
 
             // Smaller re-analyze button
             Button(
-                onClick = { /* TODO: trigger re-analysis */ },
+                onClick = { viewModel.onEvent(AiViewEvent.OnAnalyzeClicked) },
                 shape = RoundedCornerShape(36.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF4CE2D5),
