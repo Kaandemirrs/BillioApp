@@ -21,8 +21,14 @@ class AiMapper {
         )
     }
 
-    private fun formatPrice(value: Double): String =
-        kotlin.runCatching { String.format("%.2f", value) }.getOrElse { value.toString() }
+    private fun formatPrice(value: Double): String {
+        // KMP uyumlu iki ondalık formatlama: %.2f yerine manuel biçimleme
+        // Yuvarlama: en yakın iki ondalık basamağa
+        val scaled = kotlin.math.round(value * 100.0).toLong()
+        val whole = scaled / 100
+        val fraction = kotlin.math.abs((scaled % 100).toInt())
+        return "$whole.${fraction.toString().padStart(2, '0')}"
+    }
 
     fun mapAnalysis(dto: AnalyzeSubscriptionsResponseDto): AiAnalysisReport = AiAnalysisReport(
         analysisText = dto.analysisText,

@@ -61,7 +61,8 @@ kotlin {
         val iosMain by creating {
 
             dependencies {
-                implementation(libs.ktor.client.cio)
+                // iOS için TLS desteği: Darwin motorunu kullan
+                implementation(libs.ktor.client.darwin)
                 implementation(libs.sqldelight.native.driver)
 
             }
