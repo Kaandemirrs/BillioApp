@@ -5,6 +5,7 @@ import com.billioapp.core.mvi.BaseViewModel
 import com.billioapp.domain.usecase.ai.GetAiAnalysisUseCase
 import com.billioapp.domain.usecase.subscriptions.GetSubscriptionsUseCase
 import com.billioapp.domain.util.Result
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.launch
 
 class AiViewModel(
@@ -34,6 +35,8 @@ class AiViewModel(
                         is Result.Error -> {
                             val msg = aiResult.message.ifBlank { "Analiz başarısız" }
                             setState(currentState.copy(isLoading = false, error = msg))
+                            Napier.e(tag = "AiViewModel", message = "Analiz BAŞARISIZ: ${aiResult.message}", throwable = aiResult.throwable)
+                            println("AiViewModel ERROR: Analiz BAŞARISIZ: ${aiResult.throwable?.message}")
                             setEffect(AiViewEffect.ShowError(msg))
                         }
                     }

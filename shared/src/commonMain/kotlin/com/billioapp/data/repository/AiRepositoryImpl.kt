@@ -44,6 +44,14 @@ class AiRepositoryImpl(
                 category = s.category,
                 isActive = s.isActive,
                 color = s.color,
+                // Domain Subscription artık bu alanları taşıyor; gerçek değerleri gönderiyoruz.
+                billingCycle = s.billing_cycle,
+                billingDay = s.billing_day,
+                startDate = s.start_date,
+                nextPaymentDate = s.next_payment_date,
+                logoUrl = s.logo_url,
+                createdAt = s.created_at,
+                updatedAt = s.updated_at,
                 predefinedBills = s.predefinedBills?.let { pb ->
                     PredefinedBillDto(
                         id = pb.id,

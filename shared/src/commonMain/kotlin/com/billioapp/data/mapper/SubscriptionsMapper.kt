@@ -35,6 +35,13 @@ class SubscriptionsMapper {
                 currency = predefinedDto.currency,
                 primaryColor = predefinedDto.primaryColor
             )
-        }
+        },
+        billing_cycle = s.billingCycle,
+        billing_day = s.billingDay,
+        start_date = s.startDate,
+        next_payment_date = s.nextPaymentDate,
+        logo_url = s.logoUrl,
+        created_at = s.createdAt,
+        updated_at = s.updatedAt
     )
 }

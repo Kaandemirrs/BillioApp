@@ -8,7 +8,15 @@ data class Subscription(
     val category: String,
     val isActive: Boolean,
     val color: String? = null,
-    val predefinedBills: PredefinedBill? = null
+    val predefinedBills: PredefinedBill? = null,
+    // AI analiz ve listeleme yanıtlarında gelen ek alanlar
+    val billing_cycle: String? = null,
+    val billing_day: Int? = null,
+    val start_date: String? = null,
+    val next_payment_date: String? = null,
+    val logo_url: String? = null,
+    val created_at: String? = null,
+    val updated_at: String? = null
 )
 
 data class PredefinedBill(

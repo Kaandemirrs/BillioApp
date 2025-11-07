@@ -19,7 +19,15 @@ data class SubscriptionDto(
     @SerialName("category") val category: String? = null,
     @SerialName("is_active") val isActive: Boolean = true,
     @SerialName("color") val color: String? = null,
-    @SerialName("predefined_bills") val predefinedBills: PredefinedBillDto? = null
+    @SerialName("predefined_bills") val predefinedBills: PredefinedBillDto? = null,
+    // Zorunlu alanlar (AI analiz isteği için)
+    @SerialName("billing_cycle") val billingCycle: String? = null,
+    @SerialName("billing_day") val billingDay: Int? = null,
+    @SerialName("start_date") val startDate: String? = null,
+    @SerialName("next_payment_date") val nextPaymentDate: String? = null,
+    @SerialName("logo_url") val logoUrl: String? = null,
+    @SerialName("created_at") val createdAt: String? = null,
+    @SerialName("updated_at") val updatedAt: String? = null
 )
 
 @Serializable

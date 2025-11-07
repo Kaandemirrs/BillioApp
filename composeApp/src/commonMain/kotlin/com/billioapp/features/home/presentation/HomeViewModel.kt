@@ -184,7 +184,8 @@ class HomeViewModel(
                 }
                 is Result.Error -> {
                     val msg = result.message.ifBlank { "Fiyat önerisi alınamadı" }
-                    Napier.e(tag = "HomeViewModel", message = "AI fiyat önerisi hata: $msg", throwable = result.throwable)
+                    Napier.e(tag = "HomeViewModel", message = "AI Fiyat Önerisi BAŞARISIZ: ${result.message}", throwable = result.throwable)
+                    println("HomeViewModel ERROR (AI Fiyat): ${result.throwable?.message}")
                     setEffect(HomeEffect.ShowError(msg))
                 }
             }
