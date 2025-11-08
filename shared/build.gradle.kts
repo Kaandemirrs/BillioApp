@@ -35,8 +35,13 @@ kotlin {
                 implementation(libs.ktor.client.logging)
                 // Kotlinx Serialization
                 implementation(libs.kotlinx.serialization.json)
+                // Kotlinx DateTime (explicit)
+                implementation(libs.kotlinx.datetime)
                 // Koin DI (common)
                 implementation(libs.koin.core)
+                // Lottie (Compose Multiplatform) - Compottie
+                implementation(libs.compottie)
+                implementation(libs.compottie.resources)
             }
         }
         val commonTest by getting {

@@ -25,16 +25,19 @@ import billioapp.composeapp.generated.resources.onboarding_illustration
 import com.billioapp.features.home.presentation.HomeColors
 import com.billioapp.features.home.presentation.HomeSpacing
 import org.jetbrains.compose.resources.painterResource
-import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-
+import com.billioapp.util.currentEpochMillis
+import kotlin.time.ExperimentalTime
+ 
+@OptIn(ExperimentalTime::class)
 @Composable
 fun HomeHeader(
     modifier: Modifier = Modifier,
     userName: String = "Kaan"
 ) {
-    val dateText = Clock.System.now()
+    val dateText = Instant.fromEpochMilliseconds(currentEpochMillis())
         .toLocalDateTime(TimeZone.currentSystemDefault())
         .date.let { d -> "${d.dayOfMonth.toString().padStart(2, '0')}/${d.monthNumber.toString().padStart(2, '0')}/${d.year}" }
 

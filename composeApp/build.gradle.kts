@@ -73,6 +73,10 @@ kotlin {
             implementation(libs.firebase.auth.gitlive)
             implementation(libs.firebase.firestore.gitlive)
 
+            // Lottie (Compose Multiplatform) - Compottie
+            implementation(libs.compottie)
+            implementation(libs.compottie.resources)
+
         }
         androidMain.dependencies {
             implementation(compose.preview)

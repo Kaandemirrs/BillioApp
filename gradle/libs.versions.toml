@@ -24,6 +24,7 @@ voyager = "1.0.0"
 firebase-bom = "34.3.0"
 firebase-gitlive = "2.1.0"
 google-services = "4.4.3"
+compottie = "2.0.2"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -81,6 +82,10 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 firebase-common-android = { module = "com.google.firebase:firebase-common-ktx" }
 firebase-auth-android = { module = "com.google.firebase:firebase-auth-ktx" }
 firebase-firestore-android = { module = "com.google.firebase:firebase-firestore-ktx" }
+
+# Lottie (Compose Multiplatform) via Compottie
+compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
+compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottie" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

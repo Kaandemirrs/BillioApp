@@ -29,6 +29,14 @@ fun OnboardingScreen(
     BillioAppTheme {
         val state by viewModel.state.collectAsStateWithLifecycle()
         val pagerState = rememberPagerState(pageCount = { state.totalPages })
+        // Progress over pages 1..3 (welcome = 0%)
+        val progress by remember {
+            derivedStateOf {
+                val trackedPages = 3f
+                val page = pagerState.currentPage
+                if (page <= 0) 0f else (page / trackedPages).coerceIn(0f, 1f)
+            }
+        }
 
         // Handle effects
         LaunchedEffect(viewModel) {
@@ -63,6 +71,18 @@ fun OnboardingScreen(
                 .fillMaxSize()
                 .background(Color(0xFFBDE9DE))
         ) {
+            // Top progress bar bound to pager state
+            LinearProgressIndicator(
+                progress = { progress },
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(top = 16.dp)
+                    .padding(horizontal = 32.dp)
+                    .fillMaxWidth(),
+                color = MaterialTheme.colorScheme.primary,
+                trackColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier.fillMaxSize()

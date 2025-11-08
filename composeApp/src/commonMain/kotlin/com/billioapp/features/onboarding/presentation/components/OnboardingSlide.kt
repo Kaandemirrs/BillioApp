@@ -35,6 +35,11 @@ import billioapp.composeapp.generated.resources.onboard4
 import com.billioapp.features.onboarding.presentation.OnboardingSlideData
 import com.billioapp.core.theme.getBalooFontFamily
 import kotlinx.coroutines.delay
+import io.github.alexzhirkevich.compottie.Compottie
+import io.github.alexzhirkevich.compottie.LottieCompositionSpec
+import io.github.alexzhirkevich.compottie.rememberLottieComposition
+import io.github.alexzhirkevich.compottie.rememberLottiePainter
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @Composable
 fun OnboardingSlide(
@@ -67,6 +72,7 @@ fun OnboardingSlide(
 }
 
 @Composable
+@OptIn(ExperimentalResourceApi::class)
 private fun FirstSlideContent(
     slide: OnboardingSlideData,
     onGetStartedClick: () -> Unit,
@@ -148,68 +154,131 @@ private fun FirstSlideContent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 80.dp, bottom = 200.dp),
+                .padding(top = 80.dp, bottom = 60.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
-            // SVG Illustration with animation
-            Image(
-                painter = painterResource(Res.drawable.onboarding_illustration),
-                contentDescription = null,
+            // Üst kısım: Lottie solda, ikon sağda – modern, yan yana düzen
+            Row(
                 modifier = Modifier
-                    .size(290.dp, 271.dp)
-                    .padding(bottom = 48.dp)
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp)
+                    .padding(bottom = 32.dp)
                     .scale(imageScale)
-                    .alpha(imageAlpha)
-            )
-            
-            // Description
+                    .alpha(imageAlpha),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Sol: Lottie animasyonu (para yağmuru)
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .weight(1f)
+                        .aspectRatio(1f)
+                        .clip(RoundedCornerShape(24.dp))
+                        .background(Color(0x33FFFFFF))
+                        .padding(12.dp)
+                ) {
+                    val composition by rememberLottieComposition {
+                        LottieCompositionSpec.JsonString(
+                            Res.readBytes("drawable/kagitpara.json").decodeToString()
+                        )
+                    }
+                    val lottiePainter = rememberLottiePainter(
+                        composition = composition,
+                        iterations = Compottie.IterateForever
+                    )
+                    Image(
+                        painter = lottiePainter,
+                        contentDescription = "Money rain",
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
+
+                // Sağ: Domuzcuk ikon – küçültülmüş ve sağa hizalı
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .weight(1f)
+                        .aspectRatio(1f)
+                        .clip(RoundedCornerShape(24.dp))
+                        .background(Color(0x33FFFFFF))
+                        .padding(12.dp)
+                ) {
+                    Image(
+                        painter = painterResource(Res.drawable.onboarding_illustration),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth(0.8f)
+                            .align(Alignment.Center)
+                    )
+                }
+            }
+
+            // BILLIO başlığı – iki animasyonun altında
             Text(
-                text = slide.description,
-                fontSize = 16.sp,
+                text = slide.title,
+                fontSize = 64.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = getBalooFontFamily(),
                 color = Color.White,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 32.dp)
+                modifier = Modifier
+                    .padding(bottom = 16.dp)
+                    .scale(logoScale)
+                    .alpha(logoAlpha)
             )
+
+            // Get Started butonu – başlığın altında
+            Button(
+                onClick = onGetStartedClick,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Black
+                ),
+                shape = RoundedCornerShape(32.dp),
+                modifier = Modifier
+                    .width(200.dp)
+                    .height(56.dp)
+                    .scale(buttonScale)
+                    .alpha(buttonAlpha)
+            ) {
+                Text(
+                    text = "Get Started",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+
+            // Alt orta: Cüzdan animasyonu – aynı kart stilinde, ortalanmış
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 24.dp)
+                    .clip(RoundedCornerShape(24.dp))
+                    .background(Color(0x33FFFFFF))
+                    .padding(12.dp)
+                    .height(140.dp)
+            ) {
+                val walletComposition by rememberLottieComposition {
+                    LottieCompositionSpec.JsonString(
+                        Res.readBytes("drawable/cuzdanli.json").decodeToString()
+                    )
+                }
+                val walletPainter = rememberLottiePainter(
+                    composition = walletComposition,
+                    iterations = Compottie.IterateForever
+                )
+                Image(
+                    painter = walletPainter,
+                    contentDescription = "Wallet animation",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
-        
-        // Get Started Button - centered with animation
-        Button(
-            onClick = onGetStartedClick,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color.Black
-            ),
-            shape = RoundedCornerShape(32.dp),
-            modifier = Modifier
-                .align(Alignment.Center)
-                .offset(y = 80.dp)
-                .width(200.dp)
-                .height(56.dp)
-                .scale(buttonScale)
-                .alpha(buttonAlpha)
-        ) {
-            Text(
-                text = "Get Started",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
-            )
-        }
-        
-        // Title at bottom with animation
-        Text(
-            text = slide.title,
-            fontSize = 64.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = getBalooFontFamily(),
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 60.dp)
-                .scale(logoScale)
-                .alpha(logoAlpha)
-        )
+
     }
 }
 
