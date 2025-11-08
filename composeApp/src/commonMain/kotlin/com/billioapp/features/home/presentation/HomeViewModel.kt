@@ -51,12 +51,15 @@ class HomeViewModel(
 
     private fun loadHomeData() {
         if (currentState.isLoading) return
-        // Subscriptions çağrısını paralel başlat
         viewModelScope.launch {
-            val result = getSubscriptionsUseCase(limit = 20, page = 1, isActive = true)
-            when (result) {
+            println("HomeViewModel: Starting to load subscriptions...")
+            setState(currentState.copy(isLoading = true, error = null))
+
+            when (val result = getSubscriptionsUseCase(limit = 20, page = 1, isActive = true)) {
                 is Result.Success -> {
                     val subscriptions = result.data.subscriptions
+
+                    // Build bill list UI models
                     val billsList = subscriptions.map { s ->
                         val colorStr = s.predefinedBills?.primaryColor ?: s.color
                         val primaryHex = parseColorHexLong(colorStr) ?: 0xFF607D8BL
@@ -70,18 +73,16 @@ class HomeViewModel(
                             iconRes = Res.drawable.ic_logo
                         )
                     }
+
                     Napier.d(tag = "HomeViewModel", message = "UseCase'den ${subscriptions.size} adet işlenmiş fatura geldi")
 
-                    // Tracker ve özet verilerini client-side hesapla
-                    val grouped = subscriptions.groupBy { it.category }
-                    val trackerCategories = grouped.map { (categoryName, subs) ->
-                        val first = subs.firstOrNull()
-                        val colorStr = first?.predefinedBills?.primaryColor ?: first?.color
+                    // Tracker slices: each subscription becomes a slice
+                    val trackerCategories = subscriptions.map { s ->
+                        val colorStr = s.predefinedBills?.primaryColor ?: s.color
                         val colorHexLong = parseColorHexLong(colorStr) ?: 0xFF607D8BL
-                        val amountSum = subs.sumOf { it.amount }
                         TrackerCategory(
-                            name = categoryName,
-                            amount = amountSum,
+                            name = s.name,
+                            amount = s.amount,
                             colorHex = colorHexLong
                         )
                     }
@@ -95,58 +96,8 @@ class HomeViewModel(
                         categories = trackerCategories
                     )
 
-                    val summaryCategories = trackerCategories.map { tc ->
-                        CategorySpend(name = tc.name, amount = tc.amount, colorHex = tc.colorHex)
-                    }
-                    val homeSummary = HomeSummary(
-                        totalAmount = totalAmount,
-                        currency = currency,
-                        categories = summaryCategories,
-                        monthlyLimit = currentState.monthlyLimit?.amount
-                    )
-
-                    setState(
-                        currentState.copy(
-                            bills = billsList,
-                            subscriptions = subscriptions,
-                            trackerModel = trackerModel,
-                            homeSummary = homeSummary,
-                            currency = currency
-                        )
-                    )
-                }
-                is Result.Error -> {
-                    val msg = result.message.ifBlank { "Abonelikler yüklenemedi" }
-                    println("HomeViewModel ERROR: Subscriptions loading failed: $msg")
-                    println("HomeViewModel ERROR: Error details: ${result.throwable?.message}")
-                    Napier.e(tag = "HomeViewModel", message = "Abonelikler yüklenemedi: $msg")
-                    setState(currentState.copy(isLoading = false))
-                }
-            }
-        }
-        viewModelScope.launch {
-            println("HomeViewModel: Starting to load home data...")
-            setState(currentState.copy(isLoading = true, error = null))
-            when (val summaryResult = getHomeSummaryUseCase()) {
-                is Result.Success -> {
-                    println("HomeViewModel: Home summary loaded successfully")
-                    val summary = summaryResult.data
-                    val tracker = TrackerModel(
-                        totalAmount = summary.totalAmount,
-                        currency = summary.currency,
-                        categories = summary.categories.map { cat ->
-                            TrackerCategory(
-                                name = cat.name,
-                                amount = cat.amount,
-                                colorHex = cat.colorHex ?: 0xFF607D8B
-                            )
-                        }
-                    )
-
-                    var monthlyLimitValue: MonthlyLimit? = summary.monthlyLimit?.let { amount ->
-                        MonthlyLimit(amount = amount, currency = summary.currency)
-                    }
-                    val currencyValue = summary.currency
+                    // Optionally fetch monthly limit if missing
+                    var monthlyLimitValue: MonthlyLimit? = currentState.monthlyLimit
                     if (monthlyLimitValue == null) {
                         when (val limitResult = getMonthlyLimitUseCase()) {
                             is Result.Success -> monthlyLimitValue = limitResult.data
@@ -158,19 +109,21 @@ class HomeViewModel(
                         currentState.copy(
                             isLoading = false,
                             error = null,
-                            homeSummary = summary,
-                            trackerModel = tracker,
-                            currency = currencyValue,
+                            bills = billsList,
+                            subscriptions = subscriptions,
+                            trackerModel = trackerModel,
+                            currency = currency,
                             monthlyLimit = monthlyLimitValue
                         )
                     )
                 }
                 is Result.Error -> {
-                    println("HomeViewModel ERROR: Home data loading failed: ${summaryResult.message}")
-                    println("HomeViewModel ERROR: Error details: ${summaryResult.throwable?.message}")
-                    val errorMessage = summaryResult.message.ifBlank { "Veriler yüklenirken bir hata oluştu" }
-                    setState(currentState.copy(isLoading = false, error = errorMessage))
-                    setEffect(HomeEffect.ShowError(errorMessage))
+                    val msg = result.message.ifBlank { "Abonelikler yüklenemedi" }
+                    println("HomeViewModel ERROR: Subscriptions loading failed: $msg")
+                    println("HomeViewModel ERROR: Error details: ${result.throwable?.message}")
+                    Napier.e(tag = "HomeViewModel", message = "Abonelikler yüklenemedi: $msg")
+                    setState(currentState.copy(isLoading = false, error = msg))
+                    setEffect(HomeEffect.ShowError(msg))
                 }
             }
         }

@@ -67,7 +67,7 @@ fun TrackerSection(
                     TrackerDonut(model = model)
                 }
                 Column(modifier = Modifier.weight(0.55f)) {
-                    RegularBillsList(categories = model.categories, subscriptions = subscriptions)
+                    RegularBillsList(subscriptions = subscriptions)
                 }
             }
         }
@@ -143,12 +143,14 @@ private fun TrackerDonut(model: TrackerModel) {
 
 @Composable
 private fun RegularBillsList(
-    categories: List<TrackerCategory>,
     subscriptions: List<Subscription> = emptyList()
 ) {
     val legendItems = buildList {
-        for (cat in categories) add(cat.name to Color(cat.colorHex))
-        for (subscription in subscriptions) add(subscription.name to generateSubscriptionColorForTracker(subscription.category ?: subscription.name))
+        for (subscription in subscriptions) {
+            val colorStr = subscription.predefinedBills?.primaryColor ?: subscription.color
+            val color = parseColorHexToColor(colorStr) ?: generateSubscriptionColorForTracker(subscription.name)
+            add(subscription.name to color)
+        }
     }
     val pages = if (legendItems.isEmpty()) emptyList() else legendItems.chunked(5)
 
@@ -244,4 +246,23 @@ private fun generateSubscriptionColorForTracker(input: String): Color {
     val hash = input.hashCode()
     val index = kotlin.math.abs(hash) % colors.size
     return colors[index]
+}
+
+// Parse a hex color like "#RRGGBB" or "#AARRGGBB" into Compose Color
+private fun parseColorHexToColor(hex: String?): Color? {
+    return try {
+        if (hex.isNullOrBlank()) return null
+        val s = hex.trim()
+        if (!s.startsWith("#")) return null
+        val h = s.drop(1)
+        val value = h.toLong(16)
+        val argb = when (h.length) {
+            6 -> 0xFF000000L or value
+            8 -> value
+            else -> return null
+        }
+        Color(argb)
+    } catch (e: Exception) {
+        null
+    }
 }
