@@ -34,6 +34,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import billioapp.composeapp.generated.resources.Res
 import billioapp.composeapp.generated.resources.ic_money
 import billioapp.composeapp.generated.resources.ic_add
+import billioapp.composeapp.generated.resources.bozukpara
 
 import com.billioapp.core.theme.getBalooFontFamily
 import com.billioapp.features.home.presentation.HomeColors
@@ -125,7 +126,7 @@ private fun TrackerDonut(model: TrackerModel) {
                     textAlign = TextAlign.Center
                 )
                 Image(
-                    painter = painterResource(Res.drawable.ic_money),
+                    painter = painterResource(Res.drawable.bozukpara),
                     contentDescription = null,
                     modifier = Modifier.size(28.dp)
                 )

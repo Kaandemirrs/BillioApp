@@ -51,6 +51,7 @@ import com.billioapp.features.home.presentation.HomeSpacing
 import org.jetbrains.compose.resources.painterResource
 import billioapp.composeapp.generated.resources.Res
 import billioapp.composeapp.generated.resources.ic_question
+import billioapp.composeapp.generated.resources.ampl
 
 enum class BillingCycle { DAILY, WEEKLY, MONTHLY, YEARLY }
 
@@ -204,19 +205,19 @@ fun AddBillSheet(
             // Aylık Tutar
             var selectedColor by remember { mutableStateOf<String?>(null) }
 
-            OutlinedTextField(
-                value = amount,
-                onValueChange = { amount = it.filter { ch -> ch.isDigit() || ch == '.' || ch == ',' } },
-                modifier = Modifier
-                    .fillMaxWidth(0.62f)
-                    .align(Alignment.CenterHorizontally),
-                shape = RoundedCornerShape(36.dp),
-                label = { Text("Aylık Tutar:", color = HomeColors.Primary) },
-                trailingIcon = {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                OutlinedTextField(
+                    value = amount,
+                    onValueChange = { amount = it.filter { ch -> ch.isDigit() || ch == '.' || ch == ',' } },
+                    modifier = Modifier
+                        .fillMaxWidth(0.62f),
+                    shape = RoundedCornerShape(36.dp),
+                    label = { Text("Aylık Tutar:", color = HomeColors.Primary) },
+                    trailingIcon = {
                         Box(
                             modifier = Modifier
                                 .background(HomeColors.Card, RoundedCornerShape(12.dp))
@@ -225,23 +226,26 @@ fun AddBillSheet(
                         ) {
                             Text(text = "TL", color = HomeColors.Primary, fontSize = 14.sp)
                         }
-                        androidx.compose.foundation.Image(
-                            painter = painterResource(Res.drawable.ic_question),
-                            contentDescription = "AI Fiyat Bulucu",
-                            modifier = Modifier
-                                .size(20.dp)
-                                .clickable { onAiPriceFinderRequested() }
-                        )
-                    }
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = HomeColors.Primary,
-                    unfocusedBorderColor = HomeColors.Primary,
-                    focusedLabelColor = HomeColors.Primary,
-                    cursorColor = HomeColors.Primary
+                    },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = HomeColors.Primary,
+                        unfocusedBorderColor = HomeColors.Primary,
+                        focusedLabelColor = HomeColors.Primary,
+                        cursorColor = HomeColors.Primary
+                    )
                 )
-            )
+
+                androidx.compose.foundation.Image(
+                    painter = painterResource(Res.drawable.ampl),
+                    contentDescription = "AI Fiyat Bulucu",
+                    modifier = Modifier
+                        .size(28.dp)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(HomeColors.Card)
+                        .clickable { onAiPriceFinderRequested() }
+                )
+            }
 
             // Döngü: kutu tasarımında 4 seçenek
 
