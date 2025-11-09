@@ -48,10 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.billioapp.features.home.presentation.HomeColors
 import com.billioapp.features.home.presentation.HomeSpacing
-import org.jetbrains.compose.resources.painterResource
-import billioapp.composeapp.generated.resources.Res
-import billioapp.composeapp.generated.resources.ic_question
-import billioapp.composeapp.generated.resources.ampl
+import androidx.compose.material.icons.filled.Search
 
 enum class BillingCycle { DAILY, WEEKLY, MONTHLY, YEARLY }
 
@@ -74,18 +71,23 @@ fun AddBillSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     var name by remember { mutableStateOf("") }
+    // Backend'e gönderilecek kategori anahtarı (ör. entertainment, utilities)
     var category by remember { mutableStateOf("") }
+    // UI'da gösterilecek etiket (Türkçe)
+    var categoryLabel by remember { mutableStateOf("") }
     var amount by remember { mutableStateOf("") }
     var paymentDay by remember { mutableStateOf("") }
     var cycle by remember { mutableStateOf(BillingCycle.MONTHLY) }
     var unknownPaymentDay by remember { mutableStateOf(false) }
     var categoryExpanded by remember { mutableStateOf(false) }
+    // bllio.pdf mimarisi: UI etiketleri → backend anahtarları
+    // Örnekler: Market → other, Medikal → health, Abonelikler → entertainment, Ulaşım → utilities
     val categoryOptions = listOf(
         "Eğlence" to "entertainment",
-        "Market" to "market",
-        "Ulaşım" to "transport",
-        "Medikal" to "medical",
-        "Abonelikler" to "subscriptions",
+        "Market" to "other",
+        "Ulaşım" to "utilities",
+        "Medikal" to "health",
+        "Abonelikler" to "entertainment",
         "Diğer" to "other"
     )
 
@@ -131,12 +133,15 @@ fun AddBillSheet(
                 expanded = categoryExpanded,
                 onExpandedChange = { categoryExpanded = !categoryExpanded }
             ) {
-                val displayValue = categoryOptions.firstOrNull { it.second == category }?.first ?: category
+                val displayValue = categoryOptions.firstOrNull { it.second == category }?.first ?: categoryLabel
                 OutlinedTextField(
                     value = displayValue,
                     onValueChange = { input ->
-                        // Serbest giriş: backend'e küçük harf ve kırpılmış metin gönderilecek
-                        category = input.trim().lowercase()
+                        // Serbest giriş: kullanıcı Türkçe etiket yazarsa, backend anahtarına map et
+                        val trimmed = input.trim()
+                        categoryLabel = trimmed
+                        val mapped = categoryOptions.firstOrNull { it.first.equals(trimmed, ignoreCase = true) }?.second
+                        category = mapped ?: "other"
                     },
                     modifier = Modifier
                         .fillMaxWidth(0.72f)
@@ -176,6 +181,8 @@ fun AddBillSheet(
                                             if (selected) HomeColors.Primary.copy(alpha = 0.08f) else Color.Transparent
                                         )
                                         .clickable {
+                                            // Dropdown'dan seçim: hem label hem backend anahtarı set edilir
+                                            categoryLabel = display
                                             category = code
                                             categoryExpanded = false
                                         }
@@ -236,15 +243,21 @@ fun AddBillSheet(
                     )
                 )
 
-                androidx.compose.foundation.Image(
-                    painter = painterResource(Res.drawable.ampl),
-                    contentDescription = "AI Fiyat Bulucu",
+                Box(
                     modifier = Modifier
                         .size(28.dp)
                         .clip(RoundedCornerShape(14.dp))
                         .background(HomeColors.Card)
-                        .clickable { onAiPriceFinderRequested() }
-                )
+                        .clickable { onAiPriceFinderRequested() },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = "AI Fiyat Bulucu",
+                        tint = HomeColors.Primary,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
             }
 
             // Döngü: kutu tasarımında 4 seçenek

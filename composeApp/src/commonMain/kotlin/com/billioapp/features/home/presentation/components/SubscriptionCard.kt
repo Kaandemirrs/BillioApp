@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import billioapp.composeapp.generated.resources.Res
-import billioapp.composeapp.generated.resources.ic_money
+import org.jetbrains.compose.resources.DrawableResource
 import com.billioapp.core.theme.getBalooFontFamily
 import com.billioapp.features.home.presentation.BillItemModel
 import com.billioapp.domain.model.subscriptions.Subscription
@@ -83,9 +83,9 @@ fun SubscriptionCard(
                     .padding(horizontal = 16.dp, vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Left icon
+                // Sol ikon: Material ikon (kategori tabanlı kaynaklar bu varyantta kullanılmıyor)
                 Icon(
-                    painter = painterResource(Res.drawable.ic_money),
+                    imageVector = androidx.compose.material.icons.Icons.Default.Edit,
                     contentDescription = null,
                     tint = onColor,
                     modifier = Modifier.size(width * 0.12f)
@@ -182,7 +182,7 @@ fun SubscriptionCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    painter = painterResource(Res.drawable.ic_money),
+                    painter = painterResource(bill.iconRes),
                     contentDescription = null,
                     tint = onColor,
                     modifier = Modifier.size(width * 0.12f)
@@ -252,6 +252,8 @@ private val amountShadow = Shadow(
     offset = Offset(1.5f, 1.5f),
     blurRadius = 2f
 )
+
+// Kategori ikon eşleme, BillItemModel varyantında HomeViewModel üzerinden sağlanır.
 
 private fun generateSubscriptionColor(input: String): Color {
     val colors = listOf(

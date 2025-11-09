@@ -15,8 +15,15 @@ import com.billioapp.domain.model.home.MonthlyLimit
 import com.billioapp.domain.model.home.CategorySpend
 import com.billioapp.domain.model.home.HomeSummary
 import com.billioapp.domain.model.subscriptions.AddSubscriptionRequest
+import org.jetbrains.compose.resources.DrawableResource
 import billioapp.composeapp.generated.resources.Res
 import billioapp.composeapp.generated.resources.ic_logo
+import billioapp.composeapp.generated.resources.eglence
+import billioapp.composeapp.generated.resources.ulasim
+import billioapp.composeapp.generated.resources.medikal
+import billioapp.composeapp.generated.resources.markett
+import billioapp.composeapp.generated.resources.abonelikler
+import billioapp.composeapp.generated.resources.diger
 import billioapp.composeapp.generated.resources.onboarding_illustration
 import billioapp.composeapp.generated.resources.ic_notification
 import billioapp.composeapp.generated.resources.ampl
@@ -74,7 +81,7 @@ class HomeViewModel(
                             leadingColorHex = 0xFFFFEB3B,
                             primaryColorHex = primaryHex,
                             trailingColorHex = 0xFFFF5252,
-                            iconRes = Res.drawable.ic_logo
+                            iconRes = iconResForCategory(s.category)
                         )
                     }
 
@@ -182,7 +189,7 @@ class HomeViewModel(
                         leadingColorHex = 0xFFFFEB3B,
                         primaryColorHex = newPrimaryHex,
                         trailingColorHex = 0xFFFF5252,
-                        iconRes = Res.drawable.ic_logo
+                        iconRes = iconResForCategory(sub.category)
                     )
                     val updatedBills = currentState.bills + newBill
 
@@ -244,7 +251,7 @@ class HomeViewModel(
                             leadingColorHex = 0xFFFFEB3B,
                             primaryColorHex = primaryHex,
                             trailingColorHex = 0xFFFF5252,
-                            iconRes = Res.drawable.ic_logo
+                            iconRes = iconResForCategory(s.category)
                         )
                     }
 
@@ -374,5 +381,17 @@ class HomeViewModel(
             )
         }
         setState(currentState.copy(infoCardState = newInfoCardState))
+    }
+
+    private fun iconResForCategory(category: String?): DrawableResource {
+        return when (category?.lowercase()) {
+            "entertainment" -> Res.drawable.eglence
+            "utilities", "transport" -> Res.drawable.ulasim
+            "health", "medical" -> Res.drawable.medikal
+            "market", "groceries" -> Res.drawable.markett
+            "subscriptions", "subscription" -> Res.drawable.abonelikler
+            "other" -> Res.drawable.diger
+            else -> Res.drawable.diger
+        }
     }
 }
