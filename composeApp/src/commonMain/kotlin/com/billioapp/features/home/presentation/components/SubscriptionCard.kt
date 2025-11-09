@@ -118,7 +118,9 @@ fun SubscriptionCard(
                         fontFamily = getBalooFontFamily(),
                         fontWeight = FontWeight.Bold,
                         fontSize = amountSize,
-                        color = onColor
+                        color = onColor,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
 
@@ -215,7 +217,9 @@ fun SubscriptionCard(
                         color = onColor,
                         style = MaterialTheme.typography.bodyLarge.copy(
                             shadow = amountShadow
-                        )
+                        ),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
 

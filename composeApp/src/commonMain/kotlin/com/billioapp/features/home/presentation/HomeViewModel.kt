@@ -17,12 +17,16 @@ import com.billioapp.domain.model.home.HomeSummary
 import com.billioapp.domain.model.subscriptions.AddSubscriptionRequest
 import billioapp.composeapp.generated.resources.Res
 import billioapp.composeapp.generated.resources.ic_logo
+import billioapp.composeapp.generated.resources.onboarding_illustration
+import billioapp.composeapp.generated.resources.ic_notification
+import billioapp.composeapp.generated.resources.ampl
 import io.github.aakira.napier.Napier
 
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 import com.billioapp.features.home.presentation.components.AddBillData
 import com.billioapp.features.home.presentation.components.BillingCycle
+import androidx.compose.ui.graphics.Color
 
 
 class HomeViewModel(
@@ -116,6 +120,9 @@ class HomeViewModel(
                             monthlyLimit = monthlyLimitValue
                         )
                     )
+
+                    // Update dynamic info card after data loads
+                    updateInfoCardState()
                 }
                 is Result.Error -> {
                     val msg = result.message.ifBlank { "Abonelikler yüklenemedi" }
@@ -205,6 +212,8 @@ class HomeViewModel(
                             trackerModel = trackerModel
                         )
                     )
+                    // Update dynamic info card after addition
+                    updateInfoCardState()
                     setEffect(HomeEffect.SubscriptionAddedSuccessfully)
                 }
                 is Result.Error -> {
@@ -264,6 +273,8 @@ class HomeViewModel(
                             error = null
                         )
                     )
+                    // Update dynamic info card after deletion
+                    updateInfoCardState()
                     setEffect(HomeEffect.SubscriptionDeletedSuccessfully)
                 }
                 is Result.Error -> {
@@ -326,5 +337,42 @@ class HomeViewModel(
                 }
             }
         }
+    }
+
+    // Dynamically updates info card based on subscriptions and tracker totals
+    private fun updateInfoCardState() {
+        val subscriptions = currentState.subscriptions
+        val totalAmount = currentState.trackerModel?.totalAmount ?: subscriptions.sumOf { it.amount }
+        val newInfoCardState = when {
+            // Empty state
+            subscriptions.isEmpty() -> InfoCardState(
+                text = "Billio'ya hoşgeldin! İlk faturanı ekle ve takibe başla.",
+                backgroundColor = Color(0xFFF0E68C),
+                iconRes = Res.drawable.onboarding_illustration,
+                isVisible = true
+            )
+            // High spend (AI teaser)
+            totalAmount > 2000.0 -> InfoCardState(
+                text = "Harcamaların 2000 TL'yi geçti! AI ile faturalarını analiz et ve tasarruf et.",
+                backgroundColor = Color(0xFFDDA0DD),
+                iconRes = Res.drawable.ampl,
+                isVisible = true
+            )
+            // Normal spend
+            totalAmount > 1000.0 -> InfoCardState(
+                text = "Her şey kontrol altında. Normal kullanıcılar ortalama 1000-2000 TL arası fatura ödüyor.",
+                backgroundColor = Color(0xFFADD8E6),
+                iconRes = Res.drawable.ic_notification,
+                isVisible = true
+            )
+            // Low spend or other
+            else -> InfoCardState(
+                text = "Harika gidiyorsun! Faturalarını takip etmek tasarrufun ilk adımıdır.",
+                backgroundColor = Color(0xFF90EE90),
+                iconRes = Res.drawable.ic_logo,
+                isVisible = true
+            )
+        }
+        setState(currentState.copy(infoCardState = newInfoCardState))
     }
 }

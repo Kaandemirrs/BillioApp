@@ -1,15 +1,24 @@
 package com.billioapp.features.home.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -26,7 +35,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import org.jetbrains.compose.resources.painterResource
+import billioapp.composeapp.generated.resources.Res
+import billioapp.composeapp.generated.resources.bilgicardicon
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
@@ -126,7 +140,10 @@ fun HomeScreen(
                     model = trackerModel,
                     subscriptions = state.subscriptions
                 )
-                InfoCardSection(model = HomeSampleModels.infoCard)
+                val info = state.infoCardState
+                if (info?.isVisible == true) {
+                    InfoHintCard(state = info, modifier = Modifier.padding(top = 8.dp))
+                }
                 BillListSection(
                     bills = state.bills,
                     modifier = Modifier.padding(top = 36.dp, bottom = 12.dp),
@@ -175,6 +192,49 @@ fun HomeScreen(
             }
 
             // MonthlyLimitSheet kaldırıldı
+        }
+    }
+}
+
+@Composable
+private fun InfoHintCard(state: InfoCardState, modifier: Modifier = Modifier) {
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        val cardWidth = maxWidth
+        val cardHeight = cardWidth * 0.2727f
+        val cornerRadius = 42.dp
+        val leftContentWidth = cardWidth * 0.2875f
+
+        Row(
+            modifier = Modifier
+                .height(cardHeight)
+                .clip(RoundedCornerShape(cornerRadius))
+                .background(state.backgroundColor)
+                .padding(horizontal = cardWidth * 0.028f),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .width(leftContentWidth)
+                    .fillMaxHeight()
+            ) {
+                Image(
+                    painter = painterResource(Res.drawable.bilgicardicon),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(leftContentWidth * 0.54f)
+                        .align(Alignment.CenterStart)
+                )
+            }
+
+            Text(
+                text = state.text,
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp,
+                color = Color.White,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = cardWidth * 0.01f)
+            )
         }
     }
 }

@@ -6,6 +6,8 @@ import com.billioapp.core.mvi.UiState
 import com.billioapp.domain.model.home.HomeSummary
 import com.billioapp.domain.model.home.MonthlyLimit
 import com.billioapp.domain.model.subscriptions.Subscription
+import androidx.compose.ui.graphics.Color
+import org.jetbrains.compose.resources.DrawableResource
 
 data class HomeState(
     val isLoggingOut: Boolean = false,
@@ -17,7 +19,8 @@ data class HomeState(
     val bills: List<BillItemModel> = emptyList(),
     val subscriptions: List<Subscription> = emptyList(),
     val currency: String = "TL",
-    val isUpdatingLimit: Boolean = false
+    val isUpdatingLimit: Boolean = false,
+    val infoCardState: InfoCardState? = null
 ) : UiState
 
 sealed class HomeEvent : UiEvent {
@@ -36,3 +39,10 @@ sealed class HomeEffect : UiEffect {
     object SubscriptionDeletedSuccessfully : HomeEffect()
     data class ShowAiPriceSuggestion(val suggestion: com.billioapp.domain.model.ai.AiPriceSuggestion) : HomeEffect()
 }
+
+data class InfoCardState(
+    val text: String,
+    val backgroundColor: Color,
+    val iconRes: DrawableResource,
+    val isVisible: Boolean = true
+)
