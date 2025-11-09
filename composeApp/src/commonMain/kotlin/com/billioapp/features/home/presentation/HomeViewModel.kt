@@ -178,7 +178,33 @@ class HomeViewModel(
                         iconRes = Res.drawable.ic_logo
                     )
                     val updatedBills = currentState.bills + newBill
-                    setState(currentState.copy(isLoading = false, subscriptions = updatedSubscriptions, bills = updatedBills))
+
+                    // Recalculate tracker with the new subscription list
+                    val trackerCategories = updatedSubscriptions.map { s ->
+                        val colorStr = s.predefinedBills?.primaryColor ?: s.color
+                        val colorHexLong = parseColorHexLong(colorStr) ?: 0xFF607D8BL
+                        TrackerCategory(
+                            name = s.name,
+                            amount = s.amount,
+                            colorHex = colorHexLong
+                        )
+                    }
+                    val totalAmount = updatedSubscriptions.sumOf { it.amount }
+                    val currency = currentState.currency
+                    val trackerModel = TrackerModel(
+                        totalAmount = totalAmount,
+                        currency = currency,
+                        categories = trackerCategories
+                    )
+
+                    setState(
+                        currentState.copy(
+                            isLoading = false,
+                            subscriptions = updatedSubscriptions,
+                            bills = updatedBills,
+                            trackerModel = trackerModel
+                        )
+                    )
                     setEffect(HomeEffect.SubscriptionAddedSuccessfully)
                 }
                 is Result.Error -> {
@@ -212,7 +238,32 @@ class HomeViewModel(
                             iconRes = Res.drawable.ic_logo
                         )
                     }
-                    setState(currentState.copy(subscriptions = updatedSubscriptions, bills = billsList, error = null))
+
+                    // Recalculate tracker for updated list
+                    val trackerCategories = updatedSubscriptions.map { s ->
+                        val colorStr = s.predefinedBills?.primaryColor ?: s.color
+                        val colorHexLong = parseColorHexLong(colorStr) ?: 0xFF607D8BL
+                        TrackerCategory(
+                            name = s.name,
+                            amount = s.amount,
+                            colorHex = colorHexLong
+                        )
+                    }
+                    val totalAmount = updatedSubscriptions.sumOf { it.amount }
+                    val currency = currentState.currency
+                    val trackerModel = TrackerModel(
+                        totalAmount = totalAmount,
+                        currency = currency,
+                        categories = trackerCategories
+                    )
+                    setState(
+                        currentState.copy(
+                            subscriptions = updatedSubscriptions,
+                            bills = billsList,
+                            trackerModel = trackerModel,
+                            error = null
+                        )
+                    )
                     setEffect(HomeEffect.SubscriptionDeletedSuccessfully)
                 }
                 is Result.Error -> {
