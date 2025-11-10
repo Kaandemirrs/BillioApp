@@ -14,7 +14,7 @@ composeMultiplatform = "1.9.0"
 junit = "4.13.2"
 koin = "4.0.0"
 ktor = "3.0.0"
-kotlin = "2.1.21"
+kotlin = "2.0.0"
 kotlinx-coroutines = "1.9.0"
 kotlinx-serialization = "1.7.3"
 kotlinx-datetime = "0.6.1"
@@ -76,6 +76,7 @@ napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 firebase-common-gitlive = { module = "dev.gitlive:firebase-common", version.ref = "firebase-gitlive" }
 firebase-auth-gitlive = { module = "dev.gitlive:firebase-auth", version.ref = "firebase-gitlive" }
 firebase-firestore-gitlive = { module = "dev.gitlive:firebase-firestore", version.ref = "firebase-gitlive" }
+firebase-messaging-gitlive = { module = "dev.gitlive:firebase-messaging", version.ref = "firebase-gitlive" }
 
 # Firebase - Native Android SDK
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }

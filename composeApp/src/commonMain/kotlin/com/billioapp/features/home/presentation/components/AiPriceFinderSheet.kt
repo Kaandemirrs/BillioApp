@@ -123,7 +123,7 @@ fun AiPriceFinderSheet(
 
                     Spacer(modifier = Modifier.height(4.dp))
 
-                    // En altta sol köşe: ampl.png + uyarı
+            // En altta sol köşe: ampl.png + uyarı
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)

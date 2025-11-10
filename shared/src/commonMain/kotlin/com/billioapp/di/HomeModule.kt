@@ -2,6 +2,8 @@ package com.billioapp.di
 
 import com.billioapp.data.remote.client.ApiConfig
 import com.billioapp.data.remote.client.provideHttpClient
+import com.billioapp.data.remote.api.UserApi
+import com.billioapp.data.remote.api.UserApiImpl
 import dev.gitlive.firebase.auth.FirebaseAuth
 import org.koin.dsl.module
 
@@ -30,6 +32,11 @@ val homeModule = module {
     // Use case’ler
     factory { com.billioapp.domain.usecase.home.GetHomeSummaryUseCase(get()) }
     factory { com.billioapp.domain.usecase.home.GetMonthlyLimitUseCase(get()) }
+
+    // User API, Repository ve UseCase
+    single<UserApi> { UserApiImpl(get()) }
+    single<com.billioapp.domain.repository.UserRepository> { com.billioapp.data.repository.UserRepositoryImpl(get()) }
+    factory { com.billioapp.domain.usecase.user.RegisterDeviceUseCase(get()) }
     factory { com.billioapp.domain.usecase.home.UpdateMonthlyLimitUseCase(get()) }
     factory { com.billioapp.domain.usecase.subscriptions.GetSubscriptionsUseCase(get()) }
     factory { com.billioapp.domain.usecase.subscriptions.AddSubscriptionUseCase(get()) }

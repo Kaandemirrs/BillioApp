@@ -27,6 +27,7 @@ kotlin {
             dependencies {
                 implementation(libs.napier)
                 implementation(libs.firebase.auth.gitlive)
+                implementation(libs.firebase.messaging.gitlive)
                 // Ktor core & serialization
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.content.negotiation)

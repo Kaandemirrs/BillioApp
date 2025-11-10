@@ -10,6 +10,10 @@ import com.billioapp.domain.usecase.auth.SendVerificationEmailUseCase
 import com.billioapp.domain.usecase.auth.GoogleSignInUseCase
 import com.billioapp.domain.usecase.auth.AppleSignInUseCase
 import com.billioapp.domain.util.Result
+import com.billioapp.domain.usecase.user.RegisterDeviceUseCase
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.messaging.messaging
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -19,7 +23,8 @@ class LoginViewModel(
     private val checkEmailVerifiedUseCase: CheckEmailVerifiedUseCase,
     private val sendVerificationEmailUseCase: SendVerificationEmailUseCase,
     private val googleSignInUseCase: GoogleSignInUseCase,
-    private val appleSignInUseCase: AppleSignInUseCase
+    private val appleSignInUseCase: AppleSignInUseCase,
+    private val registerDeviceUseCase: RegisterDeviceUseCase
 ) : BaseViewModel<LoginState, LoginEvent, LoginEffect>(
     initialState = LoginState()
 ) {
@@ -135,6 +140,21 @@ class LoginViewModel(
             is Result.Success -> {
                 updateLoading(origin, false, null)
                 if (verifiedResult.data) {
+                    // Phase 2c: Best-effort device registration before navigation
+                    try {
+                        // Best-effort: directly fetch FCM token
+                        val token = Firebase.messaging.getToken()
+                        if (!token.isNullOrBlank()) {
+                            when (val reg = registerDeviceUseCase(token)) {
+                                is Result.Error -> Napier.e(tag = "LoginViewModel", message = "Cihaz kaydı başarısız: ${reg.message}")
+                                else -> Unit
+                            }
+                        } else {
+                            Napier.w(tag = "LoginViewModel", message = "FCM token boş; cihaz kaydı atlandı")
+                        }
+                    } catch (t: Throwable) {
+                        Napier.e(tag = "LoginViewModel", message = "FCM token alma hatası", throwable = t)
+                    }
                     setEffect(LoginEffect.NavigateToMain)
                 } else {
                     when (val resend = sendVerificationEmailUseCase()) {

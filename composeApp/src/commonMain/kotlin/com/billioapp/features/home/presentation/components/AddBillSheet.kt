@@ -84,7 +84,6 @@ fun AddBillSheet(
     // Örnekler: Market → other, Medikal → health, Abonelikler → entertainment, Ulaşım → utilities
     val categoryOptions = listOf(
         "Eğlence" to "entertainment",
-        "Market" to "other",
         "Ulaşım" to "utilities",
         "Medikal" to "health",
         "Abonelikler" to "entertainment",

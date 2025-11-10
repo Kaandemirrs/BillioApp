@@ -72,6 +72,7 @@ kotlin {
             implementation(libs.firebase.common.gitlive)
             implementation(libs.firebase.auth.gitlive)
             implementation(libs.firebase.firestore.gitlive)
+            implementation(libs.firebase.messaging.gitlive)
 
             // Lottie (Compose Multiplatform) - Compottie
             implementation(libs.compottie)

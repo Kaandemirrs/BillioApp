@@ -14,7 +14,7 @@ import org.koin.core.module.dsl.factoryOf
 
 private val presentationModule = module {
     factory { OnboardingViewModel() }
-    factory { LoginViewModel(get(), get(), get(), get(), get(), get(), get()) }
+    factory { LoginViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
     factory { RegisterViewModel(get(), get()) }
     factoryOf(::HomeViewModel)
     factory { ForgotPasswordViewModel(get()) }
