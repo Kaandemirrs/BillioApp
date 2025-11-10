@@ -154,12 +154,15 @@ fun ProfileScreen(
         }
 
         // Settings list
+        val navigator = LocalNavigator.currentOrThrow
         Column(modifier = Modifier.fillMaxWidth()) {
             SettingsRow(title = "Profil Düzenle", leading = Icons.Filled.Edit, onClick = { viewModel.onEvent(ProfileEvent.EditProfileClicked) })
             Divider(color = Color.Black, thickness = 0.5.dp)
             SettingsRow(title = "Premium", leading = Icons.Filled.Star, onClick = { /* TODO: Navigate to premium */ })
             Divider(color = Color.Black, thickness = 0.5.dp)
-            SettingsRow(title = "Bildirimler", leading = Icons.Filled.Notifications, onClick = { /* TODO: Navigate to notifications */ })
+            SettingsRow(title = "Bildirimler", leading = Icons.Filled.Notifications, onClick = {
+                navigator.push(com.billioapp.core.navigation.NotificationListRoute())
+            })
             Divider(color = Color.Black, thickness = 0.5.dp)
             SettingsRow(title = "Yardım & Destek", leading = Icons.Filled.HelpOutline, onClick = { /* TODO: Navigate to help */ })
             Divider(color = Color.Black, thickness = 0.5.dp)

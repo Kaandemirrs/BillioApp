@@ -21,6 +21,8 @@ import com.billioapp.features.profile.presentation.ProfileScreen
 import com.billioapp.features.ai.presentation.AiScreen
 import com.billioapp.features.ai.presentation.AiAnalysisScreen
 import com.billioapp.features.ai.presentation.AiPriceFinderScreen
+import com.billioapp.features.notifications.presentation.NotificationListScreen
+import com.billioapp.features.notifications.presentation.NotificationListViewModel
 
 sealed interface BillioScreen : Screen
 
@@ -233,5 +235,13 @@ class AiPriceFinderRoute : BillioScreen {
     @Composable
     override fun Content() {
         AiPriceFinderScreen()
+    }
+}
+
+class NotificationListRoute : BillioScreen {
+    @Composable
+    override fun Content() {
+        val viewModel: NotificationListViewModel = koinInject()
+        NotificationListScreen(viewModel)
     }
 }

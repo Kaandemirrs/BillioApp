@@ -8,6 +8,7 @@ import com.billioapp.features.home.presentation.HomeViewModel
 import com.billioapp.features.onboarding.presentation.OnboardingViewModel
 import com.billioapp.features.ai.presentation.AiViewModel
 import com.billioapp.features.profile.presentation.ProfileViewModel
+import com.billioapp.features.notifications.presentation.NotificationListViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import org.koin.core.module.dsl.factoryOf
@@ -21,11 +22,13 @@ private val presentationModule = module {
     factory { EmailVerificationViewModel(get(), get(), get(), get(), get()) }
     factoryOf(::ProfileViewModel)
     factoryOf(::AiViewModel)
+    factory { NotificationListViewModel(get()) }
 }
 
 val appModules: List<Module> = listOf(
     authModule,
     homeModule,
     aiModule,
+    notificationsModule,
     presentationModule
 )
