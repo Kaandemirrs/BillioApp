@@ -238,7 +238,7 @@ class AiPriceFinderRoute : BillioScreen {
     }
 }
 
-class NotificationListRoute : BillioScreen {
+object NotificationList : BillioScreen {
     @Composable
     override fun Content() {
         val viewModel: NotificationListViewModel = koinInject()

@@ -6,6 +6,8 @@ import android.app.NotificationManager
 import android.os.Build
 import com.google.firebase.FirebaseApp
 import com.billioapp.di.appModules
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
@@ -13,6 +15,10 @@ import org.koin.core.context.startKoin
 class BillioApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+        // Initialize Napier logging early
+        Napier.base(DebugAntilog())
+        Napier.i(tag = "BillioApplication", message = "Napier initialized for Android")
+
         FirebaseApp.initializeApp(this)
 
         // Ensure Koin is started so services can inject shared dependencies

@@ -15,6 +15,9 @@ import platform.UIKit.UIApplication
 
 fun MainViewController() = ComposeUIViewController(
     configure = {
+        // Initialize Napier logging for iOS
+        io.github.aakira.napier.Napier.base(io.github.aakira.napier.DebugAntilog())
+        io.github.aakira.napier.Napier.i(tag = "iOS", message = "Napier initialized for iOS")
         initKoin()
         // Request notification permission and register for remote notifications
         val center = UNUserNotificationCenter.currentNotificationCenter()

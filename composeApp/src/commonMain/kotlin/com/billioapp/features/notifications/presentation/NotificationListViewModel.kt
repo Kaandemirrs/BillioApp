@@ -25,7 +25,7 @@ class NotificationListViewModel(
             setState(currentState.copy(isLoading = true, error = null))
             when (val result = getNotificationsUseCase()) {
                 is Result.Success -> {
-                    setState(currentState.copy(isLoading = false, notifications = result.data))
+                    setState(currentState.copy(isLoading = false, notifications = result.data.notifications))
                 }
                 is Result.Error -> {
                     val msg = result.message.ifBlank { "Bildirimler yüklenemedi" }

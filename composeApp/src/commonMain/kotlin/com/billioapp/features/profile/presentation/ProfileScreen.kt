@@ -161,7 +161,7 @@ fun ProfileScreen(
             SettingsRow(title = "Premium", leading = Icons.Filled.Star, onClick = { /* TODO: Navigate to premium */ })
             Divider(color = Color.Black, thickness = 0.5.dp)
             SettingsRow(title = "Bildirimler", leading = Icons.Filled.Notifications, onClick = {
-                navigator.push(com.billioapp.core.navigation.NotificationListRoute())
+                navigator.push(com.billioapp.core.navigation.NotificationList)
             })
             Divider(color = Color.Black, thickness = 0.5.dp)
             SettingsRow(title = "Yardım & Destek", leading = Icons.Filled.HelpOutline, onClick = { /* TODO: Navigate to help */ })

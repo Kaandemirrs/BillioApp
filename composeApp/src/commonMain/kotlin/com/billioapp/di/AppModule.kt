@@ -22,13 +22,13 @@ private val presentationModule = module {
     factory { EmailVerificationViewModel(get(), get(), get(), get(), get()) }
     factoryOf(::ProfileViewModel)
     factoryOf(::AiViewModel)
-    factory { NotificationListViewModel(get()) }
+    factoryOf(::NotificationListViewModel)
 }
 
 val appModules: List<Module> = listOf(
     authModule,
     homeModule,
     aiModule,
-    notificationsModule,
+    notificationModule,
     presentationModule
 )
