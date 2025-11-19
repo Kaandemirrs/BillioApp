@@ -7,5 +7,6 @@ val sharedModules: List<Module> = listOf(
     authModule,
     homeModule,
     aiModule,
-    notificationsModule
+    notificationsModule,
+    servicesModule
 )

@@ -8,6 +8,7 @@ import com.billioapp.data.remote.dto.subscription.PredefinedBillDto
 import com.billioapp.data.remote.dto.subscription.SubscriptionDto
 import com.billioapp.domain.model.ai.AiAnalysisReport
 import com.billioapp.domain.model.ai.AiPriceSuggestion
+import com.billioapp.domain.model.ai.FinancialAnalysis
 import com.billioapp.domain.model.subscriptions.Subscription
 import com.billioapp.domain.repository.AiRepository
 import com.billioapp.domain.util.Result
@@ -72,6 +73,16 @@ class AiRepositoryImpl(
             val msg = resp.error?.message ?: "Bilinmeyen API hatası"
             throw IllegalStateException(msg)
         }
+    }
+
+    override suspend fun getFinancialAnalysis(): Result<FinancialAnalysis> = execute {
+        Napier.i(tag = "AiRepository", message = "POST /api/v1/analysis çağrılıyor")
+        val dto = api.getFinancialAnalysis()
+        Napier.i(tag = "AiRepository", message = "POST /api/v1/analysis tamamlandı")
+        FinancialAnalysis(
+            reportText = dto.reportText,
+            sourcesFound = dto.sourcesFound
+        )
     }
 
     private suspend fun <T> execute(block: suspend () -> T): Result<T> =

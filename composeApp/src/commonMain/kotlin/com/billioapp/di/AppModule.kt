@@ -29,6 +29,7 @@ val appModules: List<Module> = listOf(
     authModule,
     homeModule,
     aiModule,
+    servicesModule,
     notificationModule,
     presentationModule
 )

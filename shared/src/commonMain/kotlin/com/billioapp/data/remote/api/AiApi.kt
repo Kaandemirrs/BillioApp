@@ -25,6 +25,7 @@ import kotlinx.serialization.json.Json
 interface AiApi {
     suspend fun getPriceSuggestion(body: GetPriceRequestDto): BaseResponseDto<GetPriceResponseDto>
     suspend fun getAnalysis(body: AnalyzeSubscriptionsRequestDto): BaseResponseDto<AnalyzeSubscriptionsResponseDto>
+    suspend fun getFinancialAnalysis(): com.billioapp.data.remote.dto.analysis.AiAnalysisResponseDto
 }
 
 /**
@@ -52,6 +53,33 @@ class AiApiImpl(
         }
         Napier.i(tag = "AiApi", message = "POST /api/v1/ai/analyze-subscriptions yanıt: ${response.status}")
         return parseBaseResponse(response)
+    }
+
+    override suspend fun getFinancialAnalysis(): com.billioapp.data.remote.dto.analysis.AiAnalysisResponseDto {
+        Napier.i(tag = "AiApi", message = "POST /api/v1/analysis çağrılıyor")
+        val response: HttpResponse = client.post("/api/v1/analysis") {}
+        Napier.i(tag = "AiApi", message = "POST /api/v1/analysis yanıt: ${response.status}")
+        // Bazı backend'ler doğrudan DTO veya { data: DTO } dönebilir; ikisini de destekle.
+        val raw = response.bodyAsText()
+        val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true; isLenient = true }
+        return try {
+            val element = json.parseToJsonElement(raw)
+            if (element is kotlinx.serialization.json.JsonObject && element.containsKey("data")) {
+                val dataEl = element["data"]!!
+                json.decodeFromJsonElement(
+                    com.billioapp.data.remote.dto.analysis.AiAnalysisResponseDto.serializer(),
+                    dataEl
+                )
+            } else {
+                json.decodeFromString(
+                    com.billioapp.data.remote.dto.analysis.AiAnalysisResponseDto.serializer(),
+                    raw
+                )
+            }
+        } catch (e: Exception) {
+            Napier.e(tag = "AiApi", message = "Parse error /api/v1/analysis: ${e.message}. Raw: ${raw}")
+            throw e
+        }
     }
 
     private suspend inline fun <reified T> parseBaseResponse(response: HttpResponse): BaseResponseDto<T> =
