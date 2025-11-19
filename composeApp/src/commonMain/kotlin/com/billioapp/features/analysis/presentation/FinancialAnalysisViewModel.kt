@@ -5,6 +5,7 @@ import com.billioapp.core.mvi.BaseViewModel
 import com.billioapp.core.mvi.UiEffect
 import com.billioapp.core.mvi.UiEvent
 import com.billioapp.core.mvi.UiState
+import com.billioapp.domain.model.ai.FinancialAnalysis
 import com.billioapp.domain.usecase.ai.GetFinancialAnalysisUseCase
 import com.billioapp.domain.util.Result
 import kotlinx.coroutines.launch
@@ -12,7 +13,8 @@ import kotlinx.coroutines.launch
 data class FinancialAnalysisState(
     val reportText: String = "",
     val isLoading: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val analysisResult: FinancialAnalysis? = null
 ) : UiState
 
 sealed class FinancialAnalysisEvent : UiEvent {
@@ -29,25 +31,27 @@ class FinancialAnalysisViewModel(
     initialState = FinancialAnalysisState()
 ) {
     init {
-        fetchAnalysis()
+        loadAnalysis()
     }
 
     override fun handleEvent(event: FinancialAnalysisEvent) {
         when (event) {
-            FinancialAnalysisEvent.Refresh -> fetchAnalysis()
+            FinancialAnalysisEvent.Refresh -> loadAnalysis()
         }
     }
 
-    private fun fetchAnalysis() {
+    fun loadAnalysis() {
         if (currentState.isLoading) return
         setState(currentState.copy(isLoading = true, errorMessage = null))
         viewModelScope.launch {
             when (val result = getFinancialAnalysisUseCase()) {
                 is Result.Success -> {
+                    val analysis = result.data
                     setState(
                         currentState.copy(
                             isLoading = false,
-                            reportText = result.data.reportText,
+                            reportText = analysis.reportText,
+                            analysisResult = analysis,
                             errorMessage = null
                         )
                     )

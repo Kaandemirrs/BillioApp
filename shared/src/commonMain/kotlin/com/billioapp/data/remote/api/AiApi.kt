@@ -59,26 +59,20 @@ class AiApiImpl(
         Napier.i(tag = "AiApi", message = "POST /api/v1/analysis çağrılıyor")
         val response: HttpResponse = client.post("/api/v1/analysis") {}
         Napier.i(tag = "AiApi", message = "POST /api/v1/analysis yanıt: ${response.status}")
-        // Bazı backend'ler doğrudan DTO veya { data: DTO } dönebilir; ikisini de destekle.
-        val raw = response.bodyAsText()
-        val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true; isLenient = true }
-        return try {
-            val element = json.parseToJsonElement(raw)
-            if (element is kotlinx.serialization.json.JsonObject && element.containsKey("data")) {
-                val dataEl = element["data"]!!
-                json.decodeFromJsonElement(
-                    com.billioapp.data.remote.dto.analysis.AiAnalysisResponseDto.serializer(),
-                    dataEl
-                )
-            } else {
-                json.decodeFromString(
-                    com.billioapp.data.remote.dto.analysis.AiAnalysisResponseDto.serializer(),
-                    raw
-                )
-            }
-        } catch (e: Exception) {
-            Napier.e(tag = "AiApi", message = "Parse error /api/v1/analysis: ${e.message}. Raw: ${raw}")
-            throw e
+        // YENİ KOD: SADECE ZARFI AÇ VE VERİYİ ÇEK (CRASH'TEN KURTULMAK İÇİN)
+        val raw = try { response.bodyAsText() } catch (_: Exception) { "" }
+        val json = Json { ignoreUnknownKeys = true; isLenient = true }
+        val wrapper = json.decodeFromString(
+            BaseResponseDto.serializer(com.billioapp.data.remote.dto.analysis.AiAnalysisResponseDto.serializer()),
+            raw
+        )
+
+        if (wrapper.success && wrapper.data != null) {
+            return wrapper.data
+        } else {
+            val msg = wrapper.error?.message ?: wrapper.message ?: "AI Raporu boş döndü."
+            Napier.e(tag = "AiApi", message = "HATA: ${msg}")
+            throw IllegalStateException(msg)
         }
     }
 

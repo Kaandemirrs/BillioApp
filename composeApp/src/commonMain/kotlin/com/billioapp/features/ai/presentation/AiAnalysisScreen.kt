@@ -43,23 +43,23 @@ import com.billioapp.core.navigation.HomeRoute
 import com.billioapp.core.navigation.AiRoute
 import org.koin.compose.koinInject
 import androidx.compose.runtime.collectAsState
-import com.billioapp.features.ai.presentation.AiViewEvent
-import com.billioapp.features.ai.presentation.AiViewModel
-import com.billioapp.features.ai.presentation.AiViewEffect
+import com.billioapp.features.analysis.presentation.FinancialAnalysisViewModel
+import com.billioapp.features.analysis.presentation.FinancialAnalysisEffect
+import androidx.compose.material3.CircularProgressIndicator
 
 @Composable
 fun AiAnalysisScreen() {
     val navigator = LocalNavigator.currentOrThrow
     val scrollState = rememberScrollState()
-    val viewModel: AiViewModel = koinInject()
+    val viewModel: FinancialAnalysisViewModel = koinInject()
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(viewModel) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is AiViewEffect.ShowError -> {
+                is FinancialAnalysisEffect.ShowError -> {
                     // TODO: connect to a SnackbarHost if available
-                    println("AI ERROR: ${effect.message}")
+                    println("ANALYSIS ERROR: ${effect.message}")
                 }
             }
         }
@@ -120,21 +120,37 @@ fun AiAnalysisScreen() {
                 shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = HomeColors.Card)
             ) {
-                Column(
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
-                        .verticalScroll(scrollState),
-                    horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        text = state.analysis?.analysisText ?: "Analiz sonucu burada görünecek",
-                        color = HomeColors.TextPrimary,
-                        fontSize = 16.sp,
-                        fontFamily = getBalooFontFamily(),
-                        textAlign = TextAlign.Start
-                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .verticalScroll(scrollState),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = state.reportText.ifBlank { "Analiz sonucu burada görünecek" },
+                            color = HomeColors.TextPrimary,
+                            fontSize = 16.sp,
+                            fontFamily = getBalooFontFamily(),
+                            textAlign = TextAlign.Start
+                        )
+                    }
+
+                    if (state.isLoading) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(color = HomeColors.Primary)
+                        }
+                    }
                 }
             }
 
@@ -142,7 +158,7 @@ fun AiAnalysisScreen() {
 
             // Smaller re-analyze button
             Button(
-                onClick = { viewModel.onEvent(AiViewEvent.OnAnalyzeClicked) },
+                onClick = { viewModel.loadAnalysis() },
                 shape = RoundedCornerShape(36.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF4CE2D5),

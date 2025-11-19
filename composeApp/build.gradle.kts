@@ -56,10 +56,6 @@ kotlin {
             implementation(libs.voyager.koin)
             implementation(libs.napier)
 
-            // AndroidX SavedState - EKLE ⬇️
-            implementation("org.jetbrains.androidx.savedstate:savedstate:1.2.1")
-            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.0")
-
 
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.datetime)
@@ -88,7 +84,12 @@ kotlin {
             implementation("com.google.firebase:firebase-common-ktx:21.0.0")
             implementation("com.google.firebase:firebase-auth-ktx:23.1.0")
             implementation("com.google.firebase:firebase-firestore-ktx:25.1.1")
-            implementation("androidx.compose:compose-bom:2024.01.00")        }
+            implementation("androidx.compose:compose-bom:2024.01.00")        
+
+            // AndroidX SavedState (Android-only)
+            implementation("androidx.savedstate:savedstate:1.2.1")
+            implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.0")
+        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
 

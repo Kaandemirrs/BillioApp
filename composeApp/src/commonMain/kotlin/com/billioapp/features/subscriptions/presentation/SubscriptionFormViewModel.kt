@@ -12,7 +12,6 @@ import com.billioapp.domain.usecase.services.SearchServicesUseCase
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -63,7 +62,6 @@ class SubscriptionFormViewModel(
     private fun observeSearchText() {
         viewModelScope.launch {
             searchQueryFlow
-                .distinctUntilChanged()
                 .debounce(300)
                 .filter { it.isNotBlank() }
                 .onEach { query ->
