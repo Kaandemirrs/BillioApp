@@ -25,3 +25,4 @@ class ServicesMapper {
 
     fun mapPlans(list: List<ServicePlanReadBasicDto>): List<ServicePlan> = list.map(::mapPlan)
 }
+

@@ -11,3 +11,4 @@ data class ServicePlanReadBasicDto(
     @SerialName("currency") val currency: String? = null,
     @SerialName("billing_cycle") val billingCycle: String? = null
 )
+

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AiAnalysisResponseDto(
-    @SerialName("reportText") val reportText: String,
+    @SerialName("report_text") val reportText: String?,
     @SerialName("searchQuery") val searchQuery: String? = null,
     @SerialName("sourcesFound") val sourcesFound: Int = 0,
     @SerialName("format") val format: String? = null

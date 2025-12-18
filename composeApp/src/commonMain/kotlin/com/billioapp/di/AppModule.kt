@@ -5,6 +5,7 @@ import com.billioapp.features.auth.presentation.forgotpassword.ForgotPasswordVie
 import com.billioapp.features.auth.presentation.login.LoginViewModel
 import com.billioapp.features.auth.presentation.register.RegisterViewModel
 import com.billioapp.features.home.presentation.HomeViewModel
+import com.billioapp.features.home.presentation.AddSubscriptionViewModel
 import com.billioapp.features.onboarding.presentation.OnboardingViewModel
 import com.billioapp.features.ai.presentation.AiViewModel
 import com.billioapp.features.profile.presentation.ProfileViewModel
@@ -19,6 +20,7 @@ private val presentationModule = module {
     factory { LoginViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
     factory { RegisterViewModel(get(), get()) }
     factoryOf(::HomeViewModel)
+    factoryOf(::AddSubscriptionViewModel)
     factory { ForgotPasswordViewModel(get()) }
     factory { EmailVerificationViewModel(get(), get(), get(), get(), get()) }
     factoryOf(::ProfileViewModel)

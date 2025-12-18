@@ -46,7 +46,8 @@ import com.billioapp.domain.model.subscriptions.Subscription
 fun BillListSection(
     bills: List<BillItemModel>,
     modifier: Modifier = Modifier,
-    onDeleteClicked: (String) -> Unit = {}
+    onDeleteClicked: (String) -> Unit = {},
+    onCheckClicked: (BillItemModel) -> Unit = {}
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -55,11 +56,11 @@ fun BillListSection(
     ) {
         BoxWithConstraints(modifier = Modifier.padding(HomeSpacing.SectionSpacing)) {
             val contentWidth = maxWidth
-
             val peek = contentWidth * 0.09f
-
             val cardWidth = contentWidth - (peek * 2)
-            val cardHeight = cardWidth * (300f / 522f)
+            val computedHeight = cardWidth * (300f / 522f)
+            val minHeight = 200.dp
+            val cardHeight = if (computedHeight < minHeight) minHeight else computedHeight
             val cardCorner = cardWidth * (60f / 522f)
 
             val titleSize = (contentWidth.value * (56f / 1024f)).sp
@@ -87,7 +88,8 @@ fun BillListSection(
                             width = cardWidth,
                             height = cardHeight,
                             corner = cardCorner,
-                            onDeleteClicked = { id -> onDeleteClicked(bill.id) }
+                            onDeleteClicked = { id -> onDeleteClicked(bill.id) },
+                            onCheckClick = { onCheckClicked(bill) }
                         )
                     }
                 }

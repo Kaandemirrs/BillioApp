@@ -19,6 +19,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -33,6 +34,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,9 +48,17 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material3.CircularProgressIndicator
 import com.billioapp.features.home.presentation.HomeColors
 import com.billioapp.features.home.presentation.HomeSpacing
-import androidx.compose.material.icons.filled.Search
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.koin.compose.koinInject
+import com.billioapp.features.home.presentation.AddSubscriptionViewModel
+import com.billioapp.features.home.presentation.AddSubscriptionEvent
+import com.billioapp.features.home.presentation.AddSubscriptionEffect
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 
 enum class BillingCycle { DAILY, WEEKLY, MONTHLY, YEARLY }
 
@@ -69,13 +79,25 @@ fun AddBillSheet(
     onAiPriceFinderRequested: () -> Unit = {}
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val viewModel: AddSubscriptionViewModel = koinInject()
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(viewModel) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is AddSubscriptionEffect.ShowMessage -> scope.launch { snackbarHostState.showSnackbar(effect.message) }
+            }
+        }
+    }
 
     var name by remember { mutableStateOf("") }
     // Backend'e gönderilecek kategori anahtarı (ör. entertainment, utilities)
     var category by remember { mutableStateOf("") }
     // UI'da gösterilecek etiket (Türkçe)
     var categoryLabel by remember { mutableStateOf("") }
-    var amount by remember { mutableStateOf("") }
+    val amount = uiState.amount
     var paymentDay by remember { mutableStateOf("") }
     var cycle by remember { mutableStateOf(BillingCycle.MONTHLY) }
     var unknownPaymentDay by remember { mutableStateOf(false) }
@@ -114,8 +136,11 @@ fun AddBillSheet(
 
             // Abonelik Adı
             OutlinedTextField(
-                value = name,
-                onValueChange = { name = it },
+                value = uiState.name,
+                onValueChange = {
+                    name = it
+                    viewModel.onEvent(AddSubscriptionEvent.NameChanged(it))
+                },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(36.dp),
                 label = { Text("Abonelik Adı:", color = HomeColors.Primary) },
@@ -218,19 +243,37 @@ fun AddBillSheet(
             ) {
                 OutlinedTextField(
                     value = amount,
-                    onValueChange = { amount = it.filter { ch -> ch.isDigit() || ch == '.' || ch == ',' } },
+                    onValueChange = {
+                        val filtered = it.filter { ch -> ch.isDigit() || ch == '.' || ch == ',' }
+                        viewModel.onEvent(AddSubscriptionEvent.AmountChanged(filtered))
+                    },
                     modifier = Modifier
-                        .fillMaxWidth(0.62f),
+                        .fillMaxWidth(0.72f),
                     shape = RoundedCornerShape(36.dp),
                     label = { Text("Aylık Tutar:", color = HomeColors.Primary) },
                     trailingIcon = {
-                        Box(
-                            modifier = Modifier
-                                .background(HomeColors.Card, RoundedCornerShape(12.dp))
-                                .padding(horizontal = 8.dp, vertical = 4.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(text = "TL", color = HomeColors.Primary, fontSize = 14.sp)
+                        if (uiState.isAiLoading) {
+                            CircularProgressIndicator(
+                                color = HomeColors.Primary,
+                                strokeWidth = 2.dp,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        } else {
+                            Box(
+                                modifier = Modifier
+                                    .size(28.dp)
+                                    .clip(RoundedCornerShape(14.dp))
+                                    .background(HomeColors.Card)
+                                    .clickable { viewModel.onEvent(AddSubscriptionEvent.AskAiForPrice) },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.AutoAwesome,
+                                    contentDescription = "AI Fiyat Doldur",
+                                    tint = HomeColors.Primary,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                            }
                         }
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -244,19 +287,26 @@ fun AddBillSheet(
 
                 Box(
                     modifier = Modifier
-                        .size(28.dp)
-                        .clip(RoundedCornerShape(14.dp))
-                        .background(HomeColors.Card)
-                        .clickable { onAiPriceFinderRequested() },
+                        .background(HomeColors.Card, RoundedCornerShape(12.dp))
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = "AI Fiyat Bulucu",
-                        tint = HomeColors.Primary,
-                        modifier = Modifier.size(18.dp)
-                    )
+                    Text(text = "TL", color = HomeColors.Primary, fontSize = 14.sp)
                 }
+            }
+
+            if (!uiState.aiSource.isNullOrBlank()) {
+                Text(
+                    text = uiState.aiSource ?: "",
+                    color = Color(0xFF2E7D32),
+                    fontSize = 12.sp
+                )
+            } else if (!uiState.aiError.isNullOrBlank()) {
+                Text(
+                    text = uiState.aiError ?: "",
+                    color = Color(0xFFC62828),
+                    fontSize = 12.sp
+                )
             }
 
             // Döngü: kutu tasarımında 4 seçenek
@@ -365,11 +415,11 @@ fun AddBillSheet(
             // Kaydet
             Button(
                 onClick = {
-                    val amt = amount.replace(',', '.').toDoubleOrNull() ?: 0.0
+                    val amt = uiState.amount.replace(',', '.').toDoubleOrNull() ?: 0.0
                     val day = paymentDay.toIntOrNull()
                     onSave(
                         AddBillData(
-                            name = name,
+                            name = uiState.name,
                             category = category,
                             amount = amt,
                             cycle = cycle,

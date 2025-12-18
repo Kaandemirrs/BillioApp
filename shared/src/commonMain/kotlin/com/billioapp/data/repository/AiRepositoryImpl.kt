@@ -4,6 +4,8 @@ import com.billioapp.core.network.NetworkErrorMapper
 import com.billioapp.core.network.readableMessage
 import com.billioapp.data.mapper.AiMapper
 import com.billioapp.data.remote.api.AiApi
+import com.billioapp.data.remote.dto.ai.SmartPriceRequestDto
+import com.billioapp.data.remote.dto.ai.SmartPriceResponseDto
 import com.billioapp.data.remote.dto.subscription.PredefinedBillDto
 import com.billioapp.data.remote.dto.subscription.SubscriptionDto
 import com.billioapp.domain.model.ai.AiAnalysisReport
@@ -80,9 +82,22 @@ class AiRepositoryImpl(
         val dto = api.getFinancialAnalysis()
         Napier.i(tag = "AiRepository", message = "POST /api/v1/analysis tamamlandı")
         FinancialAnalysis(
-            reportText = dto.reportText,
+            reportText = dto.reportText.orEmpty(),
             sourcesFound = dto.sourcesFound
         )
+    }
+
+    override suspend fun getSmartPrice(serviceName: String, planName: String): Result<SmartPriceResponseDto> = execute {
+        Napier.i(tag = "AiRepository", message = "POST /api/v1/ai/smart-price çağrılıyor")
+        val request = SmartPriceRequestDto(serviceName = serviceName, planName = planName)
+        val resp = api.getSmartPrice(request)
+        Napier.i(tag = "AiRepository", message = "POST /api/v1/ai/smart-price tamamlandı success=${resp.success}")
+        if (resp.success && resp.data != null) {
+            resp.data
+        } else {
+            val msg = resp.error?.message ?: "Bilinmeyen API hatası"
+            throw IllegalStateException(msg)
+        }
     }
 
     private suspend fun <T> execute(block: suspend () -> T): Result<T> =

@@ -2,6 +2,8 @@ package com.billioapp.data.remote.api
 
 import com.billioapp.data.remote.dto.common.BaseResponseDto
 import com.billioapp.data.remote.dto.common.ErrorDto
+import com.billioapp.data.remote.dto.ai.SmartPriceRequestDto
+import com.billioapp.data.remote.dto.ai.SmartPriceResponseDto
 import com.billioapp.shared.data.remote.ai.dto.AnalyzeSubscriptionsRequestDto
 import com.billioapp.shared.data.remote.ai.dto.AnalyzeSubscriptionsResponseDto
 import com.billioapp.shared.data.remote.ai.dto.GetPriceRequestDto
@@ -26,6 +28,7 @@ interface AiApi {
     suspend fun getPriceSuggestion(body: GetPriceRequestDto): BaseResponseDto<GetPriceResponseDto>
     suspend fun getAnalysis(body: AnalyzeSubscriptionsRequestDto): BaseResponseDto<AnalyzeSubscriptionsResponseDto>
     suspend fun getFinancialAnalysis(): com.billioapp.data.remote.dto.analysis.AiAnalysisResponseDto
+    suspend fun getSmartPrice(body: SmartPriceRequestDto): BaseResponseDto<SmartPriceResponseDto>
 }
 
 /**
@@ -59,21 +62,30 @@ class AiApiImpl(
         Napier.i(tag = "AiApi", message = "POST /api/v1/analysis çağrılıyor")
         val response: HttpResponse = client.post("/api/v1/analysis") {}
         Napier.i(tag = "AiApi", message = "POST /api/v1/analysis yanıt: ${response.status}")
-        // YENİ KOD: SADECE ZARFI AÇ VE VERİYİ ÇEK (CRASH'TEN KURTULMAK İÇİN)
-        val raw = try { response.bodyAsText() } catch (_: Exception) { "" }
-        val json = Json { ignoreUnknownKeys = true; isLenient = true }
-        val wrapper = json.decodeFromString(
-            BaseResponseDto.serializer(com.billioapp.data.remote.dto.analysis.AiAnalysisResponseDto.serializer()),
-            raw
-        )
+        return try {
+            // Hata Düzeltmesi: Dış Zarfı (BaseResponseDto) aç ve sadece 'data' alanını çek
+            val responseBody = response.body<BaseResponseDto<com.billioapp.data.remote.dto.analysis.AiAnalysisResponseDto>>()
 
-        if (wrapper.success && wrapper.data != null) {
-            return wrapper.data
-        } else {
-            val msg = wrapper.error?.message ?: wrapper.message ?: "AI Raporu boş döndü."
-            Napier.e(tag = "AiApi", message = "HATA: ${msg}")
-            throw IllegalStateException(msg)
+            if (responseBody.success && responseBody.data != null) {
+                responseBody.data // Sadece rapor içeriğini döndür (AiAnalysisResponseDto)
+            } else {
+                val msg = responseBody.error?.message ?: responseBody.message ?: "AI raporu başarısız döndü."
+                throw IllegalStateException(msg)
+            }
+        } catch (e: Exception) {
+            Napier.e(tag = "AiApi", message = "Nihai Parse Hatası ${response.status}: ${e.message}", throwable = e)
+            throw e
         }
+    }
+
+    override suspend fun getSmartPrice(body: SmartPriceRequestDto): BaseResponseDto<SmartPriceResponseDto> {
+        Napier.i(tag = "AiApi", message = "POST /api/v1/ai/smart-price çağrılıyor")
+        val response: HttpResponse = client.post("/api/v1/ai/smart-price") {
+            contentType(ContentType.Application.Json)
+            setBody(body)
+        }
+        Napier.i(tag = "AiApi", message = "POST /api/v1/ai/smart-price yanıt: ${response.status}")
+        return parseBaseResponse(response)
     }
 
     private suspend inline fun <reified T> parseBaseResponse(response: HttpResponse): BaseResponseDto<T> =

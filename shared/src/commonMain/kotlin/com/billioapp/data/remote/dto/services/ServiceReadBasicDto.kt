@@ -11,3 +11,4 @@ data class ServiceReadBasicDto(
     @SerialName("category") val category: String? = null,
     @SerialName("description") val description: String? = null
 )
+

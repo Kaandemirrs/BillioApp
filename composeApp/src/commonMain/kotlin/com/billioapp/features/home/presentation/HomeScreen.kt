@@ -53,6 +53,7 @@ import com.billioapp.features.home.presentation.components.HomeHeader
 import com.billioapp.features.home.presentation.components.InfoCardSection
 import com.billioapp.features.home.presentation.components.TrackerSection
 import com.billioapp.features.home.presentation.components.AiPriceFinderSheet
+import com.billioapp.features.home.presentation.components.SmartUpdateDialog
 import org.koin.compose.koinInject
 import com.billioapp.core.navigation.ProfileRoute
 import com.billioapp.core.navigation.AiRoute
@@ -90,6 +91,7 @@ fun HomeScreen(
                     suggestionText = effect.suggestion.priceAnalysisText ?: "Öneri bulunamadı"
                     isSuggestionDialogOpen = true
                 }
+                HomeEffect.SmartPriceUpdated -> snackbarHostState.showSnackbar("Fiyat güncellendi")
             }
         }
     }
@@ -147,7 +149,8 @@ fun HomeScreen(
                 BillListSection(
                     bills = state.bills,
                     modifier = Modifier.padding(top = 36.dp, bottom = 12.dp),
-                    onDeleteClicked = { id -> viewModel.onEvent(HomeEvent.OnDeleteClicked(id)) }
+                    onDeleteClicked = { id -> viewModel.onEvent(HomeEvent.OnDeleteClicked(id)) },
+                    onCheckClicked = { bill -> viewModel.onEvent(HomeEvent.OnCheckSmartPrice(bill.id)) }
                 )
                 Spacer(modifier = Modifier.height(72.dp))
             }
@@ -188,6 +191,25 @@ fun HomeScreen(
                     },
                     title = { Text(text = "AI Fiyat Önerisi") },
                     text = { Text(text = suggestionText ?: "") }
+                )
+            }
+
+            val smartState = state.smartUpdateState
+            if (smartState?.isDialogVisible == true) {
+                val activeId = smartState.activeBillId
+                val sub = state.subscriptions.firstOrNull { it.id == activeId }
+                val name = sub?.name ?: "Fatura"
+                val currAmountText = if (sub != null) "${sub.amount.toInt()} ${sub.currency}" else ""
+                val aiAmountText = smartState.foundPrice?.let { "${it} ${sub?.currency ?: "TL"}" } ?: ""
+                val sourceText = smartState.source?.let { "Kaynak: $it" }
+                SmartUpdateDialog(
+                    visible = true,
+                    title = "Fiyat Kontrolü: $name",
+                    currentAmountText = currAmountText,
+                    aiAmountText = aiAmountText,
+                    sourceText = sourceText,
+                    onDismiss = { viewModel.onEvent(HomeEvent.OnDismissSmartDialog) },
+                    onConfirm = { viewModel.onEvent(HomeEvent.OnConfirmSmartUpdate) }
                 )
             }
 

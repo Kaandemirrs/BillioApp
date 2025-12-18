@@ -1,6 +1,7 @@
 package com.billioapp.data.repository
 
 import com.billioapp.data.mapper.UserMapper
+import com.billioapp.data.remote.auth.TokenProvider
 import com.billioapp.domain.model.AuthResult
 import com.billioapp.domain.repository.AuthRepository
 import com.billioapp.domain.util.Result
@@ -13,7 +14,8 @@ import kotlinx.coroutines.withContext
 
 class AuthRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
-    private val userMapper: UserMapper
+    private val userMapper: UserMapper,
+    private val tokenProvider: TokenProvider
 ) : AuthRepository {
 
     override suspend fun login(email: String, password: String): Result<AuthResult> =
@@ -21,6 +23,9 @@ class AuthRepositoryImpl(
             firebaseAuth.signInWithEmailAndPassword(email, password)
             val user = firebaseAuth.currentUser
                 ?: error("Kullanıcı bilgisi alınamadı")
+            // Başarılı girişten sonra ID token'ı al ve TokenProvider'a yaz
+            runCatching { user.getIdToken(false) }
+                .onSuccess { token -> if (!token.isNullOrBlank()) tokenProvider.setToken(token) }
             AuthResult(userMapper.map(user))
         }
 
@@ -29,6 +34,9 @@ class AuthRepositoryImpl(
             firebaseAuth.createUserWithEmailAndPassword(email, password)
             val user = firebaseAuth.currentUser
                 ?: error("Kullanıcı oluşturuldu ancak bilgiler alınamadı")
+            // Yeni kayıt sonrası ID token'ı al ve TokenProvider'a yaz
+            runCatching { user.getIdToken(false) }
+                .onSuccess { token -> if (!token.isNullOrBlank()) tokenProvider.setToken(token) }
             AuthResult(userMapper.map(user))
         }
 
@@ -68,6 +76,9 @@ class AuthRepositoryImpl(
             firebaseAuth.signInWithCredential(GoogleAuthProvider.credential(idToken, null))
             val user = firebaseAuth.currentUser
                 ?: error("Google ile giriş sonrası kullanıcı bilgisi alınamadı")
+            // Google ile giriş sonrası ID token'ı al ve TokenProvider'a yaz
+            runCatching { user.getIdToken(false) }
+                .onSuccess { token -> if (!token.isNullOrBlank()) tokenProvider.setToken(token) }
             AuthResult(userMapper.map(user))
         }
 
@@ -81,6 +92,9 @@ class AuthRepositoryImpl(
             firebaseAuth.signInWithCredential(credential)
             val user = firebaseAuth.currentUser
                 ?: error("Apple ile giriş sonrası kullanıcı bilgisi alınamadı")
+            // Apple ile giriş sonrası ID token'ı al ve TokenProvider'a yaz
+            runCatching { user.getIdToken(false) }
+                .onSuccess { token -> if (!token.isNullOrBlank()) tokenProvider.setToken(token) }
             AuthResult(userMapper.map(user))
         }
 

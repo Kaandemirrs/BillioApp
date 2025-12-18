@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
@@ -21,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -65,7 +67,7 @@ fun SubscriptionCard(
     Card(
         modifier = modifier
             .width(width)
-            .height(height),
+            .heightIn(min = height),
         shape = RoundedCornerShape(corner),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
@@ -156,7 +158,8 @@ fun SubscriptionCard(
     height: Dp,
     corner: Dp,
     modifier: Modifier = Modifier,
-    onDeleteClicked: (String) -> Unit = {}
+    onDeleteClicked: (String) -> Unit = {},
+    onCheckClick: (BillItemModel) -> Unit = {}
 ) {
     val displayColor = Color(bill.primaryColorHex)
     val onColor = if (displayColor.luminance() > 0.5f) HomeColors.TextPrimary else Color.White
@@ -168,80 +171,86 @@ fun SubscriptionCard(
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         Box(modifier = Modifier.fillMaxWidth().padding(HomeSpacing.SectionSpacing)) {
-            Row(
+            val leftInset = 48.dp
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.outline,
-                        shape = RoundedCornerShape(16.dp)
-                    )
+                    .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(16.dp))
                     .background(displayColor)
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(16.dp)
+                    .heightIn(min = height - 32.dp)
             ) {
                 Icon(
                     painter = painterResource(bill.iconRes),
                     contentDescription = null,
                     tint = onColor,
-                    modifier = Modifier.size(width * 0.12f)
+                    modifier = Modifier
+                        .size(36.dp)
+                        .align(Alignment.CenterStart)
                 )
 
-                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = bill.name,
+                    fontFamily = getBalooFontFamily(),
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 20.sp,
+                    color = onColor,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .align(Alignment.TopStart)
+                        .padding(start = leftInset, top = 4.dp)
+                )
 
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.Center
+                Text(
+                    text = bill.amountText,
+                    fontFamily = getBalooFontFamily(),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    color = onColor,
+                    style = MaterialTheme.typography.bodyLarge.copy(shadow = amountShadow),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(start = leftInset, bottom = 4.dp)
+                )
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.align(Alignment.TopEnd)
                 ) {
-                    val nameSize = (width.value * (32f / 522f)).sp
-                    val amountSize = (width.value * (28f / 522f)).sp
-
-                    Text(
-                        text = bill.name,
-                        fontFamily = getBalooFontFamily(),
-                        fontWeight = FontWeight.Medium,
-                        fontSize = nameSize,
-                        color = onColor,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-
-                    Spacer(modifier = Modifier.height(6.dp))
-
-                    Text(
-                        text = bill.amountText,
-                        fontFamily = getBalooFontFamily(),
-                        fontWeight = FontWeight.Bold,
-                        fontSize = amountSize,
-                        color = onColor,
-                        style = MaterialTheme.typography.bodyLarge.copy(
-                            shadow = amountShadow
-                        ),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                    IconButton(onClick = { onCheckClick(bill) }) {
+                        Icon(
+                            imageVector = androidx.compose.material.icons.Icons.Default.AutoAwesome,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                    IconButton(onClick = { /* TODO: edit from bill */ }) {
+                        Icon(
+                            imageVector = androidx.compose.material.icons.Icons.Default.Edit,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
                 }
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        IconButton(onClick = { /* TODO: edit from bill */ }) {
-            Icon(
-                imageVector = androidx.compose.material.icons.Icons.Default.Edit,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface
-            )
-        }
-        IconButton(onClick = { onDeleteClicked(bill.id) }) {
-            Icon(
-                imageVector = androidx.compose.material.icons.Icons.Default.Delete,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface
-            )
-        }
-    }
+                IconButton(
+                    onClick = { onDeleteClicked(bill.id) },
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                ) {
+                    Icon(
+                        imageVector = androidx.compose.material.icons.Icons.Default.Delete,
+                        contentDescription = null,
+                        tint = Color.Black,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
             }
         }
     }

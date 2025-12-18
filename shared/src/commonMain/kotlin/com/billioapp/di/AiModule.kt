@@ -8,6 +8,7 @@ import com.billioapp.domain.repository.AiRepository
 import com.billioapp.domain.usecase.ai.GetAiAnalysisUseCase
 import com.billioapp.domain.usecase.ai.GetAiPriceSuggestionUseCase
 import com.billioapp.domain.usecase.ai.GetFinancialAnalysisUseCase
+import com.billioapp.domain.usecase.ai.GetSmartPriceUseCase
 import org.koin.dsl.module
 
 val aiModule = module {
@@ -24,4 +25,5 @@ val aiModule = module {
     factory { GetAiPriceSuggestionUseCase(get()) }
     factory { GetAiAnalysisUseCase(get()) }
     factory { GetFinancialAnalysisUseCase(get()) }
+    factory { GetSmartPriceUseCase(get()) }
 }

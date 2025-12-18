@@ -23,3 +23,4 @@ val servicesModule = module {
     factory { SearchServicesUseCase(get()) }
     factory { GetServicePlansUseCase(get()) }
 }
+

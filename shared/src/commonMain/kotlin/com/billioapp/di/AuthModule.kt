@@ -20,7 +20,7 @@ import org.koin.dsl.module
 val authModule = module {
     single { Firebase.auth }
     single { UserMapper() }
-    single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
+    single<AuthRepository> { AuthRepositoryImpl(get(), get(), get()) }
     factory { LoginUseCase(get()) }
     factory { RegisterUseCase(get()) }
     factory { LogoutUseCase(get()) }

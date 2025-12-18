@@ -10,6 +10,7 @@ import com.billioapp.domain.usecase.subscriptions.GetSubscriptionsUseCase
 import com.billioapp.domain.usecase.subscriptions.AddSubscriptionUseCase
 import com.billioapp.domain.usecase.subscriptions.DeleteSubscriptionUseCase
 import com.billioapp.domain.usecase.ai.GetAiPriceSuggestionUseCase
+import com.billioapp.domain.usecase.ai.GetSmartPriceUseCase
 import com.billioapp.domain.util.Result
 import com.billioapp.domain.model.home.MonthlyLimit
 import com.billioapp.domain.model.home.CategorySpend
@@ -44,7 +45,8 @@ class HomeViewModel(
     private val addSubscriptionUseCase: AddSubscriptionUseCase,
     private val deleteSubscriptionUseCase: DeleteSubscriptionUseCase,
     private val logoutUseCase: LogoutUseCase,
-    private val getAiPriceSuggestionUseCase: GetAiPriceSuggestionUseCase
+    private val getAiPriceSuggestionUseCase: GetAiPriceSuggestionUseCase,
+    private val getSmartPriceUseCase: GetSmartPriceUseCase
 ) : BaseViewModel<HomeState, HomeEvent, HomeEffect>(
     initialState = HomeState()
 ) {
@@ -57,6 +59,9 @@ class HomeViewModel(
             is HomeEvent.OnSaveClicked -> onSaveClicked(event.data)
             is HomeEvent.OnDeleteClicked -> onDeleteClicked(event.id)
             is HomeEvent.OnAiPriceSuggestClicked -> onAiPriceSuggestClicked(event.serviceName)
+            is HomeEvent.OnCheckSmartPrice -> onCheckSmartPrice(event.billId)
+            HomeEvent.OnConfirmSmartUpdate -> onConfirmSmartUpdate()
+            HomeEvent.OnDismissSmartDialog -> onDismissSmartDialog()
         }
     }
 
@@ -157,6 +162,91 @@ class HomeViewModel(
                 }
             }
         }
+    }
+
+    private fun onCheckSmartPrice(billId: String) {
+        val subscription = currentState.subscriptions.firstOrNull { it.id == billId }
+        if (subscription == null) {
+            setEffect(HomeEffect.ShowError("Fatura bulunamadı"))
+            return
+        }
+        if (currentState.smartUpdateState?.isLoading == true) return
+        viewModelScope.launch {
+            setState(currentState.copy(smartUpdateState = SmartUpdateState(activeBillId = billId, isLoading = true, error = null)))
+            when (val result = getSmartPriceUseCase(subscription.name)) {
+                is Result.Success -> {
+                    val dto = result.data
+                    val newState = SmartUpdateState(
+                        activeBillId = billId,
+                        isLoading = false,
+                        foundPrice = dto.suggestedPrice,
+                        source = dto.source,
+                        error = null,
+                        isDialogVisible = true
+                    )
+                    setState(currentState.copy(smartUpdateState = newState))
+                }
+                is Result.Error -> {
+                    val newState = SmartUpdateState(
+                        activeBillId = billId,
+                        isLoading = false,
+                        foundPrice = null,
+                        source = null,
+                        error = result.message.ifBlank { "Fiyat kontrolü başarısız" },
+                        isDialogVisible = false
+                    )
+                    setState(currentState.copy(smartUpdateState = newState))
+                }
+            }
+        }
+    }
+
+    private fun onConfirmSmartUpdate() {
+        val s = currentState.smartUpdateState
+        val billId = s?.activeBillId ?: return
+        val price = s.foundPrice ?: return
+        val updatedSubscriptions = currentState.subscriptions.map {
+            if (it.id == billId) it.copy(amount = price) else it
+        }
+        val updatedBills = updatedSubscriptions.map { sub ->
+            val colorStr = sub.predefinedBills?.primaryColor ?: sub.color
+            val primaryHex = parseColorHexLong(colorStr) ?: 0xFF607D8BL
+            BillItemModel(
+                id = sub.id,
+                name = sub.name,
+                amountText = formatAmount(sub.amount, sub.currency),
+                leadingColorHex = 0xFFFFEB3B,
+                primaryColorHex = primaryHex,
+                trailingColorHex = 0xFFFF5252,
+                iconRes = iconResForCategory(sub.category)
+            )
+        }
+        val trackerCategories = updatedSubscriptions.map { sub ->
+            val colorStr = sub.predefinedBills?.primaryColor ?: sub.color
+            val colorHexLong = parseColorHexLong(colorStr) ?: 0xFF607D8BL
+            TrackerCategory(
+                name = sub.name,
+                amount = sub.amount,
+                colorHex = colorHexLong
+            )
+        }
+        val totalAmount = updatedSubscriptions.sumOf { it.amount }
+        val currency = currentState.currency
+        val trackerModel = TrackerModel(totalAmount = totalAmount, currency = currency, categories = trackerCategories)
+        setState(
+            currentState.copy(
+                subscriptions = updatedSubscriptions,
+                bills = updatedBills,
+                trackerModel = trackerModel,
+                smartUpdateState = null
+            )
+        )
+        setEffect(HomeEffect.SmartPriceUpdated)
+        updateInfoCardState()
+    }
+
+    private fun onDismissSmartDialog() {
+        setState(currentState.copy(smartUpdateState = null))
     }
 
     private fun onSaveClicked(data: AddBillData) {
