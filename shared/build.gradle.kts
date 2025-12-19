@@ -8,7 +8,7 @@ plugins {
 
 kotlin {
     androidTarget()
-    
+
     jvmToolchain(17)
 
     val iosX64Target = iosX64()
@@ -43,6 +43,8 @@ kotlin {
                 // Lottie (Compose Multiplatform) - Compottie
                 implementation(libs.compottie)
                 implementation(libs.compottie.resources)
+                implementation("com.revenuecat.purchases:purchases-kmp-core:2.2.14+17.24.0")
+
             }
         }
         val commonTest by getting {
@@ -78,7 +80,7 @@ kotlin {
         val iosArm64Test by getting
         val iosSimulatorArm64Test by getting
         val iosTest by creating {
-         
+
         }
     }
 }
@@ -90,7 +92,7 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
-    
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

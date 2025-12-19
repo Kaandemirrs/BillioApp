@@ -14,12 +14,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
+    
+    init() {
+            KoinHelperKt.doInitKoin()
+        }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
     }
+    
 }
 
 

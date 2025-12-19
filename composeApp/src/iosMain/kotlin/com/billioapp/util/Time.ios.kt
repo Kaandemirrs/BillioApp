@@ -1,5 +1,7 @@
 package com.billioapp.util
 
-import platform.Foundation.NSDate
+import platform.posix.time
+import kotlinx.cinterop.ExperimentalForeignApi
 
-actual fun currentEpochMillis(): Long = (NSDate().timeIntervalSince1970 * 1000.0).toLong()
+@OptIn(ExperimentalForeignApi::class)
+actual fun currentEpochMillis(): Long = (time(null).toLong() * 1000L)

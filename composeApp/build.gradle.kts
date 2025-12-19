@@ -15,9 +15,9 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_17)
         }
     }
-    
+
     jvmToolchain(17)
-    
+
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -37,7 +37,7 @@ kotlin {
             }
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(projects.shared)
@@ -80,6 +80,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation("io.insert-koin:koin-android:4.0.0")
             implementation("com.google.android.gms:play-services-auth:21.0.0")
+            implementation("com.revenuecat.purchases:purchases-kmp-core:2.2.14+17.24.0")
 
             implementation("com.google.firebase:firebase-common-ktx:21.0.0")
             implementation("com.google.firebase:firebase-auth-ktx:23.1.0")
@@ -107,6 +108,9 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        buildConfigField("String", "RC_API_KEY", "\"test_pKLTyhZLvSGJmGDvRvoIvenCOfA\"")    }
+    buildFeatures {
+        buildConfig = true
     }
     packaging {
         resources {

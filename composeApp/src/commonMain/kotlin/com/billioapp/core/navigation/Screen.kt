@@ -238,6 +238,13 @@ class AiPriceFinderRoute : BillioScreen {
     }
 }
 
+class PaywallRoute : BillioScreen {
+    @Composable
+    override fun Content() {
+        com.billioapp.features.premium.presentation.PaywallScreen()
+    }
+}
+
 object NotificationList : BillioScreen {
     @Composable
     override fun Content() {

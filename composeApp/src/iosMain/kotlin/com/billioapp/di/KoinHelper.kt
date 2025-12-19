@@ -1,4 +1,11 @@
 package com.billioapp.di
 
-class KoinHelper {
+
+import org.koin.core.context.startKoin
+import com.billioapp.di.appModules
+
+fun initKoin() {
+    startKoin {
+        modules(appModules)
+    }
 }

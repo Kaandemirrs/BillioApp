@@ -6,11 +6,19 @@ import android.app.NotificationManager
 import android.os.Build
 import com.google.firebase.FirebaseApp
 import com.billioapp.di.appModules
+
+import com.billioapp.BuildConfig
+import com.billioapp.di.appModules
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
+import com.revenuecat.purchases.kmp.Purchases
+import com.revenuecat.purchases.kmp.LogLevel
+
+import com.revenuecat.purchases.kmp.configure
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
+
 
 class BillioApplication : Application() {
     override fun onCreate() {
@@ -27,6 +35,19 @@ class BillioApplication : Application() {
                 androidContext(this@BillioApplication)
                 modules(appModules)
             }
+        }
+
+        try {
+            Purchases.logLevel = LogLevel.DEBUG
+            val apiKey = BuildConfig.RC_API_KEY
+            if (apiKey.isNullOrBlank()) {
+                Napier.w(tag = "RevenueCat", message = "RC_API_KEY boş. Lütfen BuildConfig’e Public API Key ekleyin (goog_... veya appl_...).")
+            } else {
+                Purchases.configure(apiKey)
+                Napier.i(tag = "RevenueCat", message = "RevenueCat Purchases SDK konfigüre edildi")
+            }
+        } catch (t: Throwable) {
+            Napier.e(tag = "RevenueCat", message = "RevenueCat konfigürasyonu başarısız: ${t.message}", throwable = t)
         }
 
         // Create notification channel for Android O+
