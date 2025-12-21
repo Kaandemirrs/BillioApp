@@ -3,11 +3,13 @@ package com.billioapp.features.profile.presentation
 import androidx.lifecycle.viewModelScope
 import com.billioapp.core.mvi.BaseViewModel
 import com.billioapp.domain.usecase.auth.LogoutUseCase
+import com.billioapp.domain.usecase.user.DeleteAccountUseCase
 import com.billioapp.domain.util.Result
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(
-    private val logoutUseCase: LogoutUseCase
+    private val logoutUseCase: LogoutUseCase,
+    private val deleteAccountUseCase: DeleteAccountUseCase
 ) : BaseViewModel<ProfileState, ProfileEvent, ProfileEffect>(
     initialState = ProfileState()
 ) {
@@ -16,6 +18,7 @@ class ProfileViewModel(
         when (event) {
             ProfileEvent.LogoutClicked -> logout()
             ProfileEvent.EditProfileClicked -> showComingSoon()
+            ProfileEvent.ConfirmDeleteAccount -> deleteAccount()
         }
     }
 
@@ -31,6 +34,31 @@ class ProfileViewModel(
                 is Result.Error -> {
                     setState(currentState.copy(isLoggingOut = false, error = result.message))
                     setEffect(ProfileEffect.ShowError(result.message.ifBlank { "Çıkış yapılırken bir hata oluştu" }))
+                }
+            }
+        }
+    }
+
+    private fun deleteAccount() {
+        if (currentState.isDeletingAccount) return
+        setState(currentState.copy(isDeletingAccount = true, error = null))
+        viewModelScope.launch {
+            when (val result = deleteAccountUseCase()) {
+                is Result.Success -> {
+                    when (val logout = logoutUseCase()) {
+                        is Result.Success -> {
+                            setState(currentState.copy(isDeletingAccount = false))
+                            setEffect(ProfileEffect.NavigateToLogin)
+                        }
+                        is Result.Error -> {
+                            setState(currentState.copy(isDeletingAccount = false))
+                            setEffect(ProfileEffect.NavigateToLogin)
+                        }
+                    }
+                }
+                is Result.Error -> {
+                    setState(currentState.copy(isDeletingAccount = false, error = result.message))
+                    setEffect(ProfileEffect.ShowError(result.message.ifBlank { "Hesap silinirken bir hata oluştu" }))
                 }
             }
         }

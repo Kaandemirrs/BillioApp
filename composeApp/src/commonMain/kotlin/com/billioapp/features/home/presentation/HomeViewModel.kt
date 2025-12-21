@@ -262,7 +262,7 @@ class HomeViewModel(
                 currency = currencyFixed,
                 billingCycle = cycleStr,
                 startDate = "2025-01-01",
-                billingDay = data.paymentDay,
+                billingDay = data.paymentDay ?: 1,
                 color = data.color
             )
 

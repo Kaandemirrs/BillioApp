@@ -21,10 +21,15 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Divider
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -34,6 +39,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
@@ -62,6 +69,7 @@ fun ProfileScreen(
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle().value
     val snackbarHostState = remember { SnackbarHostState() }
+    var isDeleteDialogOpen by remember { androidx.compose.runtime.mutableStateOf(false) }
     LaunchedEffect(viewModel) {
         viewModel.effect.collect { effect ->
             when (effect) {
@@ -168,6 +176,34 @@ fun ProfileScreen(
             Divider(color = Color.Black, thickness = 0.5.dp)
             SettingsRow(title = "Gizlilik Politikası", leading = Icons.Filled.Security, onClick = { /* TODO: Navigate to privacy policy */ })
             Divider(color = Color.Black, thickness = 0.5.dp)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { isDeleteDialogOpen = true }
+                    .padding(vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Delete,
+                    contentDescription = null,
+                    tint = Color(0xFFE53935),
+                    modifier = Modifier.size(24.dp)
+                )
+                Text(
+                    text = "Hesabı Sil",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontFamily = getBalooFontFamily()),
+                    color = Color(0xFFE53935),
+                    modifier = Modifier.weight(1f)
+                )
+                Icon(
+                    imageVector = Icons.Filled.KeyboardArrowRight,
+                    contentDescription = null,
+                    tint = Color(0xFFE53935),
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+            Divider(color = Color.Black, thickness = 0.5.dp)
             SettingsRow(title = "Çıkış Yap", leading = Icons.Filled.Logout, onClick = { viewModel.onEvent(ProfileEvent.LogoutClicked) })
         }
 
@@ -179,6 +215,33 @@ fun ProfileScreen(
             style = MaterialTheme.typography.bodySmall,
             color = HomeColors.TextSecondary
         )
+        if (isDeleteDialogOpen) {
+            AlertDialog(
+                onDismissRequest = { isDeleteDialogOpen = false },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            isDeleteDialogOpen = false
+                            viewModel.onEvent(ProfileEvent.ConfirmDeleteAccount)
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE53935))
+                    ) {
+                        Text(text = "Hesabı Sil")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { isDeleteDialogOpen = false }) {
+                        Text(text = "Vazgeç")
+                    }
+                },
+                title = { Text(text = "Hesabı Sil") },
+                text = {
+                    Text(
+                        text = "Hesabını ve tüm verilerini kalıcı olarak silmek üzeresin. Bu işlem geri alınamaz. Onaylıyor musun?"
+                    )
+                }
+            )
+        }
         }
     }
 }

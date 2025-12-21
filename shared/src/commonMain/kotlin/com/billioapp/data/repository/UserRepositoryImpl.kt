@@ -4,9 +4,11 @@ import com.billioapp.core.network.NetworkErrorMapper
 import com.billioapp.core.network.readableMessage
 import com.billioapp.data.remote.api.UserApi
 import com.billioapp.data.remote.dto.user.RegisterDeviceRequestDto
+import com.billioapp.data.remote.dto.user.DeleteAccountRequestDto
 import com.billioapp.domain.repository.UserRepository
 import com.billioapp.domain.util.Result
 import io.github.aakira.napier.Napier
+import io.ktor.client.plugins.ClientRequestException
 
 class UserRepositoryImpl(
     private val api: UserApi
@@ -20,6 +22,17 @@ class UserRepositoryImpl(
             throw IllegalStateException("Cihaz kaydı başarısız: ${response.status}")
         }
         Unit
+    }
+
+    override suspend fun deleteAccount(): Result<Unit> = execute {
+        Napier.i(tag = "UserRepository", message = "Hesap silme isteği gönderiliyor")
+        val dto = DeleteAccountRequestDto(confirmation = "DELETE_MY_ACCOUNT")
+        val response = api.deleteAccount(dto)
+        if (response.status.value in 200..299) {
+            Unit
+        } else {
+            throw ClientRequestException(response, "Hesap silme başarısız: ${response.status}")
+        }
     }
 
     private suspend fun <T> execute(block: suspend () -> T): Result<T> =

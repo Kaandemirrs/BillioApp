@@ -6,12 +6,14 @@ import com.billioapp.core.mvi.UiState
 
 data class ProfileState(
     val isLoggingOut: Boolean = false,
+    val isDeletingAccount: Boolean = false,
     val error: String? = null
 ) : UiState
 
 sealed class ProfileEvent : UiEvent {
     object LogoutClicked : ProfileEvent()
     object EditProfileClicked : ProfileEvent()
+    object ConfirmDeleteAccount : ProfileEvent()
 }
 
 sealed class ProfileEffect : UiEffect {

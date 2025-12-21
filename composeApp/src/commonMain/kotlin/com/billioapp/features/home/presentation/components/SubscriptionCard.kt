@@ -36,7 +36,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import billioapp.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.DrawableResource
 import com.billioapp.core.theme.getBalooFontFamily
 import com.billioapp.features.home.presentation.BillItemModel
@@ -171,85 +170,84 @@ fun SubscriptionCard(
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         Box(modifier = Modifier.fillMaxWidth().padding(HomeSpacing.SectionSpacing)) {
-            val leftInset = 48.dp
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
                     .border(1.dp, MaterialTheme.colorScheme.outline, RoundedCornerShape(16.dp))
                     .background(displayColor)
                     .padding(16.dp)
-                    .heightIn(min = height - 32.dp)
+                    .heightIn(min = height - 32.dp),
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Icon(
-                    painter = painterResource(bill.iconRes),
-                    contentDescription = null,
-                    tint = onColor,
-                    modifier = Modifier
-                        .size(36.dp)
-                        .align(Alignment.CenterStart)
-                )
-
-                Text(
-                    text = bill.name,
-                    fontFamily = getBalooFontFamily(),
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 20.sp,
-                    color = onColor,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .align(Alignment.TopStart)
-                        .padding(start = leftInset, top = 4.dp)
-                )
-
-                Text(
-                    text = bill.amountText,
-                    fontFamily = getBalooFontFamily(),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    color = onColor,
-                    style = MaterialTheme.typography.bodyLarge.copy(shadow = amountShadow),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier
-                        .align(Alignment.BottomStart)
-                        .padding(start = leftInset, bottom = 4.dp)
-                )
-
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.align(Alignment.TopEnd)
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(onClick = { onCheckClick(bill) }) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.AutoAwesome,
+                            painter = painterResource(bill.iconRes),
                             contentDescription = null,
-                            tint = Color.Black,
-                            modifier = Modifier.size(20.dp)
+                            tint = onColor,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = bill.name,
+                            fontFamily = getBalooFontFamily(),
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 20.sp,
+                            color = onColor,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
-                    IconButton(onClick = { /* TODO: edit from bill */ }) {
-                        Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.Edit,
-                            contentDescription = null,
-                            tint = Color.Black,
-                            modifier = Modifier.size(20.dp)
-                        )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(onClick = { onCheckClick(bill) }) {
+                            Icon(
+                                imageVector = androidx.compose.material.icons.Icons.Default.AutoAwesome,
+                                contentDescription = null,
+                                tint = Color.Black,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                        IconButton(onClick = { }) {
+                            Icon(
+                                imageVector = androidx.compose.material.icons.Icons.Default.Edit,
+                                contentDescription = null,
+                                tint = Color.Black,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
                     }
                 }
-
-                IconButton(
-                    onClick = { onDeleteClicked(bill.id) },
-                    modifier = Modifier.align(Alignment.BottomEnd)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        imageVector = androidx.compose.material.icons.Icons.Default.Delete,
-                        contentDescription = null,
-                        tint = Color.Black,
-                        modifier = Modifier.size(20.dp)
+                    Text(
+                        text = bill.amountText,
+                        fontFamily = getBalooFontFamily(),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        color = onColor,
+                        style = MaterialTheme.typography.bodyLarge.copy(shadow = amountShadow),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
+                    IconButton(onClick = { onDeleteClicked(bill.id) }) {
+                        Icon(
+                            imageVector = androidx.compose.material.icons.Icons.Default.Delete,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
                 }
             }
         }

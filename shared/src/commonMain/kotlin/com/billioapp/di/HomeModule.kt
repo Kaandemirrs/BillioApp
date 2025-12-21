@@ -37,6 +37,7 @@ val homeModule = module {
     single<UserApi> { UserApiImpl(get()) }
     single<com.billioapp.domain.repository.UserRepository> { com.billioapp.data.repository.UserRepositoryImpl(get()) }
     factory { com.billioapp.domain.usecase.user.RegisterDeviceUseCase(get()) }
+    factory { com.billioapp.domain.usecase.user.DeleteAccountUseCase(get()) }
     factory { com.billioapp.domain.usecase.home.UpdateMonthlyLimitUseCase(get()) }
     factory { com.billioapp.domain.usecase.subscriptions.GetSubscriptionsUseCase(get()) }
     factory { com.billioapp.domain.usecase.subscriptions.AddSubscriptionUseCase(get()) }
