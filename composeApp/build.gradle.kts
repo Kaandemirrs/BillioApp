@@ -25,6 +25,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            binaryOption("bundleId", "com.billioapp")
         }
     }
 
@@ -49,6 +50,10 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            // 👇 BU SATIRI EKLEDİM (KLIB Hatasını Çözecek Olan) 👇
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.2")
+
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
@@ -62,7 +67,7 @@ kotlin {
 
             implementation(compose.materialIconsExtended)
 
-            // Stately - EKLE (eğer yoksa)
+            // Stately
             implementation("co.touchlab:stately-common:2.1.0")
 
             implementation(libs.firebase.common.gitlive)
@@ -85,15 +90,14 @@ kotlin {
             implementation("com.google.firebase:firebase-common-ktx:21.0.0")
             implementation("com.google.firebase:firebase-auth-ktx:23.1.0")
             implementation("com.google.firebase:firebase-firestore-ktx:25.1.1")
-            implementation("androidx.compose:compose-bom:2024.01.00")        
-
-            // AndroidX SavedState (Android-only)
+            implementation("androidx.compose:compose-bom:2024.01.00")
+            implementation("com.google.firebase:firebase-messaging-ktx:23.4.1")
+            // Android tarafında zaten var ama üstteki commonMain eklemesi iOS tarafını kurtaracak
             implementation("androidx.savedstate:savedstate:1.2.1")
             implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-
         }
     }
 }

@@ -1,5 +1,7 @@
 import SwiftUI
 import FirebaseCore
+import ComposeApp
+// veya projenin modül adına göre: import Shared
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(
@@ -16,7 +18,7 @@ struct iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     init() {
-            KoinHelperKt.doInitKoin()
+        KoinHelperKt.doInitKoin()
         }
     
     var body: some Scene {

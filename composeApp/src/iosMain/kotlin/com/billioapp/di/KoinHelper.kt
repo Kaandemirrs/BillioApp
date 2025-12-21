@@ -9,3 +9,7 @@ fun initKoin() {
         modules(appModules)
     }
 }
+
+fun doInitKoin() {
+    initKoin()
+}

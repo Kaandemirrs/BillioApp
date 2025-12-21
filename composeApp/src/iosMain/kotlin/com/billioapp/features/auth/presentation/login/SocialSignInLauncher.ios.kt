@@ -35,6 +35,7 @@ actual fun rememberSocialSignInLauncher(
     }
 }
 
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 private class AppleSignInCoordinator(
     private val onSuccess: (String, String) -> Unit,
     private val onError: (String?) -> Unit

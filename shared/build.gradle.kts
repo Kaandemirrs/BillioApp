@@ -44,7 +44,7 @@ kotlin {
                 implementation(libs.compottie)
                 implementation(libs.compottie.resources)
                 implementation("com.revenuecat.purchases:purchases-kmp-core:2.2.14+17.24.0")
-
+                implementation(libs.androidx.lifecycle.viewmodel.savedstate)
             }
         }
         val commonTest by getting {
