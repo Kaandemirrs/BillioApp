@@ -155,7 +155,9 @@ fun ProfileScreen(
                 horizontalArrangement = Arrangement.spacedBy(HomeSpacing.ItemSpacing),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                BadgeChip(text = "Pro", background = Color(0xFF62C546))
+                if (state.isPremium) {
+                    BadgeChip(text = "Pro", background = Color(0xFF62C546))
+                }
                 BadgeChip(text = "17 Subscription", background = Color(0xFFE24C4C))
                 BadgeChip(text = "Verified", background = Color(0xFF4CE2D5))
             }

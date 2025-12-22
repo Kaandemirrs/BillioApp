@@ -1,6 +1,7 @@
 import SwiftUI
 import FirebaseCore
 import ComposeApp
+import RevenueCat
 // veya projenin modül adına göre: import Shared
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -9,6 +10,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
+        Purchases.logLevel = .debug
+        Purchases.configure(withAPIKey: "test_pKLTyhZLvSGJmGDvRvoIvenCOfA")
         return true
     }
 }
@@ -28,5 +31,4 @@ struct iOSApp: App {
     }
     
 }
-
 

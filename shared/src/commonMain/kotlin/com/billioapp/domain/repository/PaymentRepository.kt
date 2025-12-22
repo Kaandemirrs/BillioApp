@@ -5,4 +5,5 @@ interface PaymentRepository {
     suspend fun restorePurchases(): Result<Unit>
     suspend fun isPro(): Result<Boolean>
     suspend fun getCustomerInfo(): Result<com.revenuecat.purchases.kmp.models.CustomerInfo>
+    suspend fun isUserPremium(): Result<Boolean>
 }

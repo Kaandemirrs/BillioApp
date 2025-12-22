@@ -100,4 +100,21 @@ class PaymentRepositoryImpl(
             }
         }
     }
+
+    override suspend fun isUserPremium(): Result<Boolean> = runCatching {
+        withContext(Dispatchers.Default) {
+            val info = suspendCancellableCoroutine<CustomerInfo> { cont ->
+                Purchases.sharedInstance.getCustomerInfo(
+                    onError = { error: PurchasesError ->
+                        cont.resumeWithException(IllegalStateException(error.message))
+                    },
+                    onSuccess = { ci ->
+                        cont.resume(ci)
+                    }
+                )
+            }
+            val premiumEntitlement = info.entitlements.active["premium"]
+            premiumEntitlement?.isActive == true
+        }
+    }
 }
